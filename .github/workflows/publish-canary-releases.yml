@@ -3,10 +3,10 @@ name: Publish Canary Releases
 on:
   workflow_dispatch:
     branches:
-      - master
+      - main
   push:
     branches:
-      - master
+      - main
 
 env:
   # Among other things, opts out of Turborepo telemetry

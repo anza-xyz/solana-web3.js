@@ -27,7 +27,7 @@ type SysvarEpochRewardsSize = 24;
  *
  * Note that `EpochRewards` only lasts for a handful of blocks at the start of
  * an epoch. When all rewards have been distributed, the sysvar is deleted.
- * See https://github.com/solana-labs/solana/blob/e0203f22dc83cb792fa97f91dbe6e924cbd08af1/docs/src/runtime/sysvars.md?plain=1#L155-L168
+ * See https://github.com/anza-xyz/agave/blob/e0203f22dc83cb792fa97f91dbe6e924cbd08af1/docs/src/runtime/sysvars.md?plain=1#L155-L168
  */
 export type SysvarEpochRewards = Readonly<{
     distributedRewards: bigint;
@@ -70,7 +70,7 @@ export function getSysvarEpochRewardsCodec(): FixedSizeCodec<
  *
  * Note that `EpochRewards` only lasts for a handful of blocks at the start of
  * an epoch. When all rewards have been distributed, the sysvar is deleted.
- * See https://github.com/solana-labs/solana/blob/e0203f22dc83cb792fa97f91dbe6e924cbd08af1/docs/src/runtime/sysvars.md?plain=1#L155-L168
+ * See https://github.com/anza-xyz/agave/blob/e0203f22dc83cb792fa97f91dbe6e924cbd08af1/docs/src/runtime/sysvars.md?plain=1#L155-L168
  */
 export async function fetchSysvarEpochRewards(
     rpc: Rpc<GetAccountInfoApi>,

@@ -11,7 +11,7 @@
 
 # @solana/rpc-types
 
-This package defines types for values used in the [Solana JSON-RPC](https://docs.solana.com/api/http) and a series of helpers for working with them. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/library).
+This package defines types for values used in the [Solana JSON-RPC](https://docs.solana.com/api/http) and a series of helpers for working with them. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
 
 ## Types
 

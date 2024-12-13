@@ -11,7 +11,7 @@
 
 # @solana/compat
 
-This package contains utilities for converting from legacy web3js classes to the new data structures. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/library).
+This package contains utilities for converting from legacy web3js classes to the new data structures. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
 
 ## Functions
 

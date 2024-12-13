@@ -64,10 +64,10 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/solana-labs/solana-web3.js"
+        "url": "https://github.com/anza-xyz/solana-web3.js"
     },
     "bugs": {
-        "url": "http://github.com/solana-labs/solana-web3.js/issues"
+        "url": "http://github.com/anza-xyz/solana-web3.js/issues"
     },
     "browserslist": [
         "supports bigint and not dead",

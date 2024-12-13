@@ -11,9 +11,9 @@
 
 # @solana/codecs-data-structures
 
-This package contains codecs for various data structures such as arrays, maps, structs, tuples, enums, etc. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/library).
+This package contains codecs for various data structures such as arrays, maps, structs, tuples, enums, etc. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
 
-This package is also part of the [`@solana/codecs` package](https://github.com/solana-labs/solana-web3.js/tree/master/packages/codecs) which acts as an entry point for all codec packages as well as for their documentation.
+This package is also part of the [`@solana/codecs` package](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs) which acts as an entry point for all codec packages as well as for their documentation.
 
 ## Array codec
 
@@ -589,7 +589,7 @@ To recap, here are all the possible configurations of the `getNullableCodec` fun
 | Custom `prefix` (`u16`)       | `0x01002a00` / `0x0000`  | `0x01002a00` / `0x00000000` | `0x01002a00` / `0x0000ff`   |
 | No `prefix`                   | `0x2a00` / `0x`          | `0x2a00` / `0x0000`         | `0x2a00` / `0xff`           |
 
-Note that you might be interested in the Rust-like alternative version of nullable codecs, available in [the `@solana/options` package](https://github.com/solana-labs/solana-web3.js/tree/master/packages/options).
+Note that you might be interested in the Rust-like alternative version of nullable codecs, available in [the `@solana/options` package](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/options).
 
 Separate `getNullableEncoder` and `getNullableDecoder` functions are also available.
 
@@ -607,7 +607,7 @@ const bytes = getBytesCodec().encode(new Uint8Array([42])); // 0x2a
 const value = getBytesCodec().decode(bytes); // 0x2a
 ```
 
-The `getBytesCodec` function will encode and decode `Uint8Arrays` using as much bytes as necessary. If you'd like to restrict the number of bytes used by this codec, you may combine it with the [`fixCodecSize`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/codecs-core#fixing-the-size-of-codecs) or [`addCodecSizePrefix`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/codecs-core#prefixing-the-size-of-codecs) primitives.
+The `getBytesCodec` function will encode and decode `Uint8Arrays` using as much bytes as necessary. If you'd like to restrict the number of bytes used by this codec, you may combine it with the [`fixCodecSize`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs-core#fixing-the-size-of-codecs) or [`addCodecSizePrefix`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs-core#prefixing-the-size-of-codecs) primitives.
 
 Here are some examples of how you might use the `getBytesCodec` function.
 
@@ -694,7 +694,7 @@ getUnitDecoder().decode(anyBytes);
 
 ---
 
-To read more about the available codecs and how to use them, check out the documentation of the main [`@solana/codecs` package](https://github.com/solana-labs/solana-web3.js/tree/master/packages/codecs).
+To read more about the available codecs and how to use them, check out the documentation of the main [`@solana/codecs` package](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs).
 
 ## Hidden prefix and suffix codec
 

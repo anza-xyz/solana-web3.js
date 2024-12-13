@@ -5,17 +5,6 @@
 
 version: 2
 updates:
-  - target-branch: 'maintenance/v1.x'
-    package-ecosystem: 'npm'
-    directory: '/'
-    schedule:
-      interval: daily
-      time: '01:00'
-      timezone: America/Los_Angeles
-    labels:
-      - 'automerge'
-    commit-message:
-      prefix: 'chore:'
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:

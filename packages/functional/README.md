@@ -14,7 +14,7 @@
 This package contains generalized functional helpers and functional helpers
 specific to Solana application components. It can be used standalone, but it
 is also exported as part of the Solana JavaScript SDK
-[`@solana/web3.js@next`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/library).
+[`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
 
 ## Functions
 

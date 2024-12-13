@@ -9,7 +9,7 @@
 
 **DO NOT CREATE A GITHUB ISSUE** to report a security problem.
 
-Instead please use this [Report a Vulnerability](https://github.com/solana-labs/solana-web3.js/security/advisories/new) link. Provide a helpful title, detailed description of the vulnerability and an exploit proof-of-concept. Speculative submissions without proof-of-concept will be closed with no further consideration.
+Instead please use this [Report a Vulnerability](https://github.com/anza-xyz/solana-web3.js/security/advisories/new) link. Provide a helpful title, detailed description of the vulnerability and an exploit proof-of-concept. Speculative submissions without proof-of-concept will be closed with no further consideration.
 
 If you haven't done so already, please **enable two-factor auth** in your GitHub account.
 
@@ -27,23 +27,23 @@ In case an incident is discovered or reported, the following process will be fol
 
 ### 1. Accept the new report
 
-In response to a newly reported security problem, a member of the `solana-labs/admins` group will accept the report to turn it into a draft advisory. The `solana-labs/security-incident-response` group should be added to the draft security advisory, and create a private fork of the repository (grey button towards the bottom of the page) if necessary.
+In response to a newly reported security problem, a member of the `anza-xyz/core-contributors` group will accept the report to turn it into a draft advisory. The `anza-xyz/security-incident-response` group should be added to the draft security advisory, and create a private fork of the repository (grey button towards the bottom of the page) if necessary.
 
 If the advisory is the result of an audit finding, follow the same process as above but add the auditor's github user(s) and begin the title with "[Audit]".
 
-If the report is out of scope, a member of the `solana-labs/admins` group will comment as such and then close the report.
+If the report is out of scope, a member of the `anza-xyz/core-contributors` group will comment as such and then close the report.
 
 ### 2. Triage
 
-Within the draft security advisory, discuss and determine the severity of the issue. If necessary, members of the `solana-labs/security-incident-response` group may add other github users to the advisory to assist. If it is determined that this is not a critical issue then the advisory should be closed and if more follow-up is required a normal Solana public github issue should be created.
+Within the draft security advisory, discuss and determine the severity of the issue. If necessary, members of the `anza-xyz/security-incident-response` group may add other github users to the advisory to assist. If it is determined that this is not a critical issue then the advisory should be closed and if more follow-up is required a normal Solana public github issue should be created.
 
 ### 3. Prepare Fixes
 
-Prepare a fix for the issue and push them to master in the private repository associated with the draft security advisory. There is no CI available in the private repository so you must build from source and manually verify fixes. Code review from the reporter is ideal, as well as from multiple members of the core development team.
+Prepare a fix for the issue and push them to `main` in the private repository associated with the draft security advisory. There is no CI available in the private repository so you must build from source and manually verify fixes. Code review from the reporter is ideal, as well as from multiple members of the core development team.
 
 ### 4. Ship the patch
 
-Once the fix is accepted, a member of the solana-labs/security-incident-response group should prepare a patch using [`pnpm patch`](https://pnpm.io/cli/patch), [`yarn patch`](https://yarnpkg.com/cli/patch), and [`patch-package`](https://www.npmjs.com/package/patch-package) for developers still using `npm`. Post the patch to an unlisted [GitHub Gist](https://gist.github.com) and disseminate patch instructions privately to as many vulnerable applications as possible.
+Once the fix is accepted, a member of the anza-xyz/security-incident-response group should prepare a patch using [`pnpm patch`](https://pnpm.io/cli/patch), [`yarn patch`](https://yarnpkg.com/cli/patch), and [`patch-package`](https://www.npmjs.com/package/patch-package) for developers still using `npm`. Post the patch to an unlisted [GitHub Gist](https://gist.github.com) and disseminate patch instructions privately to as many vulnerable applications as possible.
 
 ### 5. Public Disclosure and Release
 

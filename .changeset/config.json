@@ -1,12 +1,12 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
   "access": "public",
-  "baseBranch": "master",
+  "baseBranch": "main",
   "bumpVersionsWithWorkspaceProtocolOnly": true,
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "solana-labs/solana-web3.js"
+      "repo": "anza-xyz/solana-web3.js"
     }
   ],
   "fixed": [["@solana/!({*-impl,build-scripts,test-*,tsconfig})"]],

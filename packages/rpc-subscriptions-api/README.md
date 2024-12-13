@@ -11,7 +11,7 @@
 
 # @solana/rpc-subscriptions-api
 
-This package contains types that describe the [methods](https://solana.com/docs/rpc/websocket) of the Solana JSON RPC Subscriptions API, and utilities for creating a `RpcSubscriptionsApi` implementation with sensible defaults. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/library).
+This package contains types that describe the [methods](https://solana.com/docs/rpc/websocket) of the Solana JSON RPC Subscriptions API, and utilities for creating a `RpcSubscriptionsApi` implementation with sensible defaults. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
 
 Each RPC subscriptions method is described in terms of a TypeScript type of the following form:
 

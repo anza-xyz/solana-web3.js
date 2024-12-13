@@ -2,8 +2,6 @@
 
 This is an example of how to use `@solana/web3.js` and `@solana/react` to build a React web application.
 
-The latest version of this code is automatically deployed to https://solana-labs.github.io/solana-web3.js/example/
-
 ## Features
 
 -   Connects to browser wallets that support the Wallet Standard; one or more at a time

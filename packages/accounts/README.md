@@ -11,7 +11,7 @@
 
 # @solana/accounts
 
-This package contains types and helper methods for representing, fetching and decoding Solana accounts. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/library).
+This package contains types and helper methods for representing, fetching and decoding Solana accounts. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
 
 It provides a unified definition of a Solana account regardless of how it was retrieved and can represent both encoded and decoded accounts. It also introduces the concept of a `MaybeAccount` which represents a fetched account that may or may not exist on-chain whilst keeping track of its address in both cases.
 

@@ -29,7 +29,7 @@ const BITVEC_DISCRIMINATOR = 1;
 // The Solana SDK defines a constant `MAX_ENTRIES` representing the maximum
 // number of bits that can be represented by the bitvector in the `SlotHistory`
 // sysvar. This value is 1024 * 1024 = 1_048_576.
-// See https://github.com/solana-labs/solana/blob/e0203f22dc83cb792fa97f91dbe6e924cbd08af1/sdk/program/src/slot_history.rs#L43
+// See https://github.com/anza-xyz/agave/blob/e0203f22dc83cb792fa97f91dbe6e924cbd08af1/sdk/program/src/slot_history.rs#L43
 const BITVEC_NUM_BITS = 1024 * 1024;
 // The length of the bitvector in blocks.
 // At 64 bits per block, this is 1024 * 1024 / 64 = 16_384.

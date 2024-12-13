@@ -20,8 +20,8 @@ type BlockNotificationsNotificationBase = Readonly<{
     /**
      * Errors can arise in generating a block notification.
      * If an error is encountered, this field will contain the error, and the `block` field will return null.
-     * @see https://github.com/solana-labs/solana/blob/6ea51280ddc235ed93e16906c3427efd20cd7ce4/rpc/src/rpc_subscriptions.rs#L1059-L1074
-     * @see https://github.com/solana-labs/solana/blob/6ea51280ddc235ed93e16906c3427efd20cd7ce4/rpc-client-api/src/response.rs#L507-L514
+     * @see https://github.com/anza-xyz/agave/blob/6ea51280ddc235ed93e16906c3427efd20cd7ce4/rpc/src/rpc_subscriptions.rs#L1059-L1074
+     * @see https://github.com/anza-xyz/agave/blob/6ea51280ddc235ed93e16906c3427efd20cd7ce4/rpc-client-api/src/response.rs#L507-L514
      */
     err: string | null;
     slot: Slot;

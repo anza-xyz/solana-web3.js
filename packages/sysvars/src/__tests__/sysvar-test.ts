@@ -57,7 +57,7 @@ describe('sysvar account', () => {
         });
     });
     // `EpochRewards` will only appear at the start of an epoch, after epoch 0 concludes.
-    // See https://github.com/solana-labs/solana/blob/e0203f22dc83cb792fa97f91dbe6e924cbd08af1/docs/src/runtime/sysvars.md?plain=1#L155-L168
+    // See https://github.com/anza-xyz/agave/blob/e0203f22dc83cb792fa97f91dbe6e924cbd08af1/docs/src/runtime/sysvars.md?plain=1#L155-L168
     describe('epoch schedule', () => {
         it('fetch encoded', async () => {
             expect.assertions(3);

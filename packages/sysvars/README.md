@@ -14,7 +14,7 @@
 This package contains types and helpers for fetching and decoding Solana
 sysvars. It can be used standalone, but it is also exported as part of the
 Solana JavaScript SDK
-[`@solana/web3.js@next`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/library).
+[`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
 
 More information about the available sysvars on Solana can be found in the docs
 at <https://docs.solanalabs.com/runtime/sysvars>.
@@ -43,11 +43,11 @@ maybeJsonParsedClock satisfies
 ```
 
 Each sysvar within the library ships with its own
-[codec](https://github.com/solana-labs/solana-web3.js/tree/master/packages/codecs)
+[codec](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs)
 for deserializing the account data.
 
 You can pair this codec with the helpers from
-[`@solana/accounts`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/accounts)
+[`@solana/accounts`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/accounts)
 to assert and decode sysvar account data.
 
 ```ts
@@ -75,16 +75,16 @@ const clock: SysvarClock = await fetchSysvarClock(rpc);
 
 This package supports the following Solana sysvars:
 
--   [`Clock`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/sysvars/src/clock.ts)
--   [`EpochRewards`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/sysvars/src/epoch-rewards.ts)
--   [`EpochSchedule`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/sysvars/src/epoch-schedule.ts)
--   [`Fees`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/sysvars/src/fees.ts)
--   [`LastRestartSlot`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/sysvars/src/last-restart-slot.ts)
--   [`RecentBlockhashes`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/sysvars/src/recent-blockhashes.ts)
--   [`Rent`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/sysvars/src/rent.ts)
--   [`SlotHashes`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/sysvars/src/slot-hashes.ts)
--   [`SlotHistory`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/sysvars/src/slot-history.ts)
--   [`StakeHistory`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/sysvars/src/stake-history.ts)
+-   [`Clock`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/clock.ts)
+-   [`EpochRewards`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/epoch-rewards.ts)
+-   [`EpochSchedule`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/epoch-schedule.ts)
+-   [`Fees`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/fees.ts)
+-   [`LastRestartSlot`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/last-restart-slot.ts)
+-   [`RecentBlockhashes`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/recent-blockhashes.ts)
+-   [`Rent`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/rent.ts)
+-   [`SlotHashes`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/slot-hashes.ts)
+-   [`SlotHistory`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/slot-history.ts)
+-   [`StakeHistory`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/stake-history.ts)
 
 The `Instructions` sysvar is also supported but does not exist on-chain,
 therefore has no corresponding module or codec.

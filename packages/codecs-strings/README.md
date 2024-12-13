@@ -11,9 +11,9 @@
 
 # @solana/codecs-strings
 
-This package contains codecs for strings of different sizes and encodings. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/library).
+This package contains codecs for strings of different sizes and encodings. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
 
-This package is also part of the [`@solana/codecs` package](https://github.com/solana-labs/solana-web3.js/tree/master/packages/codecs) which acts as an entry point for all codec packages as well as for their documentation.
+This package is also part of the [`@solana/codecs` package](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs) which acts as an entry point for all codec packages as well as for their documentation.
 
 ## Sizing string codecs
 
@@ -37,7 +37,7 @@ codec.decode(new Uint8Array([0x68, 0x65, 0x6c, 0x6c, 0x6f]));
 // 'hello'
 ```
 
-This might be what you want — e.g. when having a string at the end of a data structure — but in many cases, you might want to have a size boundary for your string. You may achieve this by composing your string codec with the [`fixCodecSize`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/codecs-core#fixing-the-size-of-codecs) or [`addCodecSizePrefix`](https://github.com/solana-labs/solana-web3.js/tree/master/packages/codecs-core#prefixing-the-size-of-codecs) functions.
+This might be what you want — e.g. when having a string at the end of a data structure — but in many cases, you might want to have a size boundary for your string. You may achieve this by composing your string codec with the [`fixCodecSize`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs-core#fixing-the-size-of-codecs) or [`addCodecSizePrefix`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs-core#prefixing-the-size-of-codecs) functions.
 
 The `fixCodecSize` function accepts a fixed byte length and returns a `FixedSizeCodec<string>` that will always use that amount of bytes to encode and decode a string. Any string longer or smaller than that size will be truncated or padded respectively. Here's how you can use it with a `utf8` codec:
 
@@ -195,4 +195,4 @@ const value = getBaseXResliceDecoder('elho', 2).decode(bytes); // "hellolol"
 
 ---
 
-To read more about the available codecs and how to use them, check out the documentation of the main [`@solana/codecs` package](https://github.com/solana-labs/solana-web3.js/tree/master/packages/codecs).
+To read more about the available codecs and how to use them, check out the documentation of the main [`@solana/codecs` package](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs).

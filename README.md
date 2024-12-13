@@ -1056,7 +1056,7 @@ export const getMyTokenCodec = (): Codec<MyTokenArgs, MyToken> =>
     combineCodec(getMyTokenEncoder(), getMyTokenDecoder());
 ```
 
-You can read more about codecs in [the official Codec documentation](https://github.com/solana-labs/solana-web3.js/blob/master/packages/codecs/README.md).
+You can read more about codecs in [the official Codec documentation](https://github.com/anza-xyz/solana-web3.js/blob/main/packages/codecs/README.md).
 
 ## Type-Safety
 
@@ -1224,7 +1224,7 @@ Here’s how to convert legacy transaction objects to the new library’s transa
 const modernTransaction = fromVersionedTransaction(classicTransaction);
 ```
 
-To see more conversions supported by `@solana/compat`, you can check out the package’s [README on GitHub](https://github.com/solana-labs/solana-web3.js/blob/master/packages/compat/README.md).
+To see more conversions supported by `@solana/compat`, you can check out the package’s [README on GitHub](https://github.com/anza-xyz/solana-web3.js/blob/main/packages/compat/README.md).
 
 ## Program Clients
 
@@ -1448,13 +1448,13 @@ expect(result).toMatchObject({
 });
 ```
 
-See more in the package’s [README on GitHub](https://github.com/solana-labs/solana-web3.js/tree/master/packages/rpc-graphql).
+See more in the package’s [README on GitHub](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/rpc-graphql).
 
 ## Development
 
 You can see all development of this library and associated GraphQL tooling in the web3.js repository on GitHub.
 
--   https://github.com/solana-labs/solana-web3.js
+-   https://github.com/anza-xyz/solana-web3.js
 
 You can follow along with program client generator development in the `@solana-program` org and the `@codama-idl/codama` repository.
 

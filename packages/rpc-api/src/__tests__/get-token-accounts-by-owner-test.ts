@@ -240,7 +240,7 @@ describe('getTokenAccountsByOwner', () => {
 
     describe('when called with base58 encoding', () => {
         // Currently we can't test this because every token account is >128 bytes
-        // The solana source only allows base58 encoding up to 128 bytes: https://github.com/solana-labs/solana/blob/master/account-decoder/src/lib.rs#L37
+        // The solana source only allows base58 encoding up to 128 bytes: https://github.com/anza-xyz/agave/blob/d11072e4e00cb3a8009f62b3bddcec79069f970a/account-decoder/src/lib.rs#L39-L43
         it.todo('returns RPC Response with account info with annotated base58 encoding');
     });
 
@@ -387,7 +387,7 @@ describe('getTokenAccountsByOwner', () => {
 
     describe('when called with no encoding', () => {
         // Currently we can't test this because every token account is >128 bytes
-        // The solana source only allows base58 encoding up to 128 bytes: https://github.com/solana-labs/solana/blob/master/account-decoder/src/lib.rs#L37
+        // The solana source only allows base58 encoding up to 128 bytes: https://github.com/anza-xyz/agave/blob/d11072e4e00cb3a8009f62b3bddcec79069f970a/account-decoder/src/lib.rs#L39-L43
         it.todo('returns base58 data without an annotation');
     });
 
