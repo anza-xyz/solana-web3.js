@@ -11,7 +11,7 @@ export function fromLegacyTransactionInstruction(legacyInstruction: TransactionI
     }));
     const programAddress = fromLegacyPublicKey(legacyInstruction.programId);
     return {
-        accounts,
+        ...(accounts.length ? { accounts } : null),
         ...(data ? { data } : null),
         programAddress,
     };

@@ -37,7 +37,7 @@ describe('fromLegacyTransactionInstruction', () => {
         });
     });
 
-    it('handles an instruction with no keys', () => {
+    it('applies no acccounts given an instruction with no keys', () => {
         const programId = new Uint8Array([5, 6, 7, 8]);
         const data = new Uint8Array([40, 50, 60]);
 
@@ -49,8 +49,7 @@ describe('fromLegacyTransactionInstruction', () => {
 
         const converted = fromLegacyTransactionInstruction(instruction);
 
-        expect(converted).toMatchObject<IInstruction>({
-            accounts: [],
+        expect(converted).toStrictEqual<IInstruction>({
             data: Buffer.from(data),
             programAddress: fromLegacyPublicKey(new PublicKey(programId)),
         });
