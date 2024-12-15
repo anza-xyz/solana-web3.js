@@ -17,7 +17,7 @@ This package contains helpers for using JavaScript promises.
 
 ### `getAbortablePromise(promise, abortSignal?)`
 
-Rejects if the `abortSignal` is aborted before the promise settles. Resolves or rejects with the value of the promise otherwise.
+Rejects if the `abortSignal` is aborted before the promise settles. Resolves with the promise's value or rejects with an Error containing the rejection reason.
 
 ```ts
 const result = await getAbortablePromise(
