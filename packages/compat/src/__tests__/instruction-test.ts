@@ -147,4 +147,32 @@ describe('fromLegacyTransactionInstruction', () => {
             programAddress: fromLegacyPublicKey(new PublicKey(programId)),
         });
     });
+
+    it.each`
+        isSigner | isWritable | expected
+        ${false} | ${false}   | ${AccountRole.READONLY}
+        ${false} | ${true}    | ${AccountRole.WRITABLE}
+        ${true}  | ${false}   | ${AccountRole.READONLY_SIGNER}
+        ${true}  | ${true}    | ${AccountRole.WRITABLE_SIGNER}
+    `(
+        'converts keys with isSigner: $isSigner, isWritable: $isWritable to $expected',
+        ({
+            isSigner,
+            isWritable,
+            expected,
+        }: {
+            expected: keyof typeof AccountRole;
+            isSigner: boolean;
+            isWritable: boolean;
+        }) => {
+            expect(
+                fromLegacyTransactionInstruction(
+                    new TransactionInstruction({
+                        keys: [{ isSigner, isWritable, pubkey: PublicKey.default }],
+                        programId: PublicKey.default,
+                    }),
+                ),
+            ).toHaveProperty('accounts', expect.arrayContaining([expect.objectContaining({ role: expected })]));
+        },
+    );
 });
