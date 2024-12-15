@@ -25,14 +25,14 @@ describe('fromLegacyTransactionInstruction', () => {
 
         const converted = fromLegacyTransactionInstruction(instruction);
 
-        expect(converted).toMatchObject<IInstruction>({
+        expect(converted).toStrictEqual<IInstruction>({
             accounts: [
                 {
                     address: address('7EqQdEULxWcraVx3mXKFjc84LhCkMGZCkRuDpvcMwJeK'),
                     role: AccountRole.WRITABLE,
                 },
             ],
-            data: Buffer.from(data),
+            data,
             programAddress: fromLegacyPublicKey(new PublicKey(programId)),
         });
     });
@@ -50,7 +50,7 @@ describe('fromLegacyTransactionInstruction', () => {
         const converted = fromLegacyTransactionInstruction(instruction);
 
         expect(converted).toStrictEqual<IInstruction>({
-            data: Buffer.from(data),
+            data,
             programAddress: fromLegacyPublicKey(new PublicKey(programId)),
         });
     });
@@ -75,7 +75,7 @@ describe('fromLegacyTransactionInstruction', () => {
 
         const converted = fromLegacyTransactionInstruction(instruction);
 
-        expect(converted).toMatchObject<IInstruction>({
+        expect(converted).toStrictEqual<IInstruction>({
             accounts: [
                 {
                     address: address('7EqQdEULxWcraVx3mXKFjc84LhCkMGZCkRuDpvcMwJeK'),
@@ -86,7 +86,7 @@ describe('fromLegacyTransactionInstruction', () => {
                     role: AccountRole.READONLY,
                 },
             ],
-            data: Buffer.from(data),
+            data,
             programAddress: fromLegacyPublicKey(new PublicKey(programId)),
         });
     });
