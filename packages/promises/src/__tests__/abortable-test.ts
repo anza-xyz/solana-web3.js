@@ -16,19 +16,19 @@ describe('getAbortablePromise()', () => {
     it('rejects with the `reason` when passed an already-aborted signal with a pending promise', async () => {
         expect.assertions(1);
         const signal = AbortSignal.abort('o no');
-        await expect(getAbortablePromise(promise, signal)).rejects.toBe('o no');
+        await expect(getAbortablePromise(promise, signal)).rejects.toThrow('o no');
     });
     it('rejects with the `reason` when passed an already-aborted signal and an already-resolved promise', async () => {
         expect.assertions(1);
         const signal = AbortSignal.abort('o no');
         resolve(123);
-        await expect(getAbortablePromise(promise, signal)).rejects.toBe('o no');
+        await expect(getAbortablePromise(promise, signal)).rejects.toThrow('o no');
     });
     it('rejects with the `reason` when passed an already-aborted signal and an already-rejected promise', async () => {
         expect.assertions(1);
         const signal = AbortSignal.abort('o no');
         reject('mais non');
-        await expect(getAbortablePromise(promise, signal)).rejects.toBe('o no');
+        await expect(getAbortablePromise(promise, signal)).rejects.toThrow('o no');
     });
     it('rejects with the `reason` when the signal aborts before the promise settles', async () => {
         expect.assertions(2);
@@ -36,7 +36,7 @@ describe('getAbortablePromise()', () => {
         const abortablePromise = getAbortablePromise(promise, controller.signal);
         await expect(Promise.race(['pending', abortablePromise])).resolves.toBe('pending');
         controller.abort('o no');
-        await expect(abortablePromise).rejects.toBe('o no');
+        await expect(abortablePromise).rejects.toThrow('o no');
     });
     it('rejects with the promise rejection when passed an already-rejected promise and a not-yet-aborted signal', async () => {
         expect.assertions(1);

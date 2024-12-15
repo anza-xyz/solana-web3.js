@@ -84,7 +84,7 @@ export function getRpcTransportWithRequestCoalescing<TTransport extends RpcTrans
                             abortController.abort((EXPLICIT_ABORT_TOKEN ||= createExplicitAbortToken()));
                         }
                     });
-                    reject((e.target as AbortSignal).reason);
+                    reject(new Error(String((e.target as AbortSignal).reason)));
                 };
                 signal.addEventListener('abort', handleAbort);
                 responsePromise
