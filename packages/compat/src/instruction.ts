@@ -4,7 +4,7 @@ import { TransactionInstruction } from '@solana/web3.js';
 import { fromLegacyPublicKey } from './address';
 
 export function fromLegacyTransactionInstruction(legacyInstruction: TransactionInstruction): IInstruction {
-    const data = legacyInstruction.data ? Uint8Array.from(legacyInstruction.data) : undefined;
+    const data = legacyInstruction.data?.byteLength > 0 ? Uint8Array.from(legacyInstruction.data) : undefined;
     const accounts = legacyInstruction.keys.map(accountMeta => ({
         address: fromLegacyPublicKey(accountMeta.pubkey),
         role: determineRole(accountMeta.isSigner, accountMeta.isWritable),
@@ -12,7 +12,7 @@ export function fromLegacyTransactionInstruction(legacyInstruction: TransactionI
     const programAddress = fromLegacyPublicKey(legacyInstruction.programId);
     return {
         accounts,
-        data,
+        ...(data ? { data } : null),
         programAddress,
     };
 }

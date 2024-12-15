@@ -92,7 +92,7 @@ describe('fromLegacyTransactionInstruction', () => {
         });
     });
 
-    it('handles an empty data field gracefully', () => {
+    it('applies no data field if the data is zero-length', () => {
         const programId = new Uint8Array([13, 14, 15, 16]);
         const keys = [
             {
@@ -110,14 +110,41 @@ describe('fromLegacyTransactionInstruction', () => {
 
         const converted = fromLegacyTransactionInstruction(instruction);
 
-        expect(converted).toMatchObject<IInstruction>({
+        expect(converted).toStrictEqual<IInstruction>({
             accounts: [
                 {
                     address: address('F7Kzv7G6p1PvHXL1xXLPTm4myKWpLjnVphCV8ABZJfgT'),
                     role: AccountRole.READONLY_SIGNER,
                 },
             ],
-            data: Buffer.from([]),
+            programAddress: fromLegacyPublicKey(new PublicKey(programId)),
+        });
+    });
+
+    it('applies no data field if the data is missing', () => {
+        const programId = new Uint8Array([13, 14, 15, 16]);
+        const keys = [
+            {
+                isSigner: true,
+                isWritable: false,
+                pubkey: new PublicKey('F7Kzv7G6p1PvHXL1xXLPTm4myKWpLjnVphCV8ABZJfgT'),
+            },
+        ];
+
+        const instruction = new TransactionInstruction({
+            keys,
+            programId: new PublicKey(programId),
+        });
+
+        const converted = fromLegacyTransactionInstruction(instruction);
+
+        expect(converted).toStrictEqual<IInstruction>({
+            accounts: [
+                {
+                    address: address('F7Kzv7G6p1PvHXL1xXLPTm4myKWpLjnVphCV8ABZJfgT'),
+                    role: AccountRole.READONLY_SIGNER,
+                },
+            ],
             programAddress: fromLegacyPublicKey(new PublicKey(programId)),
         });
     });
