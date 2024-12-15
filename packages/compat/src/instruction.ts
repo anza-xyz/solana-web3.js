@@ -5,9 +5,9 @@ import { fromLegacyPublicKey } from './address';
 
 export function fromLegacyTransactionInstruction(legacyInstruction: TransactionInstruction): IInstruction {
     const data = legacyInstruction.data ? Uint8Array.from(legacyInstruction.data) : undefined;
-    const accounts = legacyInstruction.keys.map(key => ({
-        address: fromLegacyPublicKey(key.pubkey),
-        role: determineRole(key.isSigner, key.isWritable),
+    const accounts = legacyInstruction.keys.map(accountMeta => ({
+        address: fromLegacyPublicKey(accountMeta.pubkey),
+        role: determineRole(accountMeta.isSigner, accountMeta.isWritable),
     }));
     const programAddress = fromLegacyPublicKey(legacyInstruction.programId);
     return {
