@@ -1,4 +1,4 @@
-import { IInstruction } from '@solana/instructions/src';
+import { IInstruction } from '@solana/instructions';
 import { TransactionInstruction } from '@solana/web3.js';
 
 import { fromLegacyTransactionInstruction } from '../instruction';

@@ -1,4 +1,4 @@
-import { AccountRole, IInstruction } from '@solana/instructions/src';
+import { AccountRole, IInstruction } from '@solana/instructions';
 import { TransactionInstruction } from '@solana/web3.js';
 
 import { fromLegacyPublicKey } from './address';
