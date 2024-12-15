@@ -25,7 +25,7 @@ export function createWebSocketChannel({
     url,
 }: Config): Promise<RpcSubscriptionsChannel<WebSocketMessage, string>> {
     if (signal.aborted) {
-        return Promise.reject(signal.reason);
+        return Promise.reject(new Error(String(signal.reason)));
     }
     let bufferDrainWatcher: Readonly<{ onCancel(): void; promise: Promise<void> }> | undefined;
     let hasConnected = false;

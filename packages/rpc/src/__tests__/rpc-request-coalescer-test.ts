@@ -110,7 +110,7 @@ describe('RPC request coalescer', () => {
                     return await new Promise((resolve, reject) => {
                         transportResponsePromise = resolve;
                         signal?.addEventListener('abort', (e: AbortSignalEventMap['abort']) => {
-                            reject((e.target as AbortSignal).reason);
+                            reject(new Error(String((e.target as AbortSignal).reason)));
                         });
                     });
                 });
@@ -129,13 +129,13 @@ describe('RPC request coalescer', () => {
                 expect.assertions(3);
                 abortControllerA.abort();
                 await expect(responsePromiseA).rejects.toThrow();
-                await expect(responsePromiseA).rejects.toBeInstanceOf(DOMException);
-                await expect(responsePromiseA).rejects.toHaveProperty('name', 'AbortError');
+                await expect(responsePromiseA).rejects.toBeInstanceOf(Error);
+                await expect(responsePromiseA).rejects.toHaveProperty('name', 'Error');
             });
             it("rejects from the aborted request with the `AbortSignal's` reason", async () => {
                 expect.assertions(1);
                 abortControllerA.abort('o no');
-                await expect(responsePromiseA).rejects.toBe('o no');
+                await expect(responsePromiseA).rejects.toThrow('o no');
             });
             it('aborts the transport at the end of the runloop when all of the requests abort', () => {
                 expect.assertions(1);
@@ -159,7 +159,7 @@ describe('RPC request coalescer', () => {
                 const mockResponse = { response: 'ok' };
                 transportResponsePromise(mockResponse);
                 await Promise.all([
-                    expect(responsePromiseA).rejects.toBe('o no A'),
+                    expect(responsePromiseA).rejects.toThrow('o no A'),
                     expect(responsePromiseB).resolves.toBe(mockResponse),
                 ]);
             });
