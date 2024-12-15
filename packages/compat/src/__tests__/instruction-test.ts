@@ -1,3 +1,5 @@
+import '@solana/test-matchers/toBeFrozenObject';
+
 import { address } from '@solana/addresses';
 import { AccountRole, IInstruction } from '@solana/instructions';
 import { PublicKey, TransactionInstruction } from '@solana/web3.js';
@@ -35,6 +37,72 @@ describe('fromLegacyTransactionInstruction', () => {
             data,
             programAddress: fromLegacyPublicKey(new PublicKey(programId)),
         });
+    });
+
+    it('freezes the accounts array', () => {
+        const programId = new Uint8Array([1, 2, 3, 4]);
+        const keys = [
+            {
+                isSigner: false,
+                isWritable: true,
+                pubkey: new PublicKey('7EqQdEULxWcraVx3mXKFjc84LhCkMGZCkRuDpvcMwJeK'),
+            },
+        ];
+        const data = new Uint8Array([10, 20, 30]);
+
+        const instruction = new TransactionInstruction({
+            data: Buffer.from(data),
+            keys,
+            programId: new PublicKey(programId),
+        });
+
+        const converted = fromLegacyTransactionInstruction(instruction);
+
+        expect(converted.accounts).toBeFrozenObject();
+    });
+
+    it('freezes each account', () => {
+        const programId = new Uint8Array([1, 2, 3, 4]);
+        const keys = [
+            {
+                isSigner: false,
+                isWritable: true,
+                pubkey: new PublicKey('7EqQdEULxWcraVx3mXKFjc84LhCkMGZCkRuDpvcMwJeK'),
+            },
+        ];
+        const data = new Uint8Array([10, 20, 30]);
+
+        const instruction = new TransactionInstruction({
+            data: Buffer.from(data),
+            keys,
+            programId: new PublicKey(programId),
+        });
+
+        const converted = fromLegacyTransactionInstruction(instruction);
+
+        expect(converted.accounts?.[0]).toBeFrozenObject();
+    });
+
+    it('freezes the instruction', () => {
+        const programId = new Uint8Array([1, 2, 3, 4]);
+        const keys = [
+            {
+                isSigner: false,
+                isWritable: true,
+                pubkey: new PublicKey('7EqQdEULxWcraVx3mXKFjc84LhCkMGZCkRuDpvcMwJeK'),
+            },
+        ];
+        const data = new Uint8Array([10, 20, 30]);
+
+        const instruction = new TransactionInstruction({
+            data: Buffer.from(data),
+            keys,
+            programId: new PublicKey(programId),
+        });
+
+        const converted = fromLegacyTransactionInstruction(instruction);
+
+        expect(converted).toBeFrozenObject();
     });
 
     it('applies no acccounts given an instruction with no keys', () => {
