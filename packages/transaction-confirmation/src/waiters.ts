@@ -1,9 +1,10 @@
 import { Signature } from '@solana/keys';
-import { getSignatureFromTransaction, Transaction } from '@solana/transactions';
 import {
+    getSignatureFromTransaction,
+    Transaction,
     TransactionWithBlockhashLifetime,
     TransactionWithDurableNonceLifetime,
-} from '@solana/transactions/dist/types/lifetime';
+} from '@solana/transactions';
 
 import { createBlockHeightExceedencePromiseFactory } from './confirmation-strategy-blockheight';
 import { createNonceInvalidationPromiseFactory } from './confirmation-strategy-nonce';
