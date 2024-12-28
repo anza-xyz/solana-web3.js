@@ -4,11 +4,12 @@ import { SOLANA_ERROR__TRANSACTION__FEE_PAYER_SIGNATURE_MISSING, SolanaError } f
 import { Signature, SignatureBytes } from '@solana/keys';
 import type { Blockhash } from '@solana/rpc-types';
 import { Nonce } from '@solana/transaction-messages';
-import { Transaction, TransactionMessageBytes } from '@solana/transactions';
 import {
+    Transaction,
+    TransactionMessageBytes,
     TransactionWithBlockhashLifetime,
     TransactionWithDurableNonceLifetime,
-} from '@solana/transactions/dist/types/lifetime';
+} from '@solana/transactions';
 
 import {
     waitForDurableNonceTransactionConfirmation,
