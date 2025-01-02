@@ -7,6 +7,16 @@ import { PublicKey, TransactionInstruction } from '@solana/web3.js';
 import { fromLegacyPublicKey } from '../address';
 import { fromLegacyTransactionInstruction } from '../instruction';
 
+function toLegacyByteArrayAppropriateForPlatform<TArrayBuffer extends ArrayBufferLike>(
+    data: WithImplicitCoercion<TArrayBuffer>,
+): Buffer<TArrayBuffer> {
+    if (__NODEJS__) {
+        return Buffer.from(data);
+    } else {
+        return new Uint8Array(data as TArrayBuffer) as Buffer<TArrayBuffer>;
+    }
+}
+
 describe('fromLegacyTransactionInstruction', () => {
     it('converts a basic TransactionInstruction', () => {
         const programId = new Uint8Array([1, 2, 3, 4]);
@@ -20,7 +30,7 @@ describe('fromLegacyTransactionInstruction', () => {
         const data = new Uint8Array([10, 20, 30]);
 
         const instruction = new TransactionInstruction({
-            data: Buffer.from(data),
+            data: toLegacyByteArrayAppropriateForPlatform(data),
             keys,
             programId: new PublicKey(programId),
         });
@@ -51,7 +61,7 @@ describe('fromLegacyTransactionInstruction', () => {
         const data = new Uint8Array([10, 20, 30]);
 
         const instruction = new TransactionInstruction({
-            data: Buffer.from(data),
+            data: toLegacyByteArrayAppropriateForPlatform(data),
             keys,
             programId: new PublicKey(programId),
         });
@@ -73,7 +83,7 @@ describe('fromLegacyTransactionInstruction', () => {
         const data = new Uint8Array([10, 20, 30]);
 
         const instruction = new TransactionInstruction({
-            data: Buffer.from(data),
+            data: toLegacyByteArrayAppropriateForPlatform(data),
             keys,
             programId: new PublicKey(programId),
         });
@@ -95,7 +105,7 @@ describe('fromLegacyTransactionInstruction', () => {
         const data = new Uint8Array([10, 20, 30]);
 
         const instruction = new TransactionInstruction({
-            data: Buffer.from(data),
+            data: toLegacyByteArrayAppropriateForPlatform(data),
             keys,
             programId: new PublicKey(programId),
         });
@@ -110,7 +120,7 @@ describe('fromLegacyTransactionInstruction', () => {
         const data = new Uint8Array([40, 50, 60]);
 
         const instruction = new TransactionInstruction({
-            data: Buffer.from(data),
+            data: toLegacyByteArrayAppropriateForPlatform(data),
             keys: [],
             programId: new PublicKey(programId),
         });
@@ -136,7 +146,7 @@ describe('fromLegacyTransactionInstruction', () => {
         const data = new Uint8Array([70, 80, 90]);
 
         const instruction = new TransactionInstruction({
-            data: Buffer.from(data),
+            data: toLegacyByteArrayAppropriateForPlatform(data),
             keys,
             programId: new PublicKey(programId),
         });
@@ -170,7 +180,7 @@ describe('fromLegacyTransactionInstruction', () => {
         ];
 
         const instruction = new TransactionInstruction({
-            data: Buffer.from(new Uint8Array()),
+            data: toLegacyByteArrayAppropriateForPlatform(new Uint8Array()),
             keys,
             programId: new PublicKey(programId),
         });
