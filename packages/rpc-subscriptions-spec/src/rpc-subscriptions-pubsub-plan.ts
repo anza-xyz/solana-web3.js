@@ -135,7 +135,7 @@ export async function executeRpcPubSubSubscriptionPlan<TNotification>({
                 subscriptionId = undefined;
                 channel.send(unsubscribePayload).catch(() => {});
             }
-            reject(this.reason);
+            reject(new Error(String(this.reason)));
         }
         if (signal.aborted) {
             handleAbort.call(signal);

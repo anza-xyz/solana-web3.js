@@ -14,7 +14,7 @@ export default [
             '@typescript-eslint/no-unsafe-member-access': 'off',
             '@typescript-eslint/no-unsafe-return': 'off',
             '@typescript-eslint/only-throw-error': 'off',
-            '@typescript-eslint/prefer-promise-reject-errors': 'off',
+            '@typescript-eslint/prefer-promise-reject-errors': 'error',
             '@typescript-eslint/restrict-plus-operands': 'error',
             '@typescript-eslint/restrict-template-expressions': 'error',
             '@typescript-eslint/unbound-method': 'off',
