@@ -48,6 +48,7 @@ const BaseAccount: BaseAccount = {
     executable: false,
     lamports: lamports(1_000_000_000n),
     programAddress: address('1111..1111'),
+    space: 42n,
 };
 ```
 
@@ -71,6 +72,7 @@ const myEncodedAccount: Account<Uint8Array, '1234..5678'> = {
     executable: false,
     lamports: lamports(1_000_000_000n),
     programAddress: address('1111..1111'),
+    space: 42n,
 };
 
 // Decoded.
@@ -81,6 +83,7 @@ const myDecodedAccount: Account<MyAccountData, '1234..5678'> = {
     executable: false,
     lamports: lamports(1_000_000_000n),
     programAddress: address('1111..1111'),
+    space: 42n,
 };
 ```
 
@@ -100,9 +103,7 @@ const myExistingAccount: MaybeAccount<MyAccountData, '1234..5678'> = {
     exists: true,
     address: address('1234..5678'),
     data: { name: 'Alice', age: 30 },
-    executable: false,
-    lamports: lamports(1_000_000_000n),
-    programAddress: address('1111..1111'),
+    // ...
 };
 
 // Account does not exist.
