@@ -25,6 +25,7 @@ export function createWebSocketChannel({
     url,
 }: Config): Promise<RpcSubscriptionsChannel<WebSocketMessage, string>> {
     if (signal.aborted) {
+        // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
         return Promise.reject(signal.reason);
     }
     let bufferDrainWatcher: Readonly<{ onCancel(): void; promise: Promise<void> }> | undefined;

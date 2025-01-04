@@ -135,6 +135,7 @@ export async function executeRpcPubSubSubscriptionPlan<TNotification>({
                 subscriptionId = undefined;
                 channel.send(unsubscribePayload).catch(() => {});
             }
+            // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
             reject(this.reason);
         }
         if (signal.aborted) {

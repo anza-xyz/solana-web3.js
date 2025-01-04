@@ -10,9 +10,11 @@ export function getAbortablePromise<T>(promise: Promise<T>, abortSignal?: AbortS
             // want to throw even if the input promise's result is ready
             new Promise<never>((_, reject) => {
                 if (abortSignal.aborted) {
+                    // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
                     reject(abortSignal.reason);
                 } else {
                     abortSignal.addEventListener('abort', function () {
+                        // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
                         reject(this.reason);
                     });
                 }

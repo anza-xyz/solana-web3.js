@@ -94,7 +94,7 @@ function getThrottledTransport<TClusterUrl extends ClusterUrl>(
             } as QueuedRequest<TClusterUrl>);
             if (config.signal) {
                 config.signal.addEventListener('abort', function () {
-                    reject(this.reason);
+                    reject(new Error(this.reason));
                 });
             }
             processQueue();

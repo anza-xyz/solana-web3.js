@@ -84,6 +84,7 @@ export function getRpcTransportWithRequestCoalescing<TTransport extends RpcTrans
                             abortController.abort((EXPLICIT_ABORT_TOKEN ||= createExplicitAbortToken()));
                         }
                     });
+                    // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
                     reject((e.target as AbortSignal).reason);
                 };
                 signal.addEventListener('abort', handleAbort);

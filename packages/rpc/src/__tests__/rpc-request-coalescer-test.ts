@@ -110,7 +110,7 @@ describe('RPC request coalescer', () => {
                     return await new Promise((resolve, reject) => {
                         transportResponsePromise = resolve;
                         signal?.addEventListener('abort', (e: AbortSignalEventMap['abort']) => {
-                            reject((e.target as AbortSignal).reason);
+                            reject(new Error((e.target as AbortSignal).reason));
                         });
                     });
                 });
