@@ -9,6 +9,12 @@ import {
     verifyPolyfill,
 } from './secrets';
 
+function isAlgorithmEd25519(putativeEd25519Algorithm: AlgorithmIdentifier): boolean {
+    const name =
+        typeof putativeEd25519Algorithm === 'string' ? putativeEd25519Algorithm : putativeEd25519Algorithm.name;
+    return name.localeCompare('ed25519', 'en-US', { sensitivity: 'base' }) === 0;
+}
+
 export function install() {
     if (__NODEJS__) {
         /**
@@ -48,7 +54,7 @@ export function install() {
         let originalGenerateKeySupportsEd25519: Promise<boolean> | boolean | undefined;
         originalSubtleCrypto.generateKey = (async (...args: Parameters<SubtleCrypto['generateKey']>) => {
             const [algorithm] = args;
-            if (algorithm !== 'Ed25519') {
+            if (!isAlgorithmEd25519(algorithm)) {
                 if (originalGenerateKey) {
                     return await originalGenerateKey.apply(originalSubtleCrypto, args);
                 } else {
@@ -142,7 +148,7 @@ export function install() {
         let originalImportKeySupportsEd25519: Promise<boolean> | boolean | undefined;
         originalSubtleCrypto.importKey = (async (...args: Parameters<SubtleCrypto['importKey']>) => {
             const [format, keyData, algorithm] = args;
-            if (algorithm !== 'Ed25519') {
+            if (!isAlgorithmEd25519(algorithm)) {
                 if (originalImportKey) {
                     return await originalImportKey.apply(originalSubtleCrypto, args);
                 } else {

@@ -10,6 +10,22 @@ import {
 
 jest.mock('../secrets');
 
+const ED25519_ALGORITHM_IDENTIFIERS = [
+    'ed25519',
+    'Ed25519',
+    'ED25519',
+    'eD25519',
+    { name: 'ed25519' },
+    { name: 'Ed25519' },
+    { name: 'ED25519' },
+    { name: 'eD25519' },
+];
+
+function isAlgorithmEd25519(putativeEd25519Algorithm: unknown) {
+    const candidate = JSON.stringify(putativeEd25519Algorithm);
+    return ED25519_ALGORITHM_IDENTIFIERS.some(a => JSON.stringify(a) === candidate);
+}
+
 describe('exportKey() polyfill', () => {
     let originalExportKey: SubtleCrypto['exportKey'];
     beforeEach(() => {
@@ -123,20 +139,23 @@ describe('generateKey() polyfill', () => {
                         }) as RsaHashedKeyGenParams,
                 ),
             ),
-        ])('fatals when the algorithm is $name/$__variant', async algorithm => {
+        ])('fatals when the algorithm identifier is $name/$__variant', async algorithm => {
             expect.assertions(1);
             await expect(() =>
                 globalThis.crypto.subtle.generateKey(algorithm, /* extractable */ false, ['sign', 'verify']),
             ).rejects.toThrow();
         });
-        it('delegates Ed25519 `generateKey` calls to the polyfill', async () => {
-            expect.assertions(1);
-            const mockKeyPair = {};
-            (generateKeyPolyfill as jest.Mock).mockReturnValue(mockKeyPair);
-            await expect(
-                globalThis.crypto.subtle.generateKey('Ed25519', /* extractable */ false, ['sign', 'verify']),
-            ).resolves.toBe(mockKeyPair);
-        });
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'delegates `generateKey` calls to the polyfill when the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                const mockKeyPair = {};
+                (generateKeyPolyfill as jest.Mock).mockReturnValue(mockKeyPair);
+                await expect(
+                    globalThis.crypto.subtle.generateKey(algorithm, /* extractable */ false, ['sign', 'verify']),
+                ).resolves.toBe(mockKeyPair);
+            },
+        );
     });
     describe('when installed in an environment that does not support Ed25519', () => {
         beforeEach(() => {
@@ -148,14 +167,14 @@ describe('generateKey() polyfill', () => {
                 >
             ).mockImplementation(async (...args) => {
                 const [algorithm] = args;
-                if (algorithm === 'Ed25519') {
+                if (isAlgorithmEd25519(algorithm)) {
                     throw new Error('Ed25519 not supported');
                 }
                 return await originalGenerateKeyImpl.apply(globalThis.crypto.subtle, args);
             });
             install();
         });
-        it('calls the original `generateKey` once as a test when the algorithm is "Ed25519" but never again (parallel version)', async () => {
+        it('calls the original `generateKey` once as a test when the algorithm identifier is "Ed25519" but never again (parallel version)', async () => {
             expect.assertions(1);
             await Promise.all([
                 globalThis.crypto.subtle.generateKey('Ed25519', /* extractable */ false, ['sign', 'verify']),
@@ -163,20 +182,23 @@ describe('generateKey() polyfill', () => {
             ]);
             expect(originalGenerateKey).toHaveBeenCalledTimes(1);
         });
-        it('calls the original `generateKey` once as a test when the algorithm is "Ed25519" but never again (serial version)', async () => {
+        it('calls the original `generateKey` once as a test when the algorithm identifier is "Ed25519" but never again (serial version)', async () => {
             expect.assertions(1);
             await globalThis.crypto.subtle.generateKey('Ed25519', /* extractable */ false, ['sign', 'verify']);
             await globalThis.crypto.subtle.generateKey('Ed25519', /* extractable */ false, ['sign', 'verify']);
             expect(originalGenerateKey).toHaveBeenCalledTimes(1);
         });
-        it('delegates Ed25519 `generateKey` calls to the polyfill', async () => {
-            expect.assertions(1);
-            const mockKeyPair = {};
-            (generateKeyPolyfill as jest.Mock).mockReturnValue(mockKeyPair);
-            await expect(
-                globalThis.crypto.subtle.generateKey('Ed25519', /* extractable */ false, ['sign', 'verify']),
-            ).resolves.toBe(mockKeyPair);
-        });
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'delegates `generateKey` calls to the polyfill when the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                const mockKeyPair = {};
+                (generateKeyPolyfill as jest.Mock).mockReturnValue(mockKeyPair);
+                await expect(
+                    globalThis.crypto.subtle.generateKey(algorithm, /* extractable */ false, ['sign', 'verify']),
+                ).resolves.toBe(mockKeyPair);
+            },
+        );
     });
     describe('when installed in an environment that supports Ed25519', () => {
         beforeEach(() => {
@@ -201,20 +223,12 @@ describe('generateKey() polyfill', () => {
                         }) as RsaHashedKeyGenParams,
                 ),
             ),
-        ])('calls the original `generateKey` when the algorithm is $name/$__variant', async algorithm => {
+        ])('calls the original `generateKey` when the algorithm identifier is $name/$__variant', async algorithm => {
             expect.assertions(1);
             await globalThis.crypto.subtle.generateKey(algorithm, /* extractable */ false, ['sign', 'verify']);
             expect(originalGenerateKey).toHaveBeenCalled();
         });
-        it('delegates the call to the original `generateKey` when the algorithm is "Ed25519"', async () => {
-            expect.assertions(1);
-            const mockKeyPair = {};
-            (originalGenerateKey as jest.Mock).mockResolvedValue(mockKeyPair);
-            await expect(
-                globalThis.crypto.subtle.generateKey('Ed25519', /* extractable */ false, ['sign', 'verify']),
-            ).resolves.toBe(mockKeyPair);
-        });
-        it('calls the original `generateKey` once per call to `generateKey` when the algorithm is "Ed25519" (parallel version)', async () => {
+        it('calls the original `generateKey` once per call to `generateKey` when the algorithm identifier is "Ed25519" (parallel version)', async () => {
             expect.assertions(1);
             await Promise.all([
                 globalThis.crypto.subtle.generateKey('Ed25519', /* extractable */ false, ['sign', 'verify']),
@@ -222,17 +236,31 @@ describe('generateKey() polyfill', () => {
             ]);
             expect(originalGenerateKey).toHaveBeenCalledTimes(2);
         });
-        it('calls the original `generateKey` once per call to `generateKey` when the algorithm is "Ed25519" (serial version)', async () => {
+        it('calls the original `generateKey` once per call to `generateKey` when the algorithm identifier is "Ed25519" (serial version)', async () => {
             expect.assertions(1);
             await globalThis.crypto.subtle.generateKey('Ed25519', /* extractable */ false, ['sign', 'verify']);
             await globalThis.crypto.subtle.generateKey('Ed25519', /* extractable */ false, ['sign', 'verify']);
             expect(originalGenerateKey).toHaveBeenCalledTimes(2);
         });
-        it('does not delegate `generateKey` calls to the polyfill', async () => {
-            expect.assertions(1);
-            await globalThis.crypto.subtle.generateKey('Ed25519', /* extractable */ false, ['sign', 'verify']);
-            expect(generateKeyPolyfill).not.toHaveBeenCalled();
-        });
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'delegates the call to the original `generateKey` when the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                const mockKeyPair = {};
+                (originalGenerateKey as jest.Mock).mockResolvedValue(mockKeyPair);
+                await expect(
+                    globalThis.crypto.subtle.generateKey(algorithm, /* extractable */ false, ['sign', 'verify']),
+                ).resolves.toBe(mockKeyPair);
+            },
+        );
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'does not delegate `generateKey` calls to the polyfill when the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                await globalThis.crypto.subtle.generateKey(algorithm, /* extractable */ false, ['sign', 'verify']);
+                expect(generateKeyPolyfill).not.toHaveBeenCalled();
+            },
+        );
     });
     describe('when installed in an insecure context', () => {
         beforeEach(() => {
@@ -264,28 +292,34 @@ describe('sign() polyfill', () => {
         beforeEach(() => {
             install();
         });
-        it('delegates `sign` calls to the polyfill when supplied a polyfill-generated key', async () => {
-            expect.assertions(1);
-            (isPolyfilledKey as jest.Mock).mockReturnValue(true);
-            const mockPrivateKey = {} as CryptoKey;
-            const mockData = new Uint8Array([1, 2, 3]);
-            await globalThis.crypto.subtle.sign('Ed25519', mockPrivateKey, mockData);
-            expect(signPolyfill).toHaveBeenCalledWith(mockPrivateKey, mockData);
-        });
-        it('delegates `sign` calls to the original implementation when supplied a native-generated key', async () => {
-            expect.assertions(1);
-            (isPolyfilledKey as jest.Mock).mockReturnValue(false);
-            const mockPrivateKey = {} as CryptoKey;
-            const mockData = new Uint8Array([1, 2, 3]);
-            try {
-                // This will fail because the key is a mock. We are only interested in whether the
-                // native implementation was *called* so this is OK.
-                await globalThis.crypto.subtle.sign('Ed25519', mockPrivateKey, mockData);
-            } catch {
-                /* empty */
-            }
-            expect(originalSign).toHaveBeenCalledWith('Ed25519', mockPrivateKey, mockData);
-        });
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'delegates `sign` calls to the polyfill when supplied a polyfill-generated key and the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                (isPolyfilledKey as jest.Mock).mockReturnValue(true);
+                const mockPrivateKey = {} as CryptoKey;
+                const mockData = new Uint8Array([1, 2, 3]);
+                await globalThis.crypto.subtle.sign(algorithm, mockPrivateKey, mockData);
+                expect(signPolyfill).toHaveBeenCalledWith(mockPrivateKey, mockData);
+            },
+        );
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'delegates `sign` calls to the original implementation when supplied a native-generated key and the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                (isPolyfilledKey as jest.Mock).mockReturnValue(false);
+                const mockPrivateKey = {} as CryptoKey;
+                const mockData = new Uint8Array([1, 2, 3]);
+                try {
+                    // This will fail because the key is a mock. We are only interested in whether the
+                    // native implementation was *called* so this is OK.
+                    await globalThis.crypto.subtle.sign(algorithm, mockPrivateKey, mockData);
+                } catch {
+                    /* empty */
+                }
+                expect(originalSign).toHaveBeenCalledWith(algorithm, mockPrivateKey, mockData);
+            },
+        );
         it('overrides `sign`', () => {
             expect(globalThis.crypto.subtle.sign).not.toBe(originalSign);
         });
@@ -300,21 +334,29 @@ describe('sign() polyfill', () => {
         afterEach(() => {
             globalThis.crypto.subtle.sign = originalSign;
         });
-        it('delegates `sign` calls to the polyfill when supplied a polyfill-generated key', async () => {
-            expect.assertions(1);
-            (isPolyfilledKey as jest.Mock).mockReturnValue(true);
-            const mockPrivateKey = {} as CryptoKey;
-            const mockData = new Uint8Array([1, 2, 3]);
-            await globalThis.crypto.subtle.sign('Ed25519', mockPrivateKey, mockData);
-            expect(signPolyfill).toHaveBeenCalledWith(mockPrivateKey, mockData);
-        });
-        it('fatals when supplied a native-generated key', async () => {
-            expect.assertions(1);
-            (isPolyfilledKey as jest.Mock).mockReturnValue(false);
-            const mockPrivateKey = {} as CryptoKey;
-            const mockData = new Uint8Array([1, 2, 3]);
-            await expect(() => globalThis.crypto.subtle.sign('Ed25519', mockPrivateKey, mockData)).rejects.toThrow();
-        });
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'delegates `sign` calls to the polyfill when supplied a polyfill-generated key and the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                (isPolyfilledKey as jest.Mock).mockReturnValue(true);
+                const mockPrivateKey = {} as CryptoKey;
+                const mockData = new Uint8Array([1, 2, 3]);
+                await globalThis.crypto.subtle.sign(algorithm, mockPrivateKey, mockData);
+                expect(signPolyfill).toHaveBeenCalledWith(mockPrivateKey, mockData);
+            },
+        );
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'fatals when supplied a native-generated key and the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                (isPolyfilledKey as jest.Mock).mockReturnValue(false);
+                const mockPrivateKey = {} as CryptoKey;
+                const mockData = new Uint8Array([1, 2, 3]);
+                await expect(() =>
+                    globalThis.crypto.subtle.sign(algorithm, mockPrivateKey, mockData),
+                ).rejects.toThrow();
+            },
+        );
     });
     describe('when installed in an insecure context', () => {
         beforeEach(() => {
@@ -346,30 +388,36 @@ describe('verify() polyfill', () => {
         beforeEach(() => {
             install();
         });
-        it('delegates `verify` calls to the polyfill when supplied a polyfill-generated key', async () => {
-            expect.assertions(1);
-            (isPolyfilledKey as jest.Mock).mockReturnValue(true);
-            const mockPrivateKey = {} as CryptoKey;
-            const mockData = new Uint8Array([1, 2, 3]);
-            const mockSignature = new Uint8Array(Array(64).fill(1));
-            await globalThis.crypto.subtle.verify('Ed25519', mockPrivateKey, mockSignature, mockData);
-            expect(verifyPolyfill).toHaveBeenCalledWith(mockPrivateKey, mockSignature, mockData);
-        });
-        it('delegates `verify` calls to the original implementation when supplied a native-generated key', async () => {
-            expect.assertions(1);
-            (isPolyfilledKey as jest.Mock).mockReturnValue(false);
-            const mockPrivateKey = {} as CryptoKey;
-            const mockData = new Uint8Array([1, 2, 3]);
-            const mockSignature = new Uint8Array(Array(64).fill(1));
-            try {
-                // This will fail because the key is a mock. We are only interested in whether the
-                // native implementation was *called* so this is OK.
-                await globalThis.crypto.subtle.verify('Ed25519', mockPrivateKey, mockSignature, mockData);
-            } catch {
-                /* empty */
-            }
-            expect(originalVerify).toHaveBeenCalledWith('Ed25519', mockPrivateKey, mockSignature, mockData);
-        });
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'delegates `verify` calls to the polyfill when supplied a polyfill-generated key and the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                (isPolyfilledKey as jest.Mock).mockReturnValue(true);
+                const mockPrivateKey = {} as CryptoKey;
+                const mockData = new Uint8Array([1, 2, 3]);
+                const mockSignature = new Uint8Array(Array(64).fill(1));
+                await globalThis.crypto.subtle.verify(algorithm, mockPrivateKey, mockSignature, mockData);
+                expect(verifyPolyfill).toHaveBeenCalledWith(mockPrivateKey, mockSignature, mockData);
+            },
+        );
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'delegates `verify` calls to the original implementation when supplied a native-generated key and the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                (isPolyfilledKey as jest.Mock).mockReturnValue(false);
+                const mockPrivateKey = {} as CryptoKey;
+                const mockData = new Uint8Array([1, 2, 3]);
+                const mockSignature = new Uint8Array(Array(64).fill(1));
+                try {
+                    // This will fail because the key is a mock. We are only interested in whether the
+                    // native implementation was *called* so this is OK.
+                    await globalThis.crypto.subtle.verify(algorithm, mockPrivateKey, mockSignature, mockData);
+                } catch {
+                    /* empty */
+                }
+                expect(originalVerify).toHaveBeenCalledWith(algorithm, mockPrivateKey, mockSignature, mockData);
+            },
+        );
         it('overrides `verify`', () => {
             expect(globalThis.crypto.subtle.verify).not.toBe(originalVerify);
         });
@@ -384,25 +432,31 @@ describe('verify() polyfill', () => {
         afterEach(() => {
             globalThis.crypto.subtle.verify = originalVerify;
         });
-        it('delegates `verify` calls to the polyfill when supplied a polyfill-generated key', async () => {
-            expect.assertions(1);
-            (isPolyfilledKey as jest.Mock).mockReturnValue(true);
-            const mockPrivateKey = {} as CryptoKey;
-            const mockData = new Uint8Array([1, 2, 3]);
-            const mockSignature = new Uint8Array(Array(64).fill(1));
-            await globalThis.crypto.subtle.verify('Ed25519', mockPrivateKey, mockSignature, mockData);
-            expect(verifyPolyfill).toHaveBeenCalledWith(mockPrivateKey, mockSignature, mockData);
-        });
-        it('fatals when supplied a native-generated key', async () => {
-            expect.assertions(1);
-            (isPolyfilledKey as jest.Mock).mockReturnValue(false);
-            const mockPrivateKey = {} as CryptoKey;
-            const mockData = new Uint8Array([1, 2, 3]);
-            const mockSignature = new Uint8Array(Array(64).fill(1));
-            await expect(() =>
-                globalThis.crypto.subtle.verify('Ed25519', mockPrivateKey, mockSignature, mockData),
-            ).rejects.toThrow();
-        });
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'delegates `verify` calls to the polyfill when supplied a polyfill-generated key and the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                (isPolyfilledKey as jest.Mock).mockReturnValue(true);
+                const mockPrivateKey = {} as CryptoKey;
+                const mockData = new Uint8Array([1, 2, 3]);
+                const mockSignature = new Uint8Array(Array(64).fill(1));
+                await globalThis.crypto.subtle.verify(algorithm, mockPrivateKey, mockSignature, mockData);
+                expect(verifyPolyfill).toHaveBeenCalledWith(mockPrivateKey, mockSignature, mockData);
+            },
+        );
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'fatals when supplied a native-generated key and the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                (isPolyfilledKey as jest.Mock).mockReturnValue(false);
+                const mockPrivateKey = {} as CryptoKey;
+                const mockData = new Uint8Array([1, 2, 3]);
+                const mockSignature = new Uint8Array(Array(64).fill(1));
+                await expect(() =>
+                    globalThis.crypto.subtle.verify(algorithm, mockPrivateKey, mockSignature, mockData),
+                ).rejects.toThrow();
+            },
+        );
     });
     describe('when imported in an insecure context', () => {
         beforeEach(() => {
@@ -462,7 +516,7 @@ describe('importKey() polyfill', () => {
                         }) as RsaHashedKeyGenParams,
                 ),
             ),
-        ])('fatals when the algorithm is $name/$__variant', async algorithm => {
+        ])('fatals when the algorithm identifier is $name/$__variant', async algorithm => {
             expect.assertions(1);
             await expect(() =>
                 globalThis.crypto.subtle.importKey('raw', MOCK_PUBLIC_KEY_BYTES, algorithm, /* extractable */ false, [
@@ -470,16 +524,23 @@ describe('importKey() polyfill', () => {
                 ]),
             ).rejects.toThrow();
         });
-        it('delegates Ed25519 `importKey` calls to the polyfill', async () => {
-            expect.assertions(1);
-            const mockKey = {};
-            (importKeyPolyfill as jest.Mock).mockReturnValue(mockKey);
-            await expect(
-                globalThis.crypto.subtle.importKey('raw', MOCK_PUBLIC_KEY_BYTES, 'Ed25519', /* extractable */ false, [
-                    'verify',
-                ]),
-            ).resolves.toBe(mockKey);
-        });
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'delegates `importKey` calls to the polyfill when the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                const mockKey = {};
+                (importKeyPolyfill as jest.Mock).mockReturnValue(mockKey);
+                await expect(
+                    globalThis.crypto.subtle.importKey(
+                        'raw',
+                        MOCK_PUBLIC_KEY_BYTES,
+                        algorithm,
+                        /* extractable */ false,
+                        ['verify'],
+                    ),
+                ).resolves.toBe(mockKey);
+            },
+        );
     });
     describe('when imported in an environment that does not support Ed25519', () => {
         beforeEach(() => {
@@ -491,14 +552,14 @@ describe('importKey() polyfill', () => {
                 >
             ).mockImplementation(async (...args) => {
                 const [_format, _keyData, algorithm] = args;
-                if (algorithm === 'Ed25519') {
+                if (isAlgorithmEd25519(algorithm)) {
                     throw new Error('Ed25519 not supported');
                 }
                 return await originalImportKeyImpl.apply(globalThis.crypto.subtle, args);
             });
             install();
         });
-        it('calls the original `importKey` once as a test when the algorithm is "Ed25519" but never again (parallel version)', async () => {
+        it('calls the original `importKey` once as a test when the algorithm identifier is "Ed25519" but never again (parallel version)', async () => {
             expect.assertions(1);
             await Promise.all([
                 globalThis.crypto.subtle.importKey('raw', MOCK_PUBLIC_KEY_BYTES, 'Ed25519', /* extractable */ false, [
@@ -510,7 +571,7 @@ describe('importKey() polyfill', () => {
             ]);
             expect(originalImportKey).toHaveBeenCalledTimes(1);
         });
-        it('calls the original `importKey` once as a test when the algorithm is "Ed25519" but never again (serial version)', async () => {
+        it('calls the original `importKey` once as a test when the algorithm identifier is "Ed25519" but never again (serial version)', async () => {
             expect.assertions(1);
             await globalThis.crypto.subtle.importKey('raw', MOCK_PUBLIC_KEY_BYTES, 'Ed25519', /* extractable */ false, [
                 'verify',
@@ -520,19 +581,22 @@ describe('importKey() polyfill', () => {
             ]);
             expect(originalImportKey).toHaveBeenCalledTimes(1);
         });
-        it('delegates Ed25519 `generateKey` calls to the polyfill', async () => {
-            expect.assertions(1);
-            const mockKey = {};
-            (importKeyPolyfill as jest.Mock).mockReturnValue(mockKey);
-            const key = await globalThis.crypto.subtle.importKey(
-                'raw',
-                MOCK_PUBLIC_KEY_BYTES,
-                'Ed25519',
-                /* extractable */ false,
-                ['verify'],
-            );
-            expect(key).toBe(mockKey);
-        });
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'delegates `generateKey` calls to the polyfill when the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                const mockKey = {};
+                (importKeyPolyfill as jest.Mock).mockReturnValue(mockKey);
+                const key = await globalThis.crypto.subtle.importKey(
+                    'raw',
+                    MOCK_PUBLIC_KEY_BYTES,
+                    algorithm,
+                    /* extractable */ false,
+                    ['verify'],
+                );
+                expect(key).toBe(mockKey);
+            },
+        );
     });
     describe('when imported in an environment that supports Ed25519', () => {
         beforeEach(() => {
@@ -557,7 +621,7 @@ describe('importKey() polyfill', () => {
                         }) as RsaHashedKeyGenParams,
                 ),
             ),
-        ])('calls the original `importKey` when the algorithm is $name/$__variant', async algorithm => {
+        ])('calls the original `importKey` when the algorithm identifier is $name/$__variant', async algorithm => {
             expect.assertions(1);
             try {
                 await globalThis.crypto.subtle.importKey(
@@ -572,17 +636,7 @@ describe('importKey() polyfill', () => {
             }
             expect(originalImportKey).toHaveBeenCalled();
         });
-        it('delegates the call to the original `importKey` when the algorithm is "Ed25519"', async () => {
-            expect.assertions(1);
-            const mockKey = {};
-            (originalImportKey as jest.Mock).mockResolvedValue(mockKey);
-            await expect(
-                globalThis.crypto.subtle.importKey('raw', MOCK_PUBLIC_KEY_BYTES, 'Ed25519', /* extractable */ false, [
-                    'verify',
-                ]),
-            ).resolves.toBe(mockKey);
-        });
-        it('calls the original `importKey` once per call to `importKey` when the algorithm is "Ed25519" (parallel version)', async () => {
+        it('calls the original `importKey` once per call to `importKey` when the algorithm identifier is "Ed25519" (parallel version)', async () => {
             expect.assertions(1);
             await Promise.all([
                 globalThis.crypto.subtle.importKey('raw', MOCK_PUBLIC_KEY_BYTES, 'Ed25519', /* extractable */ false, [
@@ -594,7 +648,7 @@ describe('importKey() polyfill', () => {
             ]);
             expect(originalImportKey).toHaveBeenCalledTimes(2);
         });
-        it('calls the original `importKey` once per call to `importKey` when the algorithm is "Ed25519" (serial version)', async () => {
+        it('calls the original `importKey` once per call to `importKey` when the algorithm identifier is "Ed25519" (serial version)', async () => {
             expect.assertions(1);
             await globalThis.crypto.subtle.importKey('raw', MOCK_PUBLIC_KEY_BYTES, 'Ed25519', /* extractable */ false, [
                 'verify',
@@ -604,13 +658,37 @@ describe('importKey() polyfill', () => {
             ]);
             expect(originalImportKey).toHaveBeenCalledTimes(2);
         });
-        it('does not delegate `importKey` calls to the polyfill', async () => {
-            expect.assertions(1);
-            await globalThis.crypto.subtle.importKey('raw', MOCK_PUBLIC_KEY_BYTES, 'Ed25519', /* extractable */ false, [
-                'verify',
-            ]);
-            expect(importKeyPolyfill).not.toHaveBeenCalled();
-        });
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'delegates the call to the original `importKey` when the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                const mockKey = {};
+                (originalImportKey as jest.Mock).mockResolvedValue(mockKey);
+                await expect(
+                    globalThis.crypto.subtle.importKey(
+                        'raw',
+                        MOCK_PUBLIC_KEY_BYTES,
+                        algorithm,
+                        /* extractable */ false,
+                        ['verify'],
+                    ),
+                ).resolves.toBe(mockKey);
+            },
+        );
+        it.each(ED25519_ALGORITHM_IDENTIFIERS)(
+            'does not delegate `importKey` calls to the polyfill when the algorithm identifier is %s',
+            async algorithm => {
+                expect.assertions(1);
+                await globalThis.crypto.subtle.importKey(
+                    'raw',
+                    MOCK_PUBLIC_KEY_BYTES,
+                    algorithm,
+                    /* extractable */ false,
+                    ['verify'],
+                );
+                expect(importKeyPolyfill).not.toHaveBeenCalled();
+            },
+        );
     });
     describe('when imported in an insecure context', () => {
         beforeEach(() => {
