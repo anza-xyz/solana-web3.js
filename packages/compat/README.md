@@ -54,5 +54,5 @@ import { fromLegacyTransactionInstruction } from '@solana/compat';
 
 // imagine a function that returns a legacy `TransactionInstruction`
 const legacyInstruction = getMyLegacyInstruction();
-const transaction = fromLegacyTransactionInstruction(legacyVersionedTransaction);
+const instruction = fromLegacyTransactionInstruction(legacyInstruction);
 ```
