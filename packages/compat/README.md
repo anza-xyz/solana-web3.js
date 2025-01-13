@@ -33,7 +33,7 @@ import { fromLegacyKeypair } from '@solana/compat';
 const { privateKey, publicKey } = await fromLegacyKeypair(Keypair.generate());
 ```
 
-### `fromVersionedTransaction`
+### `fromVersionedTransaction()`
 
 This can be used to convert a legacy `VersionedTransaction` object to a `Transaction` object.
 
@@ -43,4 +43,16 @@ import { fromVersionedTransaction } from '@solana/compat';
 // imagine a function that returns a legacy `VersionedTransaction`
 const legacyVersionedTransaction = getMyLegacyVersionedTransaction();
 const transaction = fromVersionedTransaction(legacyVersionedTransaction);
+```
+
+### `fromLegacyTransactionInstruction()`
+
+This can be used to convert a legacy `TransactionInstruction` object to a `IInstruction` object.
+
+```ts
+import { fromLegacyTransactionInstruction } from '@solana/compat';
+
+// imagine a function that returns a legacy `TransactionInstruction`
+const legacyInstruction = getMyLegacyInstruction();
+const transaction = fromLegacyTransactionInstruction(legacyVersionedTransaction);
 ```
