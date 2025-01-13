@@ -218,7 +218,9 @@ const signedBySignature = decodedTransaction.signatures[signedByAddress]!;
 const sourceAddressBytes = getAddressEncoder().encode(signedByAddress);
 // Then we create a public Ed25519 key with those bytes
 // This is a SubtleCrypto CryptoKey object that we create with role `verify`
-const signedByPublicKey = await crypto.subtle.importKey('raw', sourceAddressBytes, 'Ed25519', true, ['verify']);
+const signedByPublicKey = await crypto.subtle.importKey('raw', sourceAddressBytes, { name: 'Ed25519' }, true, [
+    'verify',
+]);
 // Now we can verify the signature using that key
 const verifiedSignature = await verifySignature(signedByPublicKey, signedBySignature, decodedTransaction.messageBytes);
 log.info(

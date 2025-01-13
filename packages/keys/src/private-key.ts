@@ -1,6 +1,8 @@
 import { ReadonlyUint8Array } from '@solana/codecs-core';
 import { SOLANA_ERROR__KEYS__INVALID_PRIVATE_KEY_BYTE_LENGTH, SolanaError } from '@solana/errors';
 
+import { ED25519_ALGORITHM_IDENTIFIER } from './algorithm';
+
 function addPkcs8Header(bytes: ReadonlyUint8Array): ReadonlyUint8Array {
     // prettier-ignore
     return new Uint8Array([
@@ -46,5 +48,11 @@ export async function createPrivateKeyFromBytes(bytes: ReadonlyUint8Array, extra
         });
     }
     const privateKeyBytesPkcs8 = addPkcs8Header(bytes);
-    return await crypto.subtle.importKey('pkcs8', privateKeyBytesPkcs8, 'Ed25519', extractable ?? false, ['sign']);
+    return await crypto.subtle.importKey(
+        'pkcs8',
+        privateKeyBytesPkcs8,
+        ED25519_ALGORITHM_IDENTIFIER,
+        extractable ?? false,
+        ['sign'],
+    );
 }

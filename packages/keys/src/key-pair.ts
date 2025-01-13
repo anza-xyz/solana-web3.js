@@ -6,6 +6,7 @@ import {
     SolanaError,
 } from '@solana/errors';
 
+import { ED25519_ALGORITHM_IDENTIFIER } from './algorithm';
 import { createPrivateKeyFromBytes } from './private-key';
 import { getPublicKeyFromPrivateKey } from './public-key';
 import { signBytes, verifySignature } from './signatures';
@@ -13,11 +14,11 @@ import { signBytes, verifySignature } from './signatures';
 export async function generateKeyPair(): Promise<CryptoKeyPair> {
     await assertKeyGenerationIsAvailable();
     const keyPair = await crypto.subtle.generateKey(
-        /* algorithm */ 'Ed25519', // Native implementation status: https://github.com/WICG/webcrypto-secure-curves/issues/20
+        /* algorithm */ ED25519_ALGORITHM_IDENTIFIER, // Native implementation status: https://github.com/WICG/webcrypto-secure-curves/issues/20
         /* extractable */ false, // Prevents the bytes of the private key from being visible to JS.
         /* allowed uses */ ['sign', 'verify'],
     );
-    return keyPair;
+    return keyPair as CryptoKeyPair; // FIXME: See https://github.com/microsoft/TypeScript-DOM-lib-generator/pull/1878
 }
 
 export async function createKeyPairFromBytes(bytes: ReadonlyUint8Array, extractable?: boolean): Promise<CryptoKeyPair> {
@@ -27,7 +28,9 @@ export async function createKeyPairFromBytes(bytes: ReadonlyUint8Array, extracta
         throw new SolanaError(SOLANA_ERROR__KEYS__INVALID_KEY_PAIR_BYTE_LENGTH, { byteLength: bytes.byteLength });
     }
     const [publicKey, privateKey] = await Promise.all([
-        crypto.subtle.importKey('raw', bytes.slice(32), 'Ed25519', /* extractable */ true, ['verify']),
+        crypto.subtle.importKey('raw', bytes.slice(32), ED25519_ALGORITHM_IDENTIFIER, /* extractable */ true, [
+            'verify',
+        ]),
         createPrivateKeyFromBytes(bytes.slice(0, 32), extractable),
     ]);
 

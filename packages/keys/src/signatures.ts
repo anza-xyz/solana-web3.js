@@ -7,6 +7,8 @@ import {
     SolanaError,
 } from '@solana/errors';
 
+import { ED25519_ALGORITHM_IDENTIFIER } from './algorithm';
+
 export type Signature = string & { readonly __brand: unique symbol };
 export type SignatureBytes = Uint8Array & { readonly __brand: unique symbol };
 
@@ -58,7 +60,7 @@ export function isSignature(putativeSignature: string): putativeSignature is Sig
 
 export async function signBytes(key: CryptoKey, data: ReadonlyUint8Array): Promise<SignatureBytes> {
     assertSigningCapabilityIsAvailable();
-    const signedData = await crypto.subtle.sign('Ed25519', key, data);
+    const signedData = await crypto.subtle.sign(ED25519_ALGORITHM_IDENTIFIER, key, data);
     return new Uint8Array(signedData) as SignatureBytes;
 }
 
@@ -73,5 +75,5 @@ export async function verifySignature(
     data: ReadonlyUint8Array,
 ): Promise<boolean> {
     assertVerificationCapabilityIsAvailable();
-    return await crypto.subtle.verify('Ed25519', key, signature, data);
+    return await crypto.subtle.verify(ED25519_ALGORITHM_IDENTIFIER, key, signature, data);
 }

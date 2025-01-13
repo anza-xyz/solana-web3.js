@@ -12,7 +12,7 @@ import {
 function isAlgorithmEd25519(putativeEd25519Algorithm: AlgorithmIdentifier): boolean {
     const name =
         typeof putativeEd25519Algorithm === 'string' ? putativeEd25519Algorithm : putativeEd25519Algorithm.name;
-    return name.localeCompare('ed25519', 'en-US', { sensitivity: 'base' }) === 0;
+    return name.localeCompare('Ed25519', 'en-US', { sensitivity: 'base' }) === 0;
 }
 
 export function install() {
