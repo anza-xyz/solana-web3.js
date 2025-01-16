@@ -67,6 +67,9 @@ const ORDERED_ERROR_NAMES = [
 ];
 
 export function getSolanaErrorFromInstructionError(
+    /**
+     * The index of the instruction inside the transaction.
+     */
     index: bigint | number,
     instructionError: string | { [key: string]: unknown },
 ): SolanaError {

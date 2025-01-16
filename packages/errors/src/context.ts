@@ -1,3 +1,11 @@
+/**
+ * To add a new error, follow the instructions at
+ * https://github.com/anza-xyz/solana-web3.js/tree/main/packages/errors/#adding-a-new-error
+ *
+ * @privateRemarks
+ * WARNING:
+ *   - Don't change or remove members of an error's context.
+ */
 import {
     SOLANA_ERROR__ACCOUNTS__ACCOUNT_NOT_FOUND,
     SOLANA_ERROR__ACCOUNTS__EXPECTED_ALL_ACCOUNTS_TO_BE_DECODED,
@@ -167,11 +175,7 @@ interface ReadonlyUint8Array extends Omit<Uint8Array, TypedArrayMutablePropertie
 }
 
 /**
- * To add a new error, follow the instructions at
- * https://github.com/anza-xyz/solana-web3.js/tree/main/packages/errors/#adding-a-new-error
- *
- * WARNING:
- *   - Don't change or remove members of an error's context.
+ * A map of every {@link SolanaError} code to the type of its `context` property.
  */
 export type SolanaErrorContext = DefaultUnspecifiedErrorContextToUndefined<
     BasicInstructionErrorContext<

@@ -29,7 +29,10 @@ interface RpcErrorResponse {
 
 type TransactionError = string | { [key: string]: unknown };
 
-// Keep in sync with https://github.com/anza-xyz/agave/blob/master/rpc-client-api/src/response.rs
+/**
+ * Keep in sync with https://github.com/anza-xyz/agave/blob/master/rpc-client-api/src/response.rs
+ * @hidden
+ */
 export interface RpcSimulateTransactionResult {
     accounts:
         | ({

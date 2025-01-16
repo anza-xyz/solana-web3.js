@@ -2,6 +2,8 @@
  * To add a new error, follow the instructions at
  * https://github.com/anza-xyz/solana-web3.js/tree/main/packages/errors/#adding-a-new-error
  *
+ * @module
+ * @privateRemarks
  * WARNING:
  *   - Don't remove error codes
  *   - Don't change or reorder error codes.
@@ -302,6 +304,7 @@ export const SOLANA_ERROR__INVARIANT_VIOLATION__DATA_PUBLISHER_CHANNEL_UNIMPLEME
 /**
  * A union of every Solana error code
  *
+ * @privateRemarks
  * You might be wondering why this is not a TypeScript enum or const enum.
  *
  * One of the goals of this library is to enable people to use some or none of it without having to
@@ -541,6 +544,7 @@ export type SolanaErrorCode =
     | typeof SOLANA_ERROR__TRANSACTION_ERROR__WOULD_EXCEED_MAX_VOTE_COST_LIMIT;
 
 /**
- * Errors of this type are understood to have an optional `SolanaError` nested inside as `cause`.
+ * Errors of this type are understood to have an optional {@link SolanaError} nested inside as
+ * `cause`.
  */
 export type SolanaErrorCodeWithCause = typeof SOLANA_ERROR__JSON_RPC__SERVER_ERROR_SEND_TRANSACTION_PREFLIGHT_FAILURE;

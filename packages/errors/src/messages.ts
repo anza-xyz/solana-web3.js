@@ -1,3 +1,10 @@
+/**
+ * To add a new error, follow the instructions at
+ * https://github.com/anza-xyz/solana-web3.js/tree/main/packages/errors#adding-a-new-error
+ *
+ * WARNING:
+ *   - Don't change the meaning of an error message.
+ */
 import {
     SOLANA_ERROR__ACCOUNTS__ACCOUNT_NOT_FOUND,
     SOLANA_ERROR__ACCOUNTS__EXPECTED_ALL_ACCOUNTS_TO_BE_DECODED,
@@ -227,11 +234,8 @@ import {
 } from './codes';
 
 /**
- * To add a new error, follow the instructions at
- * https://github.com/anza-xyz/solana-web3.js/tree/main/packages/errors#adding-a-new-error
- *
- * WARNING:
- *   - Don't change the meaning of an error message.
+ * A map of every {@link SolanaError} code to the error message shown to developers in development
+ * mode.
  */
 export const SolanaErrorMessages: Readonly<{
     // This type makes this data structure exhaustive with respect to `SolanaErrorCode`.
