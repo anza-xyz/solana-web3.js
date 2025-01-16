@@ -16,23 +16,31 @@ import { Address, assertIsAddress, getAddressCodec, isAddress } from './address'
 import { compressedPointBytesAreOnCurve } from './curve';
 
 /**
- * An address derived from a program address and a set of seeds.
- * It includes the bump seed used to derive the address and
- * ensure the address is not on the Ed25519 curve.
+ * A tuple representing a program derived address (derived from the address of some program and a
+ * set of seeds) and the associated bump seed used to ensure that the address, as derived, does not
+ * fall on the Ed25519 curve.
+ *
+ * Whenever you need to validate an arbitrary tuple as one that represents a program derived
+ * address, use the {@link assertIsProgramDerivedAddress} or {@link isProgramDerivedAddress}
+ * functions in this package.
  */
 export type ProgramDerivedAddress<TAddress extends string = string> = Readonly<
     [Address<TAddress>, ProgramDerivedAddressBump]
 >;
 
 /**
- * A number between 0 and 255, inclusive.
+ * Represents an integer in the range [0,255] used in the derivation of a program derived address to
+ * ensure that it does not fall on the Ed25519 curve.
  */
 export type ProgramDerivedAddressBump = number & {
     readonly __brand: unique symbol;
 };
 
 /**
- * Returns true if the input value is a program derived address.
+ * A type guard that returns `true` if the input tuple conforms to the {@link ProgramDerivedAddress}
+ * type, and refines its type for use in your program.
+ *
+ * @see The {@link isAddress} function for an example of how to use a type guard.
  */
 export function isProgramDerivedAddress<TAddress extends string = string>(
     value: unknown,
@@ -49,7 +57,10 @@ export function isProgramDerivedAddress<TAddress extends string = string>(
 }
 
 /**
- * Fails if the input value is not a program derived address.
+ * In the event that you receive an address/bump-seed tuple from some untrusted source, use this
+ * function to assert that it conforms to the {@link ProgramDerivedAddress} interface.
+ *
+ * @see The {@link assertIsAddress} function for an example of how to use an assertion function.
  */
 export function assertIsProgramDerivedAddress<TAddress extends string = string>(
     value: unknown,
@@ -121,6 +132,28 @@ async function createProgramDerivedAddress({ programAddress, seeds }: ProgramDer
     return base58EncodedAddressCodec.decode(addressBytes);
 }
 
+/**
+ * Given a program's {@link Address} and up to 16 {@link Seed | Seeds}, this method will return the
+ * program derived address (PDA) associated with each.
+ *
+ * @example
+ * ```ts
+ * import { getAddressEncoder, getProgramDerivedAddress } from '@solana/addresses';
+ *
+ * const addressEncoder = getAddressEncoder();
+ * const { bumpSeed, pda } = await getProgramDerivedAddress({
+ *     programAddress: 'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL' as Address,
+ *     seeds: [
+ *         // Owner
+ *         addressEncoder.encode('9fYLFVoVqwH37C3dyPi6cpeobfbQ2jtLpN5HgAYDDdkm' as Address),
+ *         // Token program
+ *         addressEncoder.encode('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' as Address),
+ *         // Mint
+ *         addressEncoder.encode('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v' as Address),
+ *     ],
+ * });
+ * ```
+ */
 export async function getProgramDerivedAddress({
     programAddress,
     seeds,
@@ -144,6 +177,23 @@ export async function getProgramDerivedAddress({
     throw new SolanaError(SOLANA_ERROR__ADDRESSES__FAILED_TO_FIND_VIABLE_PDA_BUMP_SEED);
 }
 
+/**
+ * Returns a base58-encoded address derived from some base address, some program address, and a seed
+ * string or byte array.
+ *
+ * @example
+ * ```ts
+ * import { createAddressWithSeed } from '@solana/addresses';
+ *
+ * const derivedAddress = await createAddressWithSeed({
+ *     // The private key associated with this address will be able to sign for `derivedAddress`.
+ *     baseAddress: 'B9Lf9z5BfNPT4d5KMeaBFx8x1G4CULZYR1jA2kmxRDka' as Address,
+ *     // Only this program will be able to write data to this account.
+ *     programAddress: '445erYq578p2aERrGW9mn9KiYe3fuG6uHdcJ2LPPShGw' as Address,
+ *     seed: 'data-account',
+ * });
+ * ```
+ */
 export async function createAddressWithSeed({ baseAddress, programAddress, seed }: SeedInput): Promise<Address> {
     const { encode, decode } = getAddressCodec();
 
