@@ -18,6 +18,19 @@ function convertSignatures(transaction: VersionedTransaction, staticAccountKeys:
     );
 }
 
+/**
+ * This can be used to convert a legacy [VersionedTransaction](https://solana-labs.github.io/solana-web3.js/classes/VersionedTransaction.html)
+ * object to a {@link Transaction}.
+ *
+ * @example
+ * ```ts
+ * import { fromVersionedTransaction } from '@solana/compat';
+ *
+ * // Imagine a function that returns a legacy `VersionedTransaction`
+ * const legacyVersionedTransaction = getMyLegacyVersionedTransaction();
+ * const transaction = fromVersionedTransaction(legacyVersionedTransaction);
+ * ```
+ */
 export function fromVersionedTransaction(transaction: VersionedTransaction): Transaction {
     const { message } = transaction;
     const { staticAccountKeys } = message.getAccountKeys();

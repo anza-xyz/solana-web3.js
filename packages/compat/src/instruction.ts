@@ -3,6 +3,19 @@ import { TransactionInstruction } from '@solana/web3.js';
 
 import { fromLegacyPublicKey } from './address';
 
+/**
+ * This can be used to convert a legacy [`TransactionInstruction`](https://solana-labs.github.io/solana-web3.js/classes/TransactionInstruction.html)
+ * object to an {@link IInstruction}.
+ *
+ * @example
+ * ```ts
+ * import { fromLegacyTransactionInstruction } from '@solana/compat';
+ *
+ * // Imagine a function that returns a legacy `TransactionInstruction`
+ * const legacyInstruction = getMyLegacyInstruction();
+ * const instruction = fromLegacyTransactionInstruction(legacyInstruction);
+ * ```
+ */
 export function fromLegacyTransactionInstruction(legacyInstruction: TransactionInstruction): IInstruction {
     const data = legacyInstruction.data?.byteLength > 0 ? Uint8Array.from(legacyInstruction.data) : undefined;
     const accounts = legacyInstruction.keys.map(accountMeta =>

@@ -2,9 +2,16 @@ import { createKeyPairFromBytes } from '@solana/keys';
 import { Keypair } from '@solana/web3.js';
 
 /**
- * Convert from a Legacy Web3 JS Keypair to a CryptoKeyPair
- * @param keypair   The Keypair to convert
- * @returns         A CryptoKeyPair
+ * Converts a legacy [Keypair](https://solana-labs.github.io/solana-web3.js/classes/Keypair.html)
+ * object to a native Ed25519 {@link CryptoKeyPair} object.
+ *
+ * @example
+ * ```ts
+ * import { fromLegacyKeypair } from '@solana/compat';
+ *
+ * const legacyKeyPair = Keypair.generate();
+ * const { privateKey, publicKey } = await fromLegacyKeypair(legacyKeyPair);
+ * ```
  */
 export async function fromLegacyKeypair(keypair: Keypair, extractable?: boolean): Promise<CryptoKeyPair> {
     const bytes = new Uint8Array(64);
