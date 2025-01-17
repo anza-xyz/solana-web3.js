@@ -1,9 +1,6 @@
 {
     "name": "solana-web3.js-monorepo",
     "private": true,
-    "workspaces": [
-        "packages/*"
-    ],
     "scripts": {
         "build": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} build",
         "compile": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} compile:js compile:typedefs",
