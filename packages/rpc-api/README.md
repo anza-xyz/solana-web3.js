@@ -44,13 +44,13 @@ Creates a `RpcApi` implementation of the Solana JSON RPC API with some default b
 
 The default behaviours include:
 
--   A transform that converts `bigint` inputs to `number` for compatibility with version 1.0 of the Solana JSON RPC.
--   A transform that calls the config's `onIntegerOverflow` handler whenever a `bigint` input would overflow a JavaScript IEEE 754 number. See [this](https://github.com/solana-labs/solana-web3.js/issues/1116) GitHub issue for more information.
--   A transform that applies a default commitment wherever not specified
+- A transform that converts `bigint` inputs to `number` for compatibility with version 1.0 of the Solana JSON RPC.
+- A transform that calls the config's `onIntegerOverflow` handler whenever a `bigint` input would overflow a JavaScript IEEE 754 number. See [this](https://github.com/solana-labs/solana-web3.js/issues/1116) GitHub issue for more information.
+- A transform that applies a default commitment wherever not specified
 
 #### Arguments
 
 A config object with the following properties:
 
--   `defaultCommitment`: An optional default `Commitment` value. Given an RPC method that takes `commitment` as a parameter, this value will be used when the caller does not supply one.
--   `onIntegerOverflow(request, keyPath, value): void`: An optional function that will be called whenever a `bigint` input exceeds that which can be expressed using JavaScript numbers. This is used in the default `SolanaRpcApi` to throw an exception rather than to allow truncated values to propagate through a program.
+- `defaultCommitment`: An optional default `Commitment` value. Given an RPC method that takes `commitment` as a parameter, this value will be used when the caller does not supply one.
+- `onIntegerOverflow(request, keyPath, value): void`: An optional function that will be called whenever a `bigint` input exceeds that which can be expressed using JavaScript numbers. This is used in the default `SolanaRpcApi` to throw an exception rather than to allow truncated values to propagate through a program.

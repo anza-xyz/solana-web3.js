@@ -75,16 +75,16 @@ const clock: SysvarClock = await fetchSysvarClock(rpc);
 
 This package supports the following Solana sysvars:
 
--   [`Clock`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/clock.ts)
--   [`EpochRewards`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/epoch-rewards.ts)
--   [`EpochSchedule`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/epoch-schedule.ts)
--   [`Fees`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/fees.ts)
--   [`LastRestartSlot`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/last-restart-slot.ts)
--   [`RecentBlockhashes`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/recent-blockhashes.ts)
--   [`Rent`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/rent.ts)
--   [`SlotHashes`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/slot-hashes.ts)
--   [`SlotHistory`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/slot-history.ts)
--   [`StakeHistory`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/stake-history.ts)
+- [`Clock`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/clock.ts)
+- [`EpochRewards`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/epoch-rewards.ts)
+- [`EpochSchedule`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/epoch-schedule.ts)
+- [`Fees`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/fees.ts)
+- [`LastRestartSlot`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/last-restart-slot.ts)
+- [`RecentBlockhashes`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/recent-blockhashes.ts)
+- [`Rent`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/rent.ts)
+- [`SlotHashes`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/slot-hashes.ts)
+- [`SlotHistory`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/slot-history.ts)
+- [`StakeHistory`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/sysvars/src/stake-history.ts)
 
 The `Instructions` sysvar is also supported but does not exist on-chain,
 therefore has no corresponding module or codec.

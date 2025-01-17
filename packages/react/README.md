@@ -180,14 +180,14 @@ Given a `UiWalletAccount`, this hook returns a function you can call to sign a b
 
 A config object with the following properties:
 
--   `message`: A `Uint8Array` of bytes to sign
+- `message`: A `Uint8Array` of bytes to sign
 
 #### Returns
 
 An object with the following properties:
 
--   `signature`: The 64-byte Ed25519 signature as a `Uint8Array`
--   `signedMessage`: The `Uint8Array` of bytes signed by the wallet. These bytes might differ from the input bytes if the wallet modified the message
+- `signature`: The 64-byte Ed25519 signature as a `Uint8Array`
+- `signedMessage`: The `Uint8Array` of bytes signed by the wallet. These bytes might differ from the input bytes if the wallet modified the message
 
 #### Example
 
@@ -223,15 +223,15 @@ Given a `UiWalletAccount` and a chain that begins with `solana:`, this hook retu
 
 A config object with the following properties:
 
--   `options`: An object with the following properties:
-    -   `minContextSlot`: A slot at which any blockhash/nonce in the transaction is known to exist. This may be used by the signer and/or RPC to determine the validity of the blockhashes/nonces it has observed.
--   `transaction`: A `Uint8Array` of bytes that conforms to the [Solana transaction schema](https://solana.com/docs/core/transactions#transaction)
+- `options`: An object with the following properties:
+    - `minContextSlot`: A slot at which any blockhash/nonce in the transaction is known to exist. This may be used by the signer and/or RPC to determine the validity of the blockhashes/nonces it has observed.
+- `transaction`: A `Uint8Array` of bytes that conforms to the [Solana transaction schema](https://solana.com/docs/core/transactions#transaction)
 
 #### Returns
 
 An object with the following properties:
 
--   `signedTransaction`: A `Uint8Array` of bytes that conforms to the [Solana transaction schema](https://solana.com/docs/core/transactions#transaction)
+- `signedTransaction`: A `Uint8Array` of bytes that conforms to the [Solana transaction schema](https://solana.com/docs/core/transactions#transaction)
 
 #### Example
 
@@ -267,15 +267,15 @@ Given a `UiWalletAccount` and a chain that begins with `solana:`, this hook retu
 
 A config object with the following properties:
 
--   `options`: An object with the following properties:
-    -   `minContextSlot`: A slot at which any blockhash/nonce in the transaction is known to exist. This may be used by the signer and/or RPC to determine the validity of the blockhashes/nonces it has observed.
--   `transaction`: A `Uint8Array` of bytes that conforms to the [Solana transaction schema](https://solana.com/docs/core/transactions#transaction)
+- `options`: An object with the following properties:
+    - `minContextSlot`: A slot at which any blockhash/nonce in the transaction is known to exist. This may be used by the signer and/or RPC to determine the validity of the blockhashes/nonces it has observed.
+- `transaction`: A `Uint8Array` of bytes that conforms to the [Solana transaction schema](https://solana.com/docs/core/transactions#transaction)
 
 #### Returns
 
 That function returns an object with the following properties:
 
--   `signature`: A `Uint8Array` of bytes representing the signature of the sent transaction.
+- `signature`: A `Uint8Array` of bytes representing the signature of the sent transaction.
 
 #### Example
 

@@ -50,8 +50,8 @@ A channel creator is a function that accepts an `AbortSignal`, returns a new `Rp
 
 Subscription channels publish events on two channel names:
 
--   `error`: Fires when the channel closes unexpectedly
--   `message`: Fires on every message received from the remote end
+- `error`: Fires when the channel closes unexpectedly
+- `message`: Fires on every message received from the remote end
 
 ## Functions
 

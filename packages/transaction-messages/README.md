@@ -78,8 +78,8 @@ const txPaidByMe = setTransactionMessageFeePayer(myAddress, tx);
 
 A signed transaction can be only be landed on the network if certain conditions are met:
 
--   It includes the hash of a recent block
--   Or it includes the value of an unused nonce known to the network
+- It includes the hash of a recent block
+- Or it includes the value of an unused nonce known to the network
 
 These conditions define a transaction's lifetime, after which it can no longer be landed, even if signed. The lifetime must be added to the transaction message before it is compiled to be sent.
 

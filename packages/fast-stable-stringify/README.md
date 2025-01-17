@@ -13,14 +13,14 @@ stringify({ d: 0, c: 1, a: 2, b: 3, e: 4 }); // '{"a":2,"b":3,"c":1,"d":0,"e":4}
 
 Just like substack's, it does:
 
--   handle all variations of all basic javascript values (number, string, boolean, array, object, null, Date, BigInt)
--   handle undefined _and_ function in the same way as `JSON.stringify`
--   **not support ie8 (and below) with complete certainty**.
+- handle all variations of all basic javascript values (number, string, boolean, array, object, null, Date, BigInt)
+- handle undefined _and_ function in the same way as `JSON.stringify`
+- **not support ie8 (and below) with complete certainty**.
 
 Unlike substack's, it does:
 
--   not implement the 'replacer' or 'space' arguments of the JSON.stringify method
--   not check for circular references
+- not implement the 'replacer' or 'space' arguments of the JSON.stringify method
+- not check for circular references
 
 ## Running tests
 

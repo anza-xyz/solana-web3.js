@@ -38,10 +38,10 @@ const person = personCodec.decode(bytes);
 
 There is a significant library of composable codecs at your disposal, enabling you to compose complex types. You may be interested in the documentation of these other packages to learn more about them:
 
--   [`@solana/codecs-numbers`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs-numbers) for number codecs.
--   [`@solana/codecs-strings`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs-strings) for string codecs.
--   [`@solana/codecs-data-structures`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs-data-structures) for many data structure codecs such as objects, arrays, tuples, sets, maps, enums, discriminated unions, booleans, etc.
--   [`@solana/options`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/options) for a Rust-like `Option` type and associated codec.
+- [`@solana/codecs-numbers`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs-numbers) for number codecs.
+- [`@solana/codecs-strings`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs-strings) for string codecs.
+- [`@solana/codecs-data-structures`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs-data-structures) for many data structure codecs such as objects, arrays, tuples, sets, maps, enums, discriminated unions, booleans, etc.
+- [`@solana/options`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/options) for a Rust-like `Option` type and associated codec.
 
 You may also be interested in some of the helpers of this `@solana/codecs-core` library such as `transformCodec`, `fixCodecSize` or `reverseCodec` that create new codecs from existing ones.
 
@@ -159,10 +159,10 @@ The following type guards are available to identify and/or assert the size of co
 
 Finally, note that the same is true for `Encoders` and `Decoders`.
 
--   A `FixedSizeEncoder` has a `fixedSize` number attribute.
--   A `VariableSizeEncoder` has a `getSizeFromValue` function and an optional `maxSize` number attribute.
--   A `FixedSizeDecoder` has a `fixedSize` number attribute.
--   A `VariableSizeDecoder` has an optional `maxSize` number attribute.
+- A `FixedSizeEncoder` has a `fixedSize` number attribute.
+- A `VariableSizeEncoder` has a `getSizeFromValue` function and an optional `maxSize` number attribute.
+- A `FixedSizeDecoder` has a `fixedSize` number attribute.
+- A `VariableSizeDecoder` has an optional `maxSize` number attribute.
 
 ## Creating custom codecs
 
@@ -170,8 +170,8 @@ If composing codecs isn’t enough for you, you may implement your own codec log
 
 The `read` function accepts the `bytes` to decode from and the `offset` at each we should start reading. It returns an array with two items:
 
--   The first item should be the decoded value.
--   The second item should be the next offset to read from.
+- The first item should be the decoded value.
+- The second item should be the next offset to read from.
 
 ```ts
 createCodec({
@@ -533,14 +533,14 @@ u32InTheMiddleCodec.encode(0xffffffff);
 
 Both the `preOffset` and `postOffset` functions offer the following attributes:
 
--   `bytes`: The entire byte array being encoded or decoded.
--   `preOffset`: The original and unaltered pre-offset.
--   `wrapBytes`: A helper function that wraps the given offset around the byte array length. E.g. `wrapBytes(-1)` will refer to the last byte of the byte array.
+- `bytes`: The entire byte array being encoded or decoded.
+- `preOffset`: The original and unaltered pre-offset.
+- `wrapBytes`: A helper function that wraps the given offset around the byte array length. E.g. `wrapBytes(-1)` will refer to the last byte of the byte array.
 
 Additionally, the post-offset function also provides the following attributes:
 
--   `newPreOffset`: The new pre-offset after the pre-offset function has been applied.
--   `postOffset`: The original and unaltered post-offset.
+- `newPreOffset`: The new pre-offset after the pre-offset function has been applied.
+- `postOffset`: The original and unaltered post-offset.
 
 Note that you may also decide to ignore these attributes to achieve absolute offsets. However, relative offsets are usually recommended as they won't break your codecs when composed with other codecs.
 
@@ -635,10 +635,10 @@ const getBigEndianU64Codec = () => combineCodec(getBigEndianU64Encoder(), getBig
 
 This package also provides utility functions for managing bytes such as:
 
--   `mergeBytes`: Concatenates an array of `Uint8Arrays` into a single `Uint8Array`.
--   `padBytes`: Pads a `Uint8Array` with zeroes (to the right) to the specified length.
--   `fixBytes`: Pads or truncates a `Uint8Array` so it has the specified length.
--   `containsBytes`: Checks if a `Uint8Array` contains another `Uint8Array` at a given offset.
+- `mergeBytes`: Concatenates an array of `Uint8Arrays` into a single `Uint8Array`.
+- `padBytes`: Pads a `Uint8Array` with zeroes (to the right) to the specified length.
+- `fixBytes`: Pads or truncates a `Uint8Array` so it has the specified length.
+- `containsBytes`: Checks if a `Uint8Array` contains another `Uint8Array` at a given offset.
 
 ```ts
 // Merge multiple Uint8Array buffers into one.

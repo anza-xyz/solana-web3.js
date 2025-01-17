@@ -123,9 +123,9 @@ const lamportsAccountB = await rpcGraphQL.query(source, {
 
 Solana data can be categorized into three main types:
 
--   Accounts
--   Transactions
--   Blocks
+- Accounts
+- Transactions
+- Blocks
 
 These types encompass everything that can be queried from the Solana ledger.
 
@@ -209,13 +209,13 @@ data: {
 
 A set of specific parsed account types are supported in GraphQL.
 
--   `GenericAccount`: A generic base account type
--   `NonceAccount`: A nonce account
--   `LookupTableAccount`: An address lookup table account
--   `MintAccount`: An SPL mint
--   `TokenAccount`: An SPL token account
--   `StakeAccount`: A stake account
--   `VoteAccount`: A vote account
+- `GenericAccount`: A generic base account type
+- `NonceAccount`: A nonce account
+- `LookupTableAccount`: An address lookup table account
+- `MintAccount`: An SPL mint
+- `TokenAccount`: An SPL token account
+- `StakeAccount`: A stake account
+- `VoteAccount`: A vote account
 
 You can choose how to handle querying of specific account types. For example,
 you might _only_ want specifically any account that matches `MintAccount`.
@@ -660,15 +660,15 @@ queried by specific instruction types.
 
 Instructions for the following programs are supported.
 
--   Address Lookup Table
--   BPF Loader
--   BPF Upgradeable Loader
--   Stake
--   SPL Associated Token
--   SPL Memo
--   SPL Token
--   System
--   Vote
+- Address Lookup Table
+- BPF Loader
+- BPF Upgradeable Loader
+- Stake
+- SPL Associated Token
+- SPL Memo
+- SPL Token
+- System
+- Vote
 
 Additionally, the `GenericInstruction` type is the base parsed instruction type.
 
@@ -944,10 +944,10 @@ application the requested response.
 
 This results in four main benefits:
 
--   Caching
--   Request coalescing
--   Minimized network payloads
--   Batch loading
+- Caching
+- Request coalescing
+- Minimized network payloads
+- Batch loading
 
 ## Caching
 
@@ -1048,9 +1048,9 @@ In fact, the resolver will minimize bytes over the wire by only requesting the
 specific slice of the data that encompasses all requested data slices. In the
 above example, we've requested three ranges of data:
 
--   `0` - `8`
--   `8` - `16`
--   `16` - `24`
+- `0` - `8`
+- `8` - `16`
+- `16` - `24`
 
 If this account has a massive amount of data, fetching more than the query asks
 for would be wasteful. The resolver will only fetch `0` - `24` and slice the

@@ -44,9 +44,9 @@ This package offers a total of five different types of signers that may be used 
 
 They are separated into three categories:
 
--   **Partial signers**: Given a message or transaction, provide one or more signatures for it. These signers are not able to modify the given data which allows us to run many of them in parallel.
--   **Modifying signers**: Can choose to modify a message or transaction before signing it with zero or more private keys. Because modifying a message or transaction invalidates any pre-existing signatures over it, modifying signers must do their work before any other signer.
--   **Sending signers**: Given a transaction, signs it and sends it immediately to the blockchain. When applicable, the signer may also decide to modify the provided transaction before signing it. This interface accommodates wallets that simply cannot sign a transaction without sending it at the same time. This category of signers does not apply to regular messages.
+- **Partial signers**: Given a message or transaction, provide one or more signatures for it. These signers are not able to modify the given data which allows us to run many of them in parallel.
+- **Modifying signers**: Can choose to modify a message or transaction before signing it with zero or more private keys. Because modifying a message or transaction invalidates any pre-existing signatures over it, modifying signers must do their work before any other signer.
+- **Sending signers**: Given a transaction, signs it and sends it immediately to the blockchain. When applicable, the signer may also decide to modify the provided transaction before signing it. This interface accommodates wallets that simply cannot sign a transaction without sending it at the same time. This category of signers does not apply to regular messages.
 
 Thus, we end up with the following interfaces.
 
@@ -59,8 +59,8 @@ We will go through each of these five signer interfaces and their respective cha
 
 This package also provides the following concrete signer implementations:
 
--   The `KeyPairSigner` which uses a `CryptoKeyPair` to sign messages and transactions.
--   The Noop signer which does not sign anything and is mostly useful for testing purposes or for indicating that an account will be signed in a different environment (e.g. sending a transaction to your server so it can sign it).
+- The `KeyPairSigner` which uses a `CryptoKeyPair` to sign messages and transactions.
+- The Noop signer which does not sign anything and is mostly useful for testing purposes or for indicating that an account will be signed in a different environment (e.g. sending a transaction to your server so it can sign it).
 
 Additionally, this package allows transaction signers to be stored inside the account meta of an instruction. This allows us to create instructions by passing around signers instead of addresses when applicable which, in turn, allows us to sign an entire transaction automatically without having to scan through its instructions to find the required signers.
 
@@ -96,8 +96,8 @@ const myMessagePartialSigner: MessagePartialSigner<'1234..5678'> = {
 
 **Characteristics**:
 
--   **Parallel**. When multiple signers sign the same message, we can perform this operation in parallel to obtain all their signatures.
--   **Flexible order**. The order in which we use these signers for a given message doesn’t matter.
+- **Parallel**. When multiple signers sign the same message, we can perform this operation in parallel to obtain all their signatures.
+- **Flexible order**. The order in which we use these signers for a given message doesn’t matter.
 
 #### `MessageModifyingSigner<TAddress>`
 
@@ -114,9 +114,9 @@ const myMessageModifyingSigner: MessageModifyingSigner<'1234..5678'> = {
 
 **Characteristics**:
 
--   **Sequential**. Contrary to partial signers, these cannot be executed in parallel as each call can modify the content of the message.
--   **First signers**. For a given message, a modifying signer must always be used before a partial signer as the former will likely modify the message and thus impact the outcome of the latter.
--   **Potential conflicts**. If more than one modifying signer is provided, the second signer may invalidate the signature of the first one. However, modifying signers may decide not to modify a message based on the existence of signatures for that message.
+- **Sequential**. Contrary to partial signers, these cannot be executed in parallel as each call can modify the content of the message.
+- **First signers**. For a given message, a modifying signer must always be used before a partial signer as the former will likely modify the message and thus impact the outcome of the latter.
+- **Potential conflicts**. If more than one modifying signer is provided, the second signer may invalidate the signature of the first one. However, modifying signers may decide not to modify a message based on the existence of signatures for that message.
 
 #### `MessageSigner<TAddress>`
 
@@ -184,8 +184,8 @@ const myTransactionPartialSigner: TransactionPartialSigner<'1234..5678'> = {
 
 **Characteristics**:
 
--   **Parallel**. It returns a signature directory for each provided transaction without modifying them, making it possible for multiple partial signers to sign the same transaction in parallel.
--   **Flexible order**. The order in which we use these signers for a given transaction doesn’t matter.
+- **Parallel**. It returns a signature directory for each provided transaction without modifying them, making it possible for multiple partial signers to sign the same transaction in parallel.
+- **Flexible order**. The order in which we use these signers for a given transaction doesn’t matter.
 
 #### `TransactionModifyingSigner<TAddress>`
 
@@ -202,9 +202,9 @@ const myTransactionModifyingSigner: TransactionModifyingSigner<'1234..5678'> = {
 
 **Characteristics**:
 
--   **Sequential**. Contrary to partial signers, these cannot be executed in parallel as each call can modify the provided transactions.
--   **First signers**. For a given transaction, a modifying signer must always be used before a partial signer as the former will likely modify the transaction and thus impact the outcome of the latter.
--   **Potential conflicts**. If more than one modifying signer is provided, the second signer may invalidate the signature of the first one. However, modifying signers may decide not to modify a transaction based on the existence of signatures for that transaction.
+- **Sequential**. Contrary to partial signers, these cannot be executed in parallel as each call can modify the provided transactions.
+- **First signers**. For a given transaction, a modifying signer must always be used before a partial signer as the former will likely modify the transaction and thus impact the outcome of the latter.
+- **Potential conflicts**. If more than one modifying signer is provided, the second signer may invalidate the signature of the first one. However, modifying signers may decide not to modify a transaction based on the existence of signatures for that transaction.
 
 #### `TransactionSendingSigner<TAddress>`
 
@@ -223,10 +223,10 @@ const myTransactionSendingSigner: TransactionSendingSigner<'1234..5678'> = {
 
 **Characteristics**:
 
--   **Single signer**. Since this signer also sends the provided transactions, we can only use a single `TransactionSendingSigner` for a given set of transactions.
--   **Last signer**. Trivially, that signer must also be the last one used.
--   **Potential conflicts**. Since signers may decide to modify the given transactions before sending them, they may invalidate previous signatures. However, signers may decide not to modify a transaction based on the existence of signatures for that transaction.
--   **Potential confirmation**. Whilst this is not required by this interface, it is also worth noting that most wallets will also wait for the transaction to be confirmed (typically with a `confirmed` commitment) before notifying the app that they are done.
+- **Single signer**. Since this signer also sends the provided transactions, we can only use a single `TransactionSendingSigner` for a given set of transactions.
+- **Last signer**. Trivially, that signer must also be the last one used.
+- **Potential conflicts**. Since signers may decide to modify the given transactions before sending them, they may invalidate previous signatures. However, signers may decide not to modify a transaction based on the existence of signatures for that transaction.
+- **Potential confirmation**. Whilst this is not required by this interface, it is also worth noting that most wallets will also wait for the transaction to be confirmed (typically with a `confirmed` commitment) before notifying the app that they are done.
 
 #### `TransactionSigner<TAddress>`
 
@@ -369,8 +369,8 @@ For a given address, a Noop (No-Operation) signer can be created to offer an imp
 
 This signer may be useful:
 
--   For testing purposes.
--   For indicating that a given account is a signer and taking the responsibility to provide the signature for that account ourselves. For instance, if we need to send the transaction to a server that will sign it and send it for us.
+- For testing purposes.
+- For indicating that a given account is a signer and taking the responsibility to provide the signature for that account ourselves. For instance, if we need to send the transaction to a server that will sign it and send it for us.
 
 ### Types
 
@@ -484,9 +484,9 @@ const transactionSigners = getSignersFromTransactionMessage(myTransactionMessage
 
 Helper function that adds the provided signers to any of the applicable account metas. For an account meta to match a provided signer it:
 
--   Must have a signer role (`AccountRole.READONLY_SIGNER` or `AccountRole.WRITABLE_SIGNER`).
--   Must have the same address as the provided signer.
--   Must not have an attached signer already.
+- Must have a signer role (`AccountRole.READONLY_SIGNER` or `AccountRole.WRITABLE_SIGNER`).
+- Must have the same address as the provided signer.
+- Must not have an attached signer already.
 
 ```ts
 const myInstruction: IInstruction = {
@@ -572,9 +572,9 @@ Similarly to the `partiallySignTransactionMessageWithSigners` function, it first
 
 Here as well, composite transaction signers are treated such that at least one sending signer is used if any. When a `TransactionSigner` implements more than one interface, use it as a:
 
--   `TransactionSendingSigner`, if no other `TransactionSendingSigner` exists.
--   `TransactionModifyingSigner`, if no other `TransactionModifyingSigner` exists.
--   `TransactionPartialSigner`, otherwise.
+- `TransactionSendingSigner`, if no other `TransactionSendingSigner` exists.
+- `TransactionModifyingSigner`, if no other `TransactionModifyingSigner` exists.
+- `TransactionPartialSigner`, otherwise.
 
 The provided transaction must contain exactly one `TransactionSendingSigner` inside its account metas. If more than one composite signers implement the `TransactionSendingSigner` interface, one of them will be selected as the sending signer. Otherwise, if multiple `TransactionSendingSigners` must be selected, the function will throw an error.
 

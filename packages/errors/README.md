@@ -43,10 +43,10 @@ npx @solana/errors decode -- 123
 
 ## Removing an error message
 
--   Don't remove errors.
--   Don't change the meaning of an error message.
--   Don't change or reorder error codes.
--   Don't change or remove members of an error's context.
+- Don't remove errors.
+- Don't change the meaning of an error message.
+- Don't change or reorder error codes.
+- Don't change or remove members of an error's context.
 
 When an older client throws an error, we want to make sure that they can always decode the error. If you make any of the changes above, old clients will, by definition, not have received your changes. This could make the errors that they throw impossible to decode going forward.
 

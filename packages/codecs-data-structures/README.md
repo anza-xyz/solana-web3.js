@@ -35,9 +35,9 @@ getArrayCodec(getU8Codec()).encode([1, 2, 3]);
 
 However, you may use the `size` option to configure this behaviour. It can be one of the following three strategies:
 
--   `Codec<number>`: When a number codec is provided, that codec will be used to encode and decode the size prefix.
--   `number`: When a number is provided, the codec will expect a fixed number of items in the array. An error will be thrown when trying to encode an array of a different length.
--   `"remainder"`: When the string `"remainder"` is passed as a size, the codec will use the remainder of the bytes to encode/decode its items. This means the size is not stored or known in advance but simply inferred from the rest of the buffer. For instance, if we have an array of `u16` numbers and 10 bytes remaining, we know there are 5 items in this array.
+- `Codec<number>`: When a number codec is provided, that codec will be used to encode and decode the size prefix.
+- `number`: When a number is provided, the codec will expect a fixed number of items in the array. An error will be thrown when trying to encode an array of a different length.
+- `"remainder"`: When the string `"remainder"` is passed as a size, the codec will use the remainder of the bytes to encode/decode its items. This means the size is not stored or known in advance but simply inferred from the rest of the buffer. For instance, if we have an array of `u16` numbers and 10 bytes remaining, we know there are 5 items in this array.
 
 ```ts
 getArrayCodec(getU8Codec(), { size: getU16Codec() }).encode([1, 2, 3]);
@@ -310,9 +310,9 @@ const value = getLiteralUnionDecoder(['left', 'right']).decode(bytes); // 'left'
 
 In Rust, enums are powerful data types whose variants can be one of the following:
 
--   An empty variant — e.g. `enum Message { Quit }`.
--   A tuple variant — e.g. `enum Message { Write(String) }`.
--   A struct variant — e.g. `enum Message { Move { x: i32, y: i32 } }`.
+- An empty variant — e.g. `enum Message { Quit }`.
+- A tuple variant — e.g. `enum Message { Write(String) }`.
+- A struct variant — e.g. `enum Message { Move { x: i32, y: i32 } }`.
 
 Whilst we do not have such powerful enums in JavaScript, we can emulate them in TypeScript using a union of objects such that each object is differentiated by a specific field. **We call this a discriminated union**.
 
@@ -434,9 +434,9 @@ The `getUnionCodec` is a lower-lever codec helper that can be used to encode/dec
 
 It accepts the following arguments:
 
--   An array of codecs, each defining a variant of the union.
--   A `getIndexFromValue` function which, given a value of the union, returns the index of the codec that should be used to encode that value.
--   A `getIndexFromBytes` function which, given the byte array to decode at a given offset, returns the index of the codec that should be used to decode the next bytes.
+- An array of codecs, each defining a variant of the union.
+- A `getIndexFromValue` function which, given a value of the union, returns the index of the codec that should be used to encode that value.
+- A `getIndexFromBytes` function which, given the byte array to decode at a given offset, returns the index of the codec that should be used to decode the next bytes.
 
 ```ts
 const codec: Codec<number | boolean> = getUnionCodec(

@@ -100,16 +100,16 @@ Creates a `RpcTransport` with some default behaviours.
 
 The default behaviours include:
 
--   An automatically-set `Solana-Client` request header, containing the version of `@solana/web3.js`
--   Logic that coalesces multiple calls in the same runloop, for the same methods with the same arguments, into a single network request.
+- An automatically-set `Solana-Client` request header, containing the version of `@solana/web3.js`
+- Logic that coalesces multiple calls in the same runloop, for the same methods with the same arguments, into a single network request.
 
 #### Arguments
 
 A config object with the following properties:
 
--   `dispatcher_NODE_ONLY`: An optional `Undici.Dispatcher` instance that governs how the networking stack should behave. This option is only relevant in Node applications. Consult the documentation for the various subclasses of `Undici.Dispatcher`, such as `Agent`, `Client`, and `Pool`, at https://undici.nodejs.org/#/docs/api/Client.
--   `headers`: An optional object where the keys are HTTP header names and the values are HTTP header values. This parameter is typed to disallow certain headers from being overwritten.
--   `url`: A `ClusterUrl` at which the RPC server can be contacted.
+- `dispatcher_NODE_ONLY`: An optional `Undici.Dispatcher` instance that governs how the networking stack should behave. This option is only relevant in Node applications. Consult the documentation for the various subclasses of `Undici.Dispatcher`, such as `Agent`, `Client`, and `Pool`, at https://undici.nodejs.org/#/docs/api/Client.
+- `headers`: An optional object where the keys are HTTP header names and the values are HTTP header values. This parameter is typed to disallow certain headers from being overwritten.
+- `url`: A `ClusterUrl` at which the RPC server can be contacted.
 
 ### `createSolanaRpc(clusterUrl, config)`
 

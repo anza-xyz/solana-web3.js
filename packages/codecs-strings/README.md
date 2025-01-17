@@ -21,8 +21,8 @@ The `@solana/codecs-strings` package offers a variety of string codecs such as `
 
 By default, all available string codecs will return a `VariableSizeCodec<string>` meaning that:
 
--   When encoding a string, all bytes necessary to encode the string will be used.
--   When decoding a byte array at a given offset, all bytes starting from that offset will be decoded as a string.
+- When encoding a string, all bytes necessary to encode the string will be used.
+- When decoding a byte array at a given offset, all bytes starting from that offset will be decoded as a string.
 
 For instance, here's how you can encode/decode `utf8` strings without any size boundary:
 

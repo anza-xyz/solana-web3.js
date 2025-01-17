@@ -52,22 +52,22 @@ This type allows an `RpcApi` to describe how a particular request should be issu
 
 This function accepts an `RpcTransport` and an `AbortSignal` and asynchronously returns an `RpcResponse`. This gives us the opportunity to:
 
--   define the `payload` from the requested method name and parameters before passing it to the transport.
--   call the underlying transport zero, one or multiple times depending on the use-case (e.g. caching or aggregating multiple responses).
--   transform the response from the JSON RPC server, in case it does not match the `TResponse` specified by the `PendingRpcRequest<TResponse>` returned from that function.
+- define the `payload` from the requested method name and parameters before passing it to the transport.
+- call the underlying transport zero, one or multiple times depending on the use-case (e.g. caching or aggregating multiple responses).
+- transform the response from the JSON RPC server, in case it does not match the `TResponse` specified by the `PendingRpcRequest<TResponse>` returned from that function.
 
 ### `RpcSendOptions`
 
 A configuration object consisting of the following properties:
 
--   `abortSignal`: An optional signal that you can supply when triggering a `PendingRpcRequest` that you might later need to abort.
+- `abortSignal`: An optional signal that you can supply when triggering a `PendingRpcRequest` that you might later need to abort.
 
 ### `RpcTransport`
 
 Any function that implements this interface can act as a transport for an `Rpc`. It need only return a promise for a response given the following config:
 
--   `payload`: A value of arbitrary type to be sent.
--   `signal`: An optional `AbortSignal` on which the `'abort'` event will be fired if the request should be cancelled.
+- `payload`: A value of arbitrary type to be sent.
+- `signal`: An optional `AbortSignal` on which the `'abort'` event will be fired if the request should be cancelled.
 
 ## Functions
 
@@ -79,15 +79,15 @@ Creates an RPC instance given an `RpcApi<TRpcMethods>` and a `RpcTransport` capa
 
 A config object with the following properties:
 
--   `api`: An instance of `RpcApi`
--   `transport`: A function that implements the `RpcTransport` interface
+- `api`: An instance of `RpcApi`
+- `transport`: A function that implements the `RpcTransport` interface
 
 ### `createJsonRpcApi(config)`
 
 Creates a JavaScript proxy that converts _any_ function call called on it to a `RpcPlan` by creating an `execute` function that:
 
--   sets the transport payload to a JSON RPC v2 payload object with the requested `methodName` and `params` properties, optionally transformed by `config.requestTransformer`.
--   transforms the transport's response using the `config.responseTransformer` function, if provided.
+- sets the transport payload to a JSON RPC v2 payload object with the requested `methodName` and `params` properties, optionally transformed by `config.requestTransformer`.
+- transforms the transport's response using the `config.responseTransformer` function, if provided.
 
 ```ts
 // For example, given this `RpcApi`:
@@ -108,16 +108,16 @@ rpcApi.foo('bar', { baz: 'bat' });
 
 A config object with the following properties:
 
--   `requestTransformer<T>(request: RpcRequest<T>): RpcRequest`: An optional function that transforms the `RpcRequest` before it is sent to the JSON RPC server.
--   `responseTransformer<T>(response: RpcResponse, request: RpcRequest): RpcResponse<T>`: An optional function that transforms the `RpcResponse` before it is returned to the caller.
+- `requestTransformer<T>(request: RpcRequest<T>): RpcRequest`: An optional function that transforms the `RpcRequest` before it is sent to the JSON RPC server.
+- `responseTransformer<T>(response: RpcResponse, request: RpcRequest): RpcResponse<T>`: An optional function that transforms the `RpcResponse` before it is returned to the caller.
 
 ### `isJsonRpcPayload(payload)`
 
 A helper function that returns `true` if the given payload is a JSON RPC v2 payload. This means, the payload is an object such that:
 
--   It has a `jsonrpc` property with a value of `'2.0'`.
--   It has a `method` property that is a string.
--   It has a `params` property of any type.
+- It has a `jsonrpc` property with a value of `'2.0'`.
+- It has a `method` property that is a string.
+- It has a `params` property of any type.
 
 ```ts
 import { isJsonRpcPayload } from '@solana/rpc-spec';

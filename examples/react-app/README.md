@@ -4,10 +4,10 @@ This is an example of how to use `@solana/web3.js` and `@solana/react` to build 
 
 ## Features
 
--   Connects to browser wallets that support the Wallet Standard; one or more at a time
--   Fetches and subscribes to the balance of the selected wallet
--   Allows you to sign an arbitrary message using a wallet account
--   Allows you to make a transfer from the selected wallet to any other connected wallet
+- Connects to browser wallets that support the Wallet Standard; one or more at a time
+- Fetches and subscribes to the balance of the selected wallet
+- Allows you to sign an arbitrary message using a wallet account
+- Allows you to make a transfer from the selected wallet to any other connected wallet
 
 ## Developing
 

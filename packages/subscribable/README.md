@@ -75,11 +75,11 @@ try {
 
 Things to note:
 
--   If a message is published over a channel before the `AsyncIterator` attached to it has polled for the next result, the message will be queued in memory.
--   Messages only begin to be queued after the first time an iterator begins to poll. Channel messages published before that time will be dropped.
--   If there are messages in the queue and an error occurs, all queued messages will be vended to the iterator before the error is thrown.
--   If there are messages in the queue and the abort signal fires, all queued messages will be vended to the iterator after which it will return.
--   Any new iterators created after the first error is encountered will reject with that error when polled.
+- If a message is published over a channel before the `AsyncIterator` attached to it has polled for the next result, the message will be queued in memory.
+- Messages only begin to be queued after the first time an iterator begins to poll. Channel messages published before that time will be dropped.
+- If there are messages in the queue and an error occurs, all queued messages will be vended to the iterator before the error is thrown.
+- If there are messages in the queue and the abort signal fires, all queued messages will be vended to the iterator after which it will return.
+- Any new iterators created after the first error is encountered will reject with that error when polled.
 
 ### `demultiplexDataPublisher(publisher, sourceChannelName, messageTransformer)`
 

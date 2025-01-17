@@ -19,8 +19,8 @@ This package contains core types that can be used on both RPC and RPC Subscripti
 
 An object that describes the elements of an RPC or RPC Subscriptions request. It consists of the following properties:
 
--   `methodName`: The name of the RPC method or subscription requested.
--   `params`: The parameters to be passed to the RPC server.
+- `methodName`: The name of the RPC method or subscription requested.
+- `params`: The parameters to be passed to the RPC server.
 
 ### `RpcRequestTransformer`
 
