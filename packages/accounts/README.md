@@ -20,7 +20,7 @@ Helper functions are provided for fetching, parsing and decoding accounts as wel
 ```ts
 // Fetch.
 const myAddress = address('1234..5678');
-const myAccount = fetchAccount(rpc, myAddress);
+const myAccount = await fetchEncodedAccount(rpc, myAddress);
 myAccount satisfies MaybeEncodedAccount<'1234..5678'>;
 
 // Assert.
