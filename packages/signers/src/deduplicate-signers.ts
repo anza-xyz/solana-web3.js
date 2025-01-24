@@ -4,7 +4,13 @@ import { SOLANA_ERROR__SIGNER__ADDRESS_CANNOT_HAVE_MULTIPLE_SIGNERS, SolanaError
 import { MessageSigner } from './message-signer';
 import { TransactionSigner } from './transaction-signer';
 
-/** Removes all duplicated signers from a provided array by comparing their addresses. */
+/**
+ * Removes all duplicated {@link MessageSigner | MessageSigners} and
+ * {@link TransactionSigner | TransactionSigners} from a provided array
+ * by comparing their {@link Address | addresses}.
+ *
+ * @internal
+ */
 export function deduplicateSigners<TSigner extends MessageSigner | TransactionSigner>(
     signers: readonly TSigner[],
 ): readonly TSigner[] {

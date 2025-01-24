@@ -10,12 +10,57 @@ import { isTransactionModifyingSigner } from './transaction-modifying-signer';
 import { isTransactionPartialSigner } from './transaction-partial-signer';
 import { isTransactionSendingSigner } from './transaction-sending-signer';
 
-/** Defines a transaction message with exactly one {@link TransactionSendingSigner}. */
+/**
+ * Defines a transaction message with exactly one {@link TransactionSendingSigner}.
+ *
+ * This type is used to narrow the type of transaction messages that have been
+ * checked to have exactly one sending signer.
+ *
+ * @example
+ * ```ts
+ * import { assertIsTransactionMessageWithSingleSendingSigner } from '@solana/signers';
+ *
+ * assertIsTransactionMessageWithSingleSendingSigner(transactionMessage);
+ * transactionMessage satisfies ITransactionMessageWithSingleSendingSigner;
+ * ```
+ *
+ * @see {@link isTransactionMessageWithSingleSendingSigner}
+ * @see {@link assertIsTransactionMessageWithSingleSendingSigner}
+ */
 export type ITransactionMessageWithSingleSendingSigner = ITransactionMessageWithSigners & {
     readonly __transactionWithSingleSendingSigner: unique symbol;
 };
 
-/** Checks whether the provided transaction has exactly one {@link TransactionSendingSigner}. */
+/**
+ * Checks whether the provided transaction has exactly one {@link TransactionSendingSigner}.
+ *
+ * This can be useful when using {@link signAndSendTransactionMessageWithSigners} to provide
+ * a fallback strategy in case the transaction message cannot be send using this function.
+ *
+ * @typeParam TTransactionMessage - The inferred type of the transaction message provided.
+ *
+ * @example
+ * ```ts
+ * import {
+ *     isTransactionMessageWithSingleSendingSigner,
+ *     signAndSendTransactionMessageWithSigners,
+ *     signTransactionMessageWithSigners,
+ * } from '@solana/signers';
+ * import { getBase64EncodedWireTransaction } from '@solana/transactions';
+ *
+ * let transactionSignature: SignatureBytes;
+ * if (isTransactionMessageWithSingleSendingSigner(transactionMessage)) {
+ *     transactionSignature = await signAndSendTransactionMessageWithSigners(transactionMessage);
+ * } else {
+ *     const signedTransaction = await signTransactionMessageWithSigners(transactionMessage);
+ *     const encodedTransaction = getBase64EncodedWireTransaction(signedTransaction);
+ *     transactionSignature = await rpc.sendTransaction(encodedTransaction).send();
+ * }
+ * ```
+ *
+ * @see {@link signAndSendTransactionMessageWithSigners}
+ * @see {@link assertIsTransactionMessageWithSingleSendingSigner}
+ */
 export function isTransactionMessageWithSingleSendingSigner<TTransactionMessage extends CompilableTransactionMessage>(
     transaction: TTransactionMessage,
 ): transaction is ITransactionMessageWithSingleSendingSigner & TTransactionMessage {
@@ -27,7 +72,28 @@ export function isTransactionMessageWithSingleSendingSigner<TTransactionMessage 
     }
 }
 
-/** Asserts that the provided transaction has exactly one {@link TransactionSendingSigner}. */
+/**
+ * Asserts that the provided transaction message has exactly one {@link TransactionSendingSigner}.
+ *
+ * This can be useful when using the {@link signAndSendTransactionMessageWithSigners} function
+ * to ensure it will be able to select the correct signer to send the transaction.
+ *
+ * @typeParam TTransactionMessage - The inferred type of the transaction message provided.
+ *
+ * @example
+ * ```ts
+ * import {
+ *     assertIsTransactionMessageWithSingleSendingSigner,
+ *     signAndSendTransactionMessageWithSigners
+ * } from '@solana/signers';
+ *
+ * assertIsTransactionMessageWithSingleSendingSigner(transactionMessage);
+ * const transactionSignature = await signAndSendTransactionMessageWithSigners(transactionMessage);
+ * ```
+ *
+ * @see {@link signAndSendTransactionMessageWithSigners}
+ * @see {@link isTransactionMessageWithSingleSendingSigner}
+ */
 export function assertIsTransactionMessageWithSingleSendingSigner<
     TTransactionMessage extends CompilableTransactionMessage,
 >(

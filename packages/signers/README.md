@@ -326,7 +326,7 @@ const keypairFile = fs.readFileSync('~/.config/solana/id.json');
 const keypairBytes = new Uint8Array(JSON.parse(keypairFile.toString()));
 
 // Create a KeyPairSigner from the bytes.
-const { privateKey, publicKey } = await createKeyPairSignerFromBytes(keypairBytes);
+const signer = await createKeyPairSignerFromBytes(keypairBytes);
 ```
 
 #### `createKeyPairSignerFromPrivateKeyBytes()`
