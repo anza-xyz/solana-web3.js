@@ -91,10 +91,6 @@
             "env": ["REACT_EXAMPLE_APP_BASE_PATH", "REACT_EXAMPLE_APP_ENABLE_MAINNET"],
             "inputs": ["$TURBO_DEFAULT$", "index.html", "tsconfig.*", "vite.config.ts", "public/**", "src/**"],
             "outputs": ["dist/**"]
-        },
-        "//#compile:ghpages": {
-            "dependsOn": ["^compile:typedefs", "@solana/example-react-app#compile:js"],
-            "outputs": ["docs/**", "examples/react-app/dist"]
         }
     },
     "ui": "stream"
