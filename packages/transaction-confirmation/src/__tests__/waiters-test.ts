@@ -65,7 +65,7 @@ describe('waitForDurableNonceTransactionConfirmation', () => {
     });
     it('calls the abort signal passed to `getBlockHeightExceededPromise` when aborted', () => {
         const handleAbortOnBlockHeightExceedencePromise = jest.fn();
-        getNonceInvalidationPromise.mockImplementation(async ({ abortSignal }) => {
+        getNonceInvalidationPromise.mockImplementation(async ({ abortSignal }: { abortSignal: AbortSignal }) => {
             abortSignal.addEventListener('abort', handleAbortOnBlockHeightExceedencePromise);
             await FOREVER_PROMISE;
         });
@@ -82,7 +82,7 @@ describe('waitForDurableNonceTransactionConfirmation', () => {
     });
     it('calls the abort signal passed to `getRecentSignatureConfirmationPromise` when aborted', () => {
         const handleAbortOnSignatureConfirmationPromise = jest.fn();
-        getRecentSignatureConfirmationPromise.mockImplementation(async ({ abortSignal }) => {
+        getRecentSignatureConfirmationPromise.mockImplementation(async ({ abortSignal }: { abortSignal: AbortSignal }) => {
             abortSignal.addEventListener('abort', handleAbortOnSignatureConfirmationPromise);
             await FOREVER_PROMISE;
         });
@@ -284,7 +284,7 @@ describe('waitForRecentTransactionConfirmation', () => {
     });
     it('calls the abort signal passed to `getBlockHeightExceededPromise` when aborted', () => {
         const handleAbortOnBlockHeightExceedencePromise = jest.fn();
-        getBlockHeightExceedencePromise.mockImplementation(async ({ abortSignal }) => {
+        getBlockHeightExceedencePromise.mockImplementation(async ({ abortSignal }: { abortSignal: AbortSignal }) => {
             abortSignal.addEventListener('abort', handleAbortOnBlockHeightExceedencePromise);
             await FOREVER_PROMISE;
         });
@@ -301,7 +301,7 @@ describe('waitForRecentTransactionConfirmation', () => {
     });
     it('calls the abort signal passed to `getRecentSignatureConfirmationPromise` when aborted', () => {
         const handleAbortOnSignatureConfirmationPromise = jest.fn();
-        getRecentSignatureConfirmationPromise.mockImplementation(async ({ abortSignal }) => {
+        getRecentSignatureConfirmationPromise.mockImplementation(async ({ abortSignal }: { abortSignal: AbortSignal }) => {
             abortSignal.addEventListener('abort', handleAbortOnSignatureConfirmationPromise);
             await FOREVER_PROMISE;
         });
@@ -405,7 +405,7 @@ describe('waitForRecentTransactionConfirmationUntilTimeout', () => {
     });
     it('calls the abort signal passed to `getTimeoutPromise` when aborted', () => {
         const handleAbortOnTimeoutPromise = jest.fn();
-        getTimeoutPromise.mockImplementation(async ({ abortSignal }) => {
+        getTimeoutPromise.mockImplementation(async ({ abortSignal }: { abortSignal: AbortSignal }) => {
             abortSignal.addEventListener('abort', handleAbortOnTimeoutPromise);
             await FOREVER_PROMISE;
         });
@@ -422,7 +422,7 @@ describe('waitForRecentTransactionConfirmationUntilTimeout', () => {
     });
     it('calls the abort signal passed to `getRecentSignatureConfirmationPromise` when aborted', () => {
         const handleAbortOnSignatureConfirmationPromise = jest.fn();
-        getRecentSignatureConfirmationPromise.mockImplementation(async ({ abortSignal }) => {
+        getRecentSignatureConfirmationPromise.mockImplementation(async ({ abortSignal }: { abortSignal: AbortSignal }) => {
             abortSignal.addEventListener('abort', handleAbortOnSignatureConfirmationPromise);
             await FOREVER_PROMISE;
         });

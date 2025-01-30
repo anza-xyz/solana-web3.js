@@ -130,6 +130,7 @@ describe('getRpcSubscriptionsTransportWithSubscriptionCoalescing', () => {
         coalescedTransport({ ...config, signal: abortControllerB.signal }).catch(() => {});
         abortControllerB.abort();
         jest.runAllTicks();
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         expect(mockInnerTransport.mock.lastCall?.[0].signal).toHaveProperty('aborted', false);
     });
     it('fires the inner abort signal if all subscribers abort, in the same runloop', () => {
@@ -145,6 +146,7 @@ describe('getRpcSubscriptionsTransportWithSubscriptionCoalescing', () => {
         abortControllerA.abort();
         abortControllerB.abort();
         jest.runAllTicks();
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         expect(mockInnerTransport.mock.lastCall?.[0].signal).toHaveProperty('aborted', true);
     });
     it('fires the inner abort signal if all subscribers abort, in different runloops', async () => {
@@ -162,6 +164,7 @@ describe('getRpcSubscriptionsTransportWithSubscriptionCoalescing', () => {
         abortControllerA.abort();
         abortControllerB.abort();
         jest.runAllTicks();
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         expect(mockInnerTransport.mock.lastCall?.[0].signal).toHaveProperty('aborted', true);
     });
     it('does not fire the inner abort signal if the subscriber count is non zero at the end of the runloop, despite having aborted all in the middle of it', () => {
@@ -174,6 +177,7 @@ describe('getRpcSubscriptionsTransportWithSubscriptionCoalescing', () => {
         abortControllerA.abort();
         coalescedTransport({ ...config, signal: new AbortController().signal }).catch(() => {});
         jest.runAllTicks();
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         expect(mockInnerTransport.mock.lastCall?.[0].signal).toHaveProperty('aborted', false);
     });
     it('does not re-coalesce new requests behind an errored transport', async () => {

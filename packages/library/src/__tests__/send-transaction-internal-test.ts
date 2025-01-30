@@ -156,6 +156,7 @@ describe('sendAndConfirmTransaction', () => {
             rpc,
             transaction: MOCK_TRANSACTION,
         }).catch(() => {});
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         expect(createPendingRequest.mock.lastCall![1]).not.toHaveProperty('preflightCommitment');
     });
     it('returns the signature of the transaction', async () => {
@@ -311,6 +312,7 @@ describe('sendAndConfirmDurableNonceTransaction', () => {
             rpc,
             transaction: MOCK_DURABLE_NONCE_TRANSACTION,
         }).catch(() => {});
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         expect(createPendingRequest.mock.lastCall![1]).not.toHaveProperty('preflightCommitment');
     });
     it('returns the signature of the transaction', async () => {

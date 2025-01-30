@@ -50,13 +50,17 @@ export function sliceData(
             return codec.decode(codec.encode(data).slice(trueOffset, trueOffset + length));
         };
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (Array.isArray(account.data)) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             const [data, encoding] = account.data;
             return {
                 ...account,
                 data: [slicedData(data, encoding), encoding],
             };
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         } else if (typeof account.data === 'string') {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             const data = account.data;
             return {
                 ...account,

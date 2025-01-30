@@ -32,6 +32,7 @@ export function mapJsonParsedInstructions(instructions: readonly any[]): Instruc
     return instructions.map(instruction => {
         if ('parsed' in instruction) {
             // `jsonParsed`
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             if (typeof instruction.parsed === 'string' && instruction.program === 'spl-memo') {
                 const { parsed: memo, program: programName, programId } = instruction;
                 const instructionType = 'memo';

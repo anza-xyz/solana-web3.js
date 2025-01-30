@@ -40,6 +40,7 @@ const hashOmit = <TArgs extends object>(args: TArgs, omit: (keyof TArgs)[]) => {
     const argsObj: any = {};
     for (const [key, value] of Object.entries(args)) {
         if (!omit.includes(key as keyof TArgs)) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             argsObj[key] = value;
         }
     }
