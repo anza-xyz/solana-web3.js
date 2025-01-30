@@ -104,16 +104,16 @@ type ParsedTransactionInstruction = Readonly<{
     stackHeight?: number;
 }>;
 
+type ParsedAccount = Readonly<{
+    pubkey: Address;
+    signer: boolean;
+    source: 'lookupTable' | 'transaction';
+    writable: boolean;
+}>;
+
 type TransactionJsonParsed = Readonly<{
     message: {
-        accountKeys: [
-            {
-                pubkey: Address;
-                signer: boolean;
-                source: string;
-                writable: boolean;
-            },
-        ];
+        accountKeys: readonly ParsedAccount[];
         instructions: readonly (ParsedTransactionInstruction | PartiallyDecodedTransactionInstruction)[];
     };
 }> &
