@@ -42,10 +42,6 @@ An object that exposes all of the functions described by `TRpcMethods`, and fulf
 
 For each of `TRpcMethods` this object exposes a method with the same name that maps between its input arguments and a `RpcPlan<TResponse>` that describes how to prepare a JSON RPC request to fetch `TResponse`.
 
-### `RpcApiMethods`
-
-This is a marker interface that all RPC method definitions must extend to be accepted for use with the `RpcApi` creator.
-
 ### `RpcPlan`
 
 This type allows an `RpcApi` to describe how a particular request should be issued to the JSON RPC server. Given a function that was called on a `Rpc`, this object returns an `execute` function that dictates which request will be sent, how the underlying transport will be used and how the responses will be transformed.

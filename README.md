@@ -397,8 +397,6 @@ This means the library can support future additions to the official [Solana JSON
 Here’s an example of how a developer at might build a custom RPC type-spec for an RPC provider's implementation of the Metaplex Digital Asset Standard's `getAsset` method:
 
 ```ts
-import { RpcApiMethods } from '@solana/web3.js';
-
 // Define the method's response payload.
 type GetAssetApiResponse = Readonly<{
     interface: DasApiAssetInterface;
