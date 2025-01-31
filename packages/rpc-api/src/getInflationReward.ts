@@ -28,7 +28,7 @@ type GetInflationRewardApiResponse = readonly (InflationReward | null)[];
 
 export type GetInflationRewardApi = {
     /**
-     * Returns the current block height of the node
+     * Returns the inflation / staking reward for a list of addresses for an epoch
      */
     getInflationReward(addresses: Address[], config?: GetInflationRewardApiConfig): GetInflationRewardApiResponse;
 };
