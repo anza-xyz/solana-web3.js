@@ -15,20 +15,12 @@ pull_request_rules:
   - name: Automatic merge (squash) on CI success
     conditions:
       - and:
-          - or:
-              - and:
-                  - base=maintenance/v1.x
-                  - and:
-                      - status-success~=^Lint, Build, and Test
-                      - status-success="Validate commit message"
-              - and:
-                  - base!=maintenance/v1.x
-                  - status-success=all-web3-checks
+          - status-success=all-web3-checks
           - label=automerge
           - label!=no-automerge
     actions:
-      merge:
-        method: squash
+      queue:
+        name: default
   - name: Remove automerge label on CI failure
     conditions:
       - label=automerge
