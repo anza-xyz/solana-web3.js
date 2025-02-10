@@ -363,7 +363,7 @@ The `addCodecSizePrefix` function allows you to store the byte size of any codec
 
 When encoding, the size of the encoded data is stored before the encoded data itself. When decoding, the size is read first to know how many bytes to read next.
 
-For example, say we want to represent a variable-size base-58 string using a `u32` size prefix — the equivalent of a Borsh `String` in Rust. Here’s how you can use the `addCodecSizePrefix` function to achieve that.
+For example, say we want to represent a variable-size base-58 string using a `u32` size prefix. Here’s how you can use the `addCodecSizePrefix` function to achieve that.
 
 ```ts
 const getU32Base58Codec = () => addCodecSizePrefix(getBase58Codec(), getU32Codec());

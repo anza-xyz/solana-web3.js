@@ -16,7 +16,31 @@ import {
 import { ReadonlyUint8Array } from './readonly-uint8array';
 
 /**
- * Converts an encoder A to a encoder B by mapping their values.
+ * Transforms an encoder by mapping its input values.
+ *
+ * This function takes an existing `Encoder<A>` and returns an `Encoder<B>`, allowing values of type `B`
+ * to be converted into values of type `A` before encoding. The transformation is applied via the `unmap` function.
+ *
+ * This is useful for handling type conversions, applying default values, or structuring data before encoding.
+ *
+ * For more details, see {@link transformCodec}.
+ *
+ * @typeParam TOldFrom - The original type expected by the encoder.
+ * @typeParam TNewFrom - The new type that will be transformed before encoding.
+ *
+ * @param encoder - The encoder to transform.
+ * @param unmap - A function that converts values of `TNewFrom` into `TOldFrom` before encoding.
+ * @returns A new encoder that accepts `TNewFrom` values and transforms them before encoding.
+ *
+ * @example
+ * Encoding a string by counting its characters and storing the length as a `u32`.
+ * ```ts
+ * const encoder = transformEncoder(getU32Encoder(), (value: string) => value.length);
+ * encoder.encode("hello"); // 0x05000000 (stores length 5)
+ * ```
+ *
+ * @see {@link transformCodec}
+ * @see {@link transformDecoder}
  */
 export function transformEncoder<TOldFrom, TNewFrom, TSize extends number>(
     encoder: FixedSizeEncoder<TOldFrom, TSize>,
@@ -43,7 +67,31 @@ export function transformEncoder<TOldFrom, TNewFrom>(
 }
 
 /**
- * Converts an decoder A to a decoder B by mapping their values.
+ * Transforms a decoder by mapping its output values.
+ *
+ * This function takes an existing `Decoder<A>` and returns a `Decoder<B>`, allowing values of type `A`
+ * to be converted into values of type `B` after decoding. The transformation is applied via the `map` function.
+ *
+ * This is useful for post-processing, type conversions, or enriching decoded data.
+ *
+ * For more details, see {@link transformCodec}.
+ *
+ * @typeParam TOldTo - The original type returned by the decoder.
+ * @typeParam TNewTo - The new type that will be transformed after decoding.
+ *
+ * @param decoder - The decoder to transform.
+ * @param map - A function that converts values of `TOldTo` into `TNewTo` after decoding.
+ * @returns A new decoder that decodes into `TNewTo`.
+ *
+ * @example
+ * Decoding a stored `u32` length into a string of `'x'` characters.
+ * ```ts
+ * const decoder = transformDecoder(getU32Decoder(), (length) => 'x'.repeat(length));
+ * decoder.decode(new Uint8Array([0x05, 0x00, 0x00, 0x00])); // "xxxxx"
+ * ```
+ *
+ * @see {@link transformCodec}
+ * @see {@link transformEncoder}
  */
 export function transformDecoder<TOldTo, TNewTo, TSize extends number>(
     decoder: FixedSizeDecoder<TOldTo, TSize>,
@@ -71,7 +119,49 @@ export function transformDecoder<TOldTo, TNewTo>(
 }
 
 /**
- * Converts a codec A to a codec B by mapping their values.
+ * Transforms a codec by mapping its input and output values.
+ *
+ * This function takes an existing `Codec<A, B>` and returns a `Codec<C, D>`, allowing:
+ * - Values of type `C` to be transformed into `A` before encoding.
+ * - Values of type `B` to be transformed into `D` after decoding.
+ *
+ * This is useful for adapting codecs to work with different representations, handling default values, or
+ * converting between primitive and structured types.
+ *
+ * @typeParam TOldFrom - The original type expected by the codec.
+ * @typeParam TNewFrom - The new type that will be transformed before encoding.
+ * @typeParam TOldTo - The original type returned by the codec.
+ * @typeParam TNewTo - The new type that will be transformed after decoding.
+ *
+ * @param codec - The codec to transform.
+ * @param unmap - A function that converts values of `TNewFrom` into `TOldFrom` before encoding.
+ * @param map - A function that converts values of `TOldTo` into `TNewTo` after decoding (optional).
+ * @returns A new codec that encodes `TNewFrom` and decodes into `TNewTo`.
+ *
+ * @example
+ * Mapping a `u32` codec to encode string lengths and decode them into `'x'` characters.
+ * ```ts
+ * const codec = transformCodec(
+ *     getU32Codec(),
+ *     (value: string) => value.length, // Encode string length
+ *     (length) => 'x'.repeat(length)  // Decode length into a string of 'x's
+ * );
+ *
+ * const bytes = codec.encode("hello"); // 0x05000000 (stores length 5)
+ * const value = codec.decode(bytes);   // "xxxxx"
+ * ```
+ *
+ * @remarks
+ * If only input transformation is needed, use {@link transformEncoder}.
+ * If only output transformation is needed, use {@link transformDecoder}.
+ *
+ * ```ts
+ * const bytes = transformEncoder(getU32Encoder(), (value: string) => value.length).encode("hello");
+ * const value = transformDecoder(getU32Decoder(), (length) => 'x'.repeat(length)).decode(bytes);
+ * ```
+ *
+ * @see {@link transformEncoder}
+ * @see {@link transformDecoder}
  */
 export function transformCodec<TOldFrom, TNewFrom, TTo extends TNewFrom & TOldFrom, TSize extends number>(
     codec: FixedSizeCodec<TOldFrom, TTo, TSize>,
