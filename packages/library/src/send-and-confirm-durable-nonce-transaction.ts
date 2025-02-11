@@ -1,3 +1,4 @@
+import type { Signature } from '@solana/keys';
 import type { GetAccountInfoApi, GetSignatureStatusesApi, Rpc, SendTransactionApi } from '@solana/rpc';
 import type { AccountNotificationsApi, RpcSubscriptions, SignatureNotificationsApi } from '@solana/rpc-subscriptions';
 import {
@@ -8,7 +9,6 @@ import {
 import { FullySignedTransaction, TransactionWithDurableNonceLifetime } from '@solana/transactions';
 
 import { sendAndConfirmDurableNonceTransaction_INTERNAL_ONLY_DO_NOT_EXPORT } from './send-transaction-internal';
-import type { Signature } from '@solana/keys';
 
 type SendAndConfirmDurableNonceTransactionFunction = (
     transaction: FullySignedTransaction & TransactionWithDurableNonceLifetime,

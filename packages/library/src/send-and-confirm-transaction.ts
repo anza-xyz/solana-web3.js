@@ -1,3 +1,4 @@
+import type { Signature } from '@solana/keys';
 import type { GetEpochInfoApi, GetSignatureStatusesApi, Rpc, SendTransactionApi } from '@solana/rpc';
 import type { RpcSubscriptions, SignatureNotificationsApi, SlotNotificationsApi } from '@solana/rpc-subscriptions';
 import {
@@ -8,7 +9,6 @@ import {
 import { FullySignedTransaction, TransactionWithBlockhashLifetime } from '@solana/transactions';
 
 import { sendAndConfirmTransactionWithBlockhashLifetime_INTERNAL_ONLY_DO_NOT_EXPORT } from './send-transaction-internal';
-import type { Signature } from '@solana/keys';
 
 type SendAndConfirmTransactionWithBlockhashLifetimeFunction = (
     transaction: FullySignedTransaction & TransactionWithBlockhashLifetime,
