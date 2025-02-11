@@ -1,3 +1,13 @@
+/**
+ * This package contains codecs for numbers of different sizes and endianness.
+ * It can be used standalone, but it is also exported as part of the Solana JavaScript SDK
+ * [`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
+ *
+ * This package is also part of the [`@solana/codecs` package](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs)
+ * which acts as an entry point for all codec packages as well as for their documentation.
+ *
+ * @packageDocumentation
+ */
 export * from './assertions';
 export * from './common';
 export * from './f32';
