@@ -34,37 +34,39 @@ import { getTupleDecoder, getTupleEncoder } from './tuple';
 import { getUnionDecoder, getUnionEncoder } from './union';
 import { getUnitDecoder, getUnitEncoder } from './unit';
 
-/** Defines the config for nullable codecs. */
+/**
+ * Defines the configuration options for nullable codecs.
+ *
+ * This configuration controls how nullable values are encoded and decoded.
+ *
+ * By default, nullable values are prefixed with a `u8` (0 = `null`, 1 = present).
+ * The `noneValue` and `prefix` options allow customizing this behavior.
+ *
+ * @typeParam TPrefix - A number codec, encoder, or decoder used as the presence prefix.
+ *
+ * @see {@link getNullableEncoder}
+ * @see {@link getNullableDecoder}
+ * @see {@link getNullableCodec}
+ */
 export type NullableCodecConfig<TPrefix extends NumberCodec | NumberDecoder | NumberEncoder> = {
     /**
-     * Defines how the `None` (or `null`) value should be represented.
+     * Specifies how `null` values are represented in the encoded data.
      *
-     * By default, no none value is used. This means a `null` value will be
-     * represented by the absence of the item.
+     * - By default, `null` values are omitted from encoding.
+     * - `'zeroes'`: The bytes allocated for the value are filled with zeroes. This requires a fixed-size codec.
+     * - Custom byte array: `null` values are replaced with a predefined byte sequence. This results in a variable-size codec.
      *
-     * When `'zeroes'` is provided, a `null` value will skip the bytes that would
-     * have been used for the item. Note that this returns a fixed-size codec
-     * and thus will only work if the item codec is of fixed size.
-     *
-     * When a custom byte array is provided, a `null` value will be represented
-     * by the provided byte array. Note that this returns a variable-size codec
-     * since the byte array representing `null` does not need to match the size
-     * of the item codec.
-     *
-     * @defaultValue No none value is used.
+     * @defaultValue No explicit `noneValue` is used; `null` values are omitted.
      */
     noneValue?: ReadonlyUint8Array | 'zeroes';
 
     /**
-     * The codec to use for the boolean prefix, if any.
+     * The presence prefix used to distinguish between `null` and present values.
      *
-     * By default a `u8` number is used as a prefix to determine if the value is `null`.
-     * The value `0` is encoded for `null` and `1` if the value is present.
-     * This can be set to any number codec to customize the prefix.
-     *
-     * When `null` is provided, no prefix is used and the `noneValue` is used to
-     * determine if the value is `null`. If no `noneValue` is provided, then the
-     * absence of any bytes is used to determine if the value is `null`.
+     * - By default, a `u8` prefix is used (`0 = null`, `1 = present`).
+     * - Custom number codec: Allows defining a different number size for the prefix.
+     * - `null`: No prefix is used; `noneValue` (if provided) determines `null`.
+     *   If no `noneValue` is set, `null` is identified by the absence of bytes.
      *
      * @defaultValue `u8` prefix.
      */
@@ -72,10 +74,31 @@ export type NullableCodecConfig<TPrefix extends NumberCodec | NumberDecoder | Nu
 };
 
 /**
- * Creates a encoder for an optional value using `null` as the `None` value.
+ * Returns an encoder for optional values, allowing `null` values to be encoded.
  *
- * @param item - The encoder to use for the value that may be present.
- * @param config - A set of config for the encoder.
+ * This encoder serializes an optional value using a configurable approach:
+ * - By default, a `u8` prefix is used (0 = `null`, 1 = present). This can be customized or disabled.
+ * - If `noneValue: 'zeroes'` is set, `null` values are encoded as zeroes.
+ * - If `noneValue` is a byte array, `null` values are replaced with the provided constant.
+ *
+ * For more details, see {@link getNullableCodec}.
+ *
+ * @typeParam TFrom - The type of the main value being encoded.
+ *
+ * @param item - The encoder for the value that may be present.
+ * @param config - Configuration options for encoding optional values.
+ * @returns A `FixedSizeEncoder` or `VariableSizeEncoder` for encoding nullable values.
+ *
+ * @example
+ * Encoding an optional number.
+ * ```ts
+ * const encoder = getNullableEncoder(getU32Encoder());
+ *
+ * encoder.encode(null); // 0x00
+ * encoder.encode(42);   // 0x012a000000
+ * ```
+ *
+ * @see {@link getNullableCodec}
  */
 export function getNullableEncoder<TFrom, TSize extends number>(
     item: FixedSizeEncoder<TFrom, TSize>,
@@ -127,10 +150,31 @@ export function getNullableEncoder<TFrom>(
 }
 
 /**
- * Creates a decoder for an optional value using `null` as the `None` value.
+ * Returns a decoder for optional values, allowing `null` values to be recognized.
  *
- * @param item - The decoder to use for the value that may be present.
- * @param config - A set of config for the decoder.
+ * This decoder deserializes an optional value using a configurable approach:
+ * - By default, a `u8` prefix is used (0 = `null`, 1 = present). This can be customized or disabled.
+ * - If `noneValue: 'zeroes'` is set, `null` values are identified by zeroes.
+ * - If `noneValue` is a byte array, `null` values match the provided constant.
+ *
+ * For more details, see {@link getNullableCodec}.
+ *
+ * @typeParam TTo - The type of the main value being decoded.
+ *
+ * @param item - The decoder for the value that may be present.
+ * @param config - Configuration options for decoding optional values.
+ * @returns A `FixedSizeDecoder` or `VariableSizeDecoder` for decoding nullable values.
+ *
+ * @example
+ * Decoding an optional number.
+ * ```ts
+ * const decoder = getNullableDecoder(getU32Decoder());
+ *
+ * decoder.decode(new Uint8Array([0x00])); // null
+ * decoder.decode(new Uint8Array([0x01, 0x2a, 0x00, 0x00, 0x00])); // 42
+ * ```
+ *
+ * @see {@link getNullableCodec}
  */
 export function getNullableDecoder<TTo, TSize extends number>(
     item: FixedSizeDecoder<TTo, TSize>,
@@ -189,10 +233,100 @@ export function getNullableDecoder<TTo>(
 }
 
 /**
- * Creates a codec for an optional value using `null` as the `None` value.
+ * Returns a codec for encoding and decoding optional values, allowing `null` values to be handled.
  *
- * @param item - The codec to use for the value that may be present.
- * @param config - A set of config for the codec.
+ * This codec serializes and deserializes optional values using a configurable approach:
+ * - By default, a `u8` prefix is used (0 = `null`, 1 = present).
+ *    This can be customized using a custom number codec or even disabled by setting
+ *    the `prefix` to `null`.
+ * - If `noneValue: 'zeroes'` is set, `null` values are encoded/decoded as zeroes.
+ * - If `noneValue` is a byte array, `null` values are represented by the provided constant.
+ *
+ * For more details on the configuration options, see {@link NullableCodecConfig}.
+ *
+ * @typeParam TFrom - The type of the main value being encoded.
+ * @typeParam TTo - The type of the main value being decoded.
+ *
+ * @param item - The codec for the value that may be present.
+ * @param config - Configuration options for encoding and decoding optional values.
+ * @returns A `FixedSizeCodec` or `VariableSizeCodec` for encoding and decoding nullable values.
+ *
+ * @example
+ * Encoding and decoding an optional number using a `u8` prefix (default).
+ * ```ts
+ * const codec = getNullableCodec(getU32Codec());
+ *
+ * codec.encode(null); // 0x00
+ * codec.encode(42);   // 0x012a000000
+ *
+ * codec.decode(new Uint8Array([0x00])); // null
+ * codec.decode(new Uint8Array([0x01, 0x2a, 0x00, 0x00, 0x00])); // 42
+ * ```
+ *
+ * @example
+ * Encoding and decoding an optional number using a fixed-size codec, by filling `null` values with zeroes.
+ * ```ts
+ * const codec = getNullableCodec(getU32Codec(), { noneValue: 'zeroes' });
+ *
+ * codec.encode(null); // 0x0000000000
+ * codec.encode(42);   // 0x012a000000
+ *
+ * codec.decode(new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00])); // null
+ * codec.decode(new Uint8Array([0x01, 0x2a, 0x00, 0x00, 0x00])); // 42
+ * ```
+ *
+ * @example
+ * Encoding and decoding `null` values with zeroes and no prefix.
+ * ```ts
+ * const codec = getNullableCodec(getU32Codec(), {
+ *   noneValue: 'zeroes',
+ *   prefix: null,
+ * });
+ *
+ * codec.encode(null); // 0x00000000
+ * codec.encode(42);   // 0x2a000000
+ *
+ * codec.decode(new Uint8Array([0x00, 0x00, 0x00, 0x00])); // null
+ * codec.decode(new Uint8Array([0x2a, 0x00, 0x00, 0x00])); // 42
+ * ```
+ *
+ * @example
+ * Encoding and decoding `null` values with a custom byte sequence and no prefix.
+ * ```ts
+ * const codec = getNullableCodec(getU16Codec(), {
+ *   noneValue: new Uint8Array([0xff, 0xff]),
+ *   prefix: null,
+ * });
+ *
+ * codec.encode(null); // 0xffff
+ * codec.encode(42); // 0x2a00
+ *
+ * codec.decode(new Uint8Array([0xff, 0xff])); // null
+ * codec.decode(new Uint8Array([0x2a, 0x00])); // 42
+ * ```
+ *
+ * @example
+ * Identifying `null` values by the absence of bytes.
+ * ```ts
+ * const codec = getNullableCodec(getU16Codec(), { prefix: null });
+ *
+ * codec.encode(null); // Empty bytes
+ * codec.encode(42); // 0x2a00
+ *
+ * codec.decode(new Uint8Array([])); // null
+ * codec.decode(new Uint8Array([0x2a, 0x00])); // 42
+ * ```
+ *
+ * @remarks
+ * Separate {@link getNullableEncoder} and {@link getNullableDecoder} functions are available.
+ *
+ * ```ts
+ * const bytes = getNullableEncoder(getU32Encoder()).encode(42);
+ * const value = getNullableDecoder(getU32Decoder()).decode(bytes);
+ * ```
+ *
+ * @see {@link getNullableEncoder}
+ * @see {@link getNullableDecoder}
  */
 export function getNullableCodec<TFrom, TTo extends TFrom, TSize extends number>(
     item: FixedSizeCodec<TFrom, TTo, TSize>,
