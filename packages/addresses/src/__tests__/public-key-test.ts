@@ -1,4 +1,7 @@
-import { getAddressFromPublicKey } from '../public-key';
+import { SOLANA_ERROR__ADDRESSES__STRING_LENGTH_OUT_OF_RANGE, SolanaError } from '@solana/errors';
+
+import { address } from '../address';
+import { getAddressFromPublicKey, getPublicKeyFromAddress } from '../public-key';
 
 // Corresponds to address `DcESq8KFcdTdpjWtr2DoGcvu5McM3VJoBetgM1X1vVct`
 const MOCK_PUBLIC_KEY_BYTES = new Uint8Array([
@@ -80,5 +83,24 @@ describe('getAddressFromPublicKey', () => {
             ['sign'],
         );
         await expect(() => getAddressFromPublicKey(mockPrivateKey)).rejects.toThrow();
+    });
+});
+
+describe('getPublicKeyFromAddress', () => {
+    it('returns the public key that corresponds to a given address', async () => {
+        expect.assertions(1);
+        const publicKey = await getPublicKeyFromAddress(address('DcESq8KFcdTdpjWtr2DoGcvu5McM3VJoBetgM1X1vVct'), true);
+        expect(new Uint8Array(await crypto.subtle.exportKey('raw', publicKey))).toEqual(MOCK_PUBLIC_KEY_BYTES);
+    });
+
+    it('throws when it is called with an invalid address', async () => {
+        expect.assertions(1);
+        await expect(
+            async () => await getPublicKeyFromAddress(address('not-a-base-58-encoded-string'), true),
+        ).rejects.toThrow(
+            new SolanaError(SOLANA_ERROR__ADDRESSES__STRING_LENGTH_OUT_OF_RANGE, {
+                actualLength: 28,
+            }),
+        );
     });
 });
