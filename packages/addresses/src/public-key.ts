@@ -1,7 +1,7 @@
 import { assertKeyExporterIsAvailable } from '@solana/assertions';
 import { SOLANA_ERROR__ADDRESSES__INVALID_ED25519_PUBLIC_KEY, SolanaError } from '@solana/errors';
 
-import { Address, getAddressDecoder } from './address';
+import { Address, assertIsAddress, getAddressDecoder, getAddressEncoder } from './address';
 
 /**
  * Given a public {@link CryptoKey}, this method will return its associated {@link Address}.
@@ -20,4 +20,21 @@ export async function getAddressFromPublicKey(publicKey: CryptoKey): Promise<Add
     }
     const publicKeyBytes = await crypto.subtle.exportKey('raw', publicKey);
     return getAddressDecoder().decode(new Uint8Array(publicKeyBytes));
+}
+
+/**
+ * Given an {@link Address}, return a {@link CryptoKey} that can be used to verify signatures.
+ *
+ * @example
+ * ```ts
+ * import { getAddressFromPublicKey } from '@solana/addresses';
+ *
+ * const publicKey = await getPublicKeyFromAddress(address);
+ * ```
+ */
+export async function getPublicKeyFromAddress(address: Address, extractable: boolean = false) {
+    assertIsAddress(address);
+    const addressBytes = getAddressEncoder().encode(address);
+
+    return await crypto.subtle.importKey('raw', addressBytes, 'Ed25519', extractable, ['verify']);
 }
