@@ -1,3 +1,4 @@
+import type { Signature } from '@solana/keys';
 import type { GetAccountInfoApi, GetSignatureStatusesApi, Rpc, SendTransactionApi } from '@solana/rpc';
 import type { AccountNotificationsApi, RpcSubscriptions, SignatureNotificationsApi } from '@solana/rpc-subscriptions';
 import {
@@ -15,7 +16,7 @@ type SendAndConfirmDurableNonceTransactionFunction = (
         Parameters<typeof sendAndConfirmDurableNonceTransaction_INTERNAL_ONLY_DO_NOT_EXPORT>[0],
         'confirmDurableNonceTransaction' | 'rpc' | 'transaction'
     >,
-) => Promise<void>;
+) => Promise<Signature>;
 
 type SendAndConfirmDurableNonceTransactionFactoryConfig<TCluster> = {
     rpc: Rpc<GetAccountInfoApi & GetSignatureStatusesApi & SendTransactionApi> & { '~cluster'?: TCluster };
@@ -60,7 +61,7 @@ export function sendAndConfirmDurableNonceTransactionFactory<
         });
     }
     return async function sendAndConfirmDurableNonceTransaction(transaction, config) {
-        await sendAndConfirmDurableNonceTransaction_INTERNAL_ONLY_DO_NOT_EXPORT({
+        return await sendAndConfirmDurableNonceTransaction_INTERNAL_ONLY_DO_NOT_EXPORT({
             ...config,
             confirmDurableNonceTransaction,
             rpc,

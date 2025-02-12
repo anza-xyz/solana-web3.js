@@ -1,3 +1,4 @@
+import type { Signature } from '@solana/keys';
 import type { GetEpochInfoApi, GetSignatureStatusesApi, Rpc, SendTransactionApi } from '@solana/rpc';
 import type { RpcSubscriptions, SignatureNotificationsApi, SlotNotificationsApi } from '@solana/rpc-subscriptions';
 import {
@@ -15,7 +16,7 @@ type SendAndConfirmTransactionWithBlockhashLifetimeFunction = (
         Parameters<typeof sendAndConfirmTransactionWithBlockhashLifetime_INTERNAL_ONLY_DO_NOT_EXPORT>[0],
         'confirmRecentTransaction' | 'rpc' | 'transaction'
     >,
-) => Promise<void>;
+) => Promise<Signature>;
 
 type SendAndConfirmTransactionWithBlockhashLifetimeFactoryConfig<TCluster> = {
     rpc: Rpc<GetEpochInfoApi & GetSignatureStatusesApi & SendTransactionApi> & { '~cluster'?: TCluster };
@@ -59,7 +60,7 @@ export function sendAndConfirmTransactionFactory<TCluster extends 'devnet' | 'ma
         });
     }
     return async function sendAndConfirmTransaction(transaction, config) {
-        await sendAndConfirmTransactionWithBlockhashLifetime_INTERNAL_ONLY_DO_NOT_EXPORT({
+        return await sendAndConfirmTransactionWithBlockhashLifetime_INTERNAL_ONLY_DO_NOT_EXPORT({
             ...config,
             confirmRecentTransaction,
             rpc,
