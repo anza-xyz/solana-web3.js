@@ -1,9 +1,11 @@
 import { isOption, isSome, None, Some } from './option';
 
 /**
- * Lists all types that should not be recursively unwrapped.
+ * Defines types that should not be recursively unwrapped.
  *
- * @see {@link UnwrappedOption}
+ * These types are preserved as-is when using {@link unwrapOptionRecursively}.
+ *
+ * @see {@link unwrapOptionRecursively}
  */
 type UnUnwrappables =
     | Date
@@ -22,12 +24,35 @@ type UnUnwrappables =
     | undefined;
 
 /**
- * A type that defines the recursive unwrapping of a type `T`
- * such that all nested {@link Option} types are unwrapped.
+ * A type that recursively unwraps nested {@link Option} types.
  *
- * For each nested {@link Option} type, if the option is a {@link Some},
- * it returns the type of its value, otherwise, it returns the provided
- * fallback type `U` which defaults to `null`.
+ * This type resolves all nested {@link Option} values, ensuring
+ * that deeply wrapped values are properly extracted.
+ *
+ * - If `T` is an {@link Option}, it resolves to the contained value.
+ * - If `T` is a known primitive or immutable type, it remains unchanged.
+ * - If `T` is an object or array, it recursively unwraps any options found.
+ *
+ * The fallback type `U` (default: `null`) is used in place of `None` values.
+ *
+ * @typeParam T - The type to be unwrapped.
+ * @typeParam U - The fallback type for `None` values (defaults to `null`).
+ *
+ * @example
+ * Resolving nested `Option` types.
+ * ```ts
+ * UnwrappedOption<Some<Some<string>>>; // string
+ * UnwrappedOption<None>;               // null
+ * ```
+ *
+ * @example
+ * Resolving options inside objects and arrays.
+ * ```ts
+ * UnwrappedOption<{ a: Some<number>; b: None }>; // { a: number; b: null }
+ * UnwrappedOption<[Some<number>, None]>;         // [number, null]
+ * ```
+ *
+ * @see {@link unwrapOptionRecursively}
  */
 export type UnwrappedOption<T, U = null> =
     T extends Some<infer TValue>
@@ -43,12 +68,59 @@ export type UnwrappedOption<T, U = null> =
                 : T;
 
 /**
- * Recursively go through a type `T` such that all
- * nested {@link Option} types are unwrapped.
+ * Recursively unwraps all nested {@link Option} types within a value.
  *
- * For each nested {@link Option} type, if the option is a {@link Some},
- * it returns its value, otherwise, it returns the provided fallback value
- * which defaults to `null`.
+ * This function traverses a given value and removes all instances
+ * of {@link Option}, replacing them with their contained values.
+ *
+ * - If an {@link Option} is encountered, its value is extracted.
+ * - If an array or object is encountered, its elements are traversed recursively.
+ * - If `None` is encountered, it is replaced with the fallback value (default: `null`).
+ *
+ * @typeParam T - The type of the input value.
+ * @typeParam U - The fallback type for `None` values (defaults to `null`).
+ *
+ * @param input - The value to unwrap.
+ * @param fallback - A function that provides a fallback value for `None` options.
+ * @returns The recursively unwrapped value.
+ *
+ * @example
+ * Recursively unwrapping nested options.
+ * ```ts
+ * unwrapOptionRecursively(some(some('Hello World'))); // "Hello World"
+ * unwrapOptionRecursively(some(none<string>()));      // null
+ * ```
+ *
+ * @example
+ * Recursively unwrapping options inside objects and arrays.
+ * ```ts
+ * unwrapOptionRecursively({
+ *   a: 'hello',
+ *   b: none(),
+ *   c: [{ c1: some(42) }, { c2: none() }],
+ * });
+ * // { a: "hello", b: null, c: [{ c1: 42 }, { c2: null }] }
+ * ```
+ *
+ * @example
+ * Using a fallback value for `None` options.
+ * ```ts
+ * unwrapOptionRecursively(
+ *   {
+ *     a: 'hello',
+ *     b: none(),
+ *     c: [{ c1: some(42) }, { c2: none() }],
+ *   },
+ *   () => 'Default',
+ * );
+ * // { a: "hello", b: "Default", c: [{ c1: 42 }, { c2: "Default" }] }
+ * ```
+ *
+ * @remarks
+ * This function does not mutate objects or arrays.
+ *
+ * @see {@link Option}
+ * @see {@link UnwrappedOption}
  */
 export function unwrapOptionRecursively<T>(input: T): UnwrappedOption<T>;
 export function unwrapOptionRecursively<T, U>(input: T, fallback: () => U): UnwrappedOption<T, U>;
