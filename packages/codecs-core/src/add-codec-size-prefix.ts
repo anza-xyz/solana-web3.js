@@ -31,6 +31,12 @@ type FixedSizeNumberCodec<TSize extends number = number> =
 
 /**
  * Stores the size of the `encoder` in bytes as a prefix using the `prefix` encoder.
+ *
+ * See {@link addCodecSizePrefix} for more information.
+ *
+ * @typeParam TFrom - The type of the value to encode.
+ *
+ * @see {@link addCodecSizePrefix}
  */
 export function addEncoderSizePrefix<TFrom>(
     encoder: FixedSizeEncoder<TFrom>,
@@ -67,7 +73,13 @@ export function addEncoderSizePrefix<TFrom>(encoder: Encoder<TFrom>, prefix: Num
 }
 
 /**
- * Bounds the size of the `decoder` by reading the `prefix` encoder prefix.
+ * Bounds the size of the nested `decoder` by reading its encoded `prefix`.
+ *
+ * See {@link addCodecSizePrefix} for more information.
+ *
+ * @typeParam TTo - The type of the decoded value.
+ *
+ * @see {@link addCodecSizePrefix}
  */
 export function addDecoderSizePrefix<TTo>(
     decoder: FixedSizeDecoder<TTo>,
@@ -100,7 +112,38 @@ export function addDecoderSizePrefix<TTo>(decoder: Decoder<TTo>, prefix: NumberD
 }
 
 /**
- * Bounds the size of the `codec` using the provided `prefix` codec prefix.
+ * Stores the byte size of any given codec as an encoded number prefix.
+ *
+ * This sets a limit on variable-size codecs and tells us when to stop decoding.
+ * When encoding, the size of the encoded data is stored before the encoded data itself.
+ * When decoding, the size is read first to know how many bytes to read next.
+ *
+ * @typeParam TFrom - The type of the value to encode.
+ * @typeParam TTo - The type of the decoded value.
+ *
+ * @example
+ * For example, say we want to bound a variable-size base-58 string using a `u32` size prefix.
+ * Here’s how you can use the `addCodecSizePrefix` function to achieve that.
+ *
+ * ```ts
+ * const getU32Base58Codec = () => addCodecSizePrefix(getBase58Codec(), getU32Codec());
+ *
+ * getU32Base58Codec().encode('hello world');
+ * // 0x0b00000068656c6c6f20776f726c64
+ * //   |       └-- Our encoded base-58 string.
+ * //   └-- Our encoded u32 size prefix.
+ * ```
+ *
+ * @remarks
+ * Separate {@link addEncoderSizePrefix} and {@link addDecoderSizePrefix} functions are also available.
+ *
+ * ```ts
+ * const bytes = addEncoderSizePrefix(getBase58Encoder(), getU32Encoder()).encode('hello');
+ * const value = addDecoderSizePrefix(getBase58Decoder(), getU32Decoder()).decode(bytes);
+ * ```
+ *
+ * @see {@link addEncoderSizePrefix}
+ * @see {@link addDecoderSizePrefix}
  */
 export function addCodecSizePrefix<TFrom, TTo extends TFrom>(
     codec: FixedSizeCodec<TFrom, TTo>,
