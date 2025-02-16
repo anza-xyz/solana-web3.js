@@ -150,7 +150,7 @@ Given a program's `Address` and up to 16 `Seeds`, this method will return the pr
 import { getAddressEncoder, getProgramDerivedAddress } from '@solana/addresses';
 
 const addressEncoder = getAddressEncoder();
-const { bumpSeed, pda } = await getProgramDerivedAddress({
+const [ pda, bumpSeed ] = await getProgramDerivedAddress({
     programAddress: 'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL' as Address,
     seeds: [
         // Owner

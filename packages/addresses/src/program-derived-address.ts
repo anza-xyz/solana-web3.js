@@ -141,7 +141,7 @@ async function createProgramDerivedAddress({ programAddress, seeds }: ProgramDer
  * import { getAddressEncoder, getProgramDerivedAddress } from '@solana/addresses';
  *
  * const addressEncoder = getAddressEncoder();
- * const { bumpSeed, pda } = await getProgramDerivedAddress({
+ * const [ pda, bumpSeed ] = await getProgramDerivedAddress({
  *     programAddress: 'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL' as Address,
  *     seeds: [
  *         // Owner
