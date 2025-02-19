@@ -1,0 +1,24 @@
+name: Dismiss Stale PR Reviews
+
+on:
+  pull_request:
+    types: [
+        opened,
+        synchronize,
+        reopened,
+      ]
+
+
+permissions:
+  actions: read
+  contents: read
+  pull-requests: write
+
+jobs:
+  dismiss_stale_approvals:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dismiss Stale PR Reviews
+        uses: withgraphite/dismiss-stale-approvals@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
