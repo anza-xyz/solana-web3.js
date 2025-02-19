@@ -1,4 +1,4 @@
-name: Dismiss stale pull request approvals
+name: Dismiss Stale PR Reviews
 
 on:
   pull_request:
@@ -18,7 +18,7 @@ jobs:
   dismiss_stale_approvals:
     runs-on: ubuntu-latest
     steps:
-      - name: Dismiss stale pull request approvals
+      - name: Dismiss Stale PR Reviews
         uses: withgraphite/dismiss-stale-approvals@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
