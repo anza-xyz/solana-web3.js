@@ -289,8 +289,8 @@ importers:
         specifier: ^10.1.1
         version: 10.1.1(@types/node@22.13.1)
       pino:
-        specifier: ^9.5.0
-        version: 9.5.0
+        specifier: ^9.6.0
+        version: 9.6.0
       pino-pretty:
         specifier: ^13.0.0
         version: 13.0.0
@@ -6134,8 +6134,8 @@ packages:
   pino-std-serializers@7.0.0:
     resolution: {integrity: sha512-e906FRY0+tV27iq4juKzSYPbUj2do2X2JX4EzSca1631EB2QJQUqGbDuERal7LCtOpxl6x3+nvo9NPZcmjkiFA==}
 
-  pino@9.5.0:
-    resolution: {integrity: sha512-xSEmD4pLnV54t0NOUN16yCl7RIB1c5UUOse5HSyEXtBp+FgFQyPeDutc+Q2ZO7/22vImV7VfEjH/1zV2QuqvYw==}
+  pino@9.6.0:
+    resolution: {integrity: sha512-i85pKRCt4qMjZ1+L7sy2Ag4t1atFcdbEt76+7iRJn1g2BvsnRMGu9p8pivl9fs63M2kF/A0OacFZhTub+m/qMg==}
     hasBin: true
 
   pirates@4.0.6:
@@ -6198,8 +6198,8 @@ packages:
     resolution: {integrity: sha512-xkeffkZoqQmRrcNewpOsUCKNOl+CkPqjt3Ld749uz1S7/O7GuPNPv2fZk3v/1U/FE8/B4Zz0llVL80MKON1tOQ==}
     engines: {node: ^16.10.0 || ^18.12.0 || >=20.0.0}
 
-  process-warning@4.0.0:
-    resolution: {integrity: sha512-/MyYDxttz7DfGMMHiysAsFE4qF+pQYAA8ziO/3NcRVrQ5fSk+Mns4QZA/oRPFzvcqNoVJXQNWNAsdwBXLUkQKw==}
+  process-warning@4.0.1:
+    resolution: {integrity: sha512-3c2LzQ3rY9d0hc1emcsHhfT9Jwz0cChib/QN89oME2R451w5fy3f0afAhERFZAwrbDU43wk12d0ORBpDVME50Q==}
 
   prompts@2.4.2:
     resolution: {integrity: sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==}
@@ -6433,8 +6433,8 @@ packages:
   safe-buffer@5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
 
-  safe-stable-stringify@2.4.3:
-    resolution: {integrity: sha512-e2bDA2WJT0wxseVd4lsDP4+3ONX6HpMXQa1ZhFQ7SU+GjvORCmShbCMltrtIDfkYhVHrOcPtj+KhmDBdPdZD1g==}
+  safe-stable-stringify@2.5.0:
+    resolution: {integrity: sha512-b3rppTKm9T+PsVCBEOUR46GWI7fdOs00VKZ1+9c1EWDaDMvjQc6tUwuFyIprgGgTcWoVHSKrU8H31ZHA2e0RHA==}
     engines: {node: '>=10'}
 
   safer-buffer@2.1.2:
@@ -6499,6 +6499,9 @@ packages:
 
   sonic-boom@4.0.1:
     resolution: {integrity: sha512-hTSD/6JMLyT4r9zeof6UtuBDpjJ9sO08/nmS5djaA9eozT9oOlNdpXSnzcgj4FTqpk3nkLrs61l4gip9r1HCrQ==}
+
+  sonic-boom@4.2.0:
+    resolution: {integrity: sha512-INb7TM37/mAcsGmc9hyyI6+QR3rR1zVRu36B0NeGXKnOOLiZOfER5SA+N7X7k3yUYRzLWafduTDvJAfDswwEww==}
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -12780,18 +12783,18 @@ snapshots:
 
   pino-std-serializers@7.0.0: {}
 
-  pino@9.5.0:
+  pino@9.6.0:
     dependencies:
       atomic-sleep: 1.0.0
       fast-redact: 3.5.0
       on-exit-leak-free: 2.1.2
       pino-abstract-transport: 2.0.0
       pino-std-serializers: 7.0.0
-      process-warning: 4.0.0
+      process-warning: 4.0.1
       quick-format-unescaped: 4.0.4
       real-require: 0.2.0
-      safe-stable-stringify: 2.4.3
-      sonic-boom: 4.0.1
+      safe-stable-stringify: 2.5.0
+      sonic-boom: 4.2.0
       thread-stream: 3.1.0
 
   pirates@4.0.6: {}
@@ -12843,7 +12846,7 @@ snapshots:
       ansi-styles: 5.2.0
       react-is: 18.3.1
 
-  process-warning@4.0.0: {}
+  process-warning@4.0.1: {}
 
   prompts@2.4.2:
     dependencies:
@@ -13110,7 +13113,7 @@ snapshots:
 
   safe-buffer@5.2.1: {}
 
-  safe-stable-stringify@2.4.3: {}
+  safe-stable-stringify@2.5.0: {}
 
   safer-buffer@2.1.2: {}
 
@@ -13156,6 +13159,10 @@ snapshots:
   slash@5.1.0: {}
 
   sonic-boom@4.0.1:
+    dependencies:
+      atomic-sleep: 1.0.0
+
+  sonic-boom@4.2.0:
     dependencies:
       atomic-sleep: 1.0.0
 
