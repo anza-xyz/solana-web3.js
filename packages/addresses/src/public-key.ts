@@ -1,7 +1,7 @@
-import {assertKeyExporterIsAvailable} from '@solana/assertions';
-import {SOLANA_ERROR__ADDRESSES__INVALID_ED25519_PUBLIC_KEY, SolanaError} from '@solana/errors';
+import { assertKeyExporterIsAvailable } from '@solana/assertions';
+import { SOLANA_ERROR__ADDRESSES__INVALID_ED25519_PUBLIC_KEY, SolanaError } from '@solana/errors';
 
-import {Address, assertIsAddress, getAddressDecoder, getAddressEncoder} from './address';
+import { Address, assertIsAddress, getAddressDecoder, getAddressEncoder } from './address';
 
 /**
  * Given a public {@link CryptoKey}, this method will return its associated {@link Address}.
