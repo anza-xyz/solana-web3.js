@@ -141,6 +141,7 @@ import {
     SOLANA_ERROR__KEYS__SIGNATURE_STRING_LENGTH_OUT_OF_RANGE,
     SOLANA_ERROR__LAMPORTS_OUT_OF_RANGE,
     SOLANA_ERROR__MALFORMED_BIGINT_STRING,
+    SOLANA_ERROR__MALFORMED_JSON_RPC_ERROR,
     SOLANA_ERROR__MALFORMED_NUMBER_STRING,
     SOLANA_ERROR__NONCE_ACCOUNT_NOT_FOUND,
     SOLANA_ERROR__RPC__API_PLAN_MISSING_FOR_RPC_METHOD,
@@ -449,6 +450,7 @@ export const SolanaErrorMessages: Readonly<{
         'Expected base58-encoded signature string of length in the range [64, 88]. Actual length: $actualLength.',
     [SOLANA_ERROR__LAMPORTS_OUT_OF_RANGE]: 'Lamports value must be in the range [0, 2e64-1]',
     [SOLANA_ERROR__MALFORMED_BIGINT_STRING]: '`$value` cannot be parsed as a `BigInt`',
+    [SOLANA_ERROR__MALFORMED_JSON_RPC_ERROR]: '$message',
     [SOLANA_ERROR__MALFORMED_NUMBER_STRING]: '`$value` cannot be parsed as a `Number`',
     [SOLANA_ERROR__NONCE_ACCOUNT_NOT_FOUND]: 'No nonce account could be found at address `$nonceAccountAddress`',
     [SOLANA_ERROR__RPC_SUBSCRIPTIONS__CANNOT_CREATE_SUBSCRIPTION_PLAN]:

@@ -20,6 +20,7 @@ import {
     SOLANA_ERROR__JSON_RPC__SERVER_ERROR_TRANSACTION_SIGNATURE_LEN_MISMATCH,
     SOLANA_ERROR__JSON_RPC__SERVER_ERROR_TRANSACTION_SIGNATURE_VERIFICATION_FAILURE,
     SOLANA_ERROR__JSON_RPC__SERVER_ERROR_UNSUPPORTED_TRANSACTION_VERSION,
+    SOLANA_ERROR__MALFORMED_JSON_RPC_ERROR,
     SolanaErrorCode,
 } from '../codes';
 import { SolanaErrorContext } from '../context';
@@ -39,6 +40,18 @@ describe('getSolanaErrorFromJsonRpcError', () => {
         const code = 123n;
         const error = getSolanaErrorFromJsonRpcError({ code, message: 'o no' });
         expect(error).toHaveProperty('context.__code', 123);
+    });
+    it('produces a `SOLANA_ERROR__UNRECOGNIZED_JSON_RPC_ERROR` when no code is given', () => {
+        const error = getSolanaErrorFromJsonRpcError({ foo: 'bar', message: 'o no' });
+        expect(error).toHaveProperty('context.__code', SOLANA_ERROR__MALFORMED_JSON_RPC_ERROR);
+        expect(error).toHaveProperty('context.error', { foo: 'bar', message: 'o no' });
+        expect(error).toHaveProperty('context.message', 'o no');
+    });
+    it('produces a `SOLANA_ERROR__UNRECOGNIZED_JSON_RPC_ERROR` with a fallback message when none is provided', () => {
+        const error = getSolanaErrorFromJsonRpcError(null);
+        expect(error).toHaveProperty('context.__code', SOLANA_ERROR__MALFORMED_JSON_RPC_ERROR);
+        expect(error).toHaveProperty('context.error', null);
+        expect(error).toHaveProperty('context.message', 'Malformed JSON-RPC error with no message attribute');
     });
     describe.each([
         SOLANA_ERROR__JSON_RPC__SERVER_ERROR_MIN_CONTEXT_SLOT_NOT_REACHED,
