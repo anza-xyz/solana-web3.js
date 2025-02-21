@@ -230,6 +230,7 @@ import {
     SOLANA_ERROR__TRANSACTION_ERROR__WOULD_EXCEED_MAX_ACCOUNT_COST_LIMIT,
     SOLANA_ERROR__TRANSACTION_ERROR__WOULD_EXCEED_MAX_BLOCK_COST_LIMIT,
     SOLANA_ERROR__TRANSACTION_ERROR__WOULD_EXCEED_MAX_VOTE_COST_LIMIT,
+    SOLANA_ERROR__UNRECOGNIZED_JSON_RPC_ERROR,
     SolanaErrorCode,
 } from './codes';
 
@@ -615,4 +616,5 @@ export const SolanaErrorMessages: Readonly<{
     [SOLANA_ERROR__TRANSACTION__SIGNATURES_MISSING]: 'Transaction is missing signatures for addresses: $addresses.',
     [SOLANA_ERROR__TRANSACTION__VERSION_NUMBER_OUT_OF_RANGE]:
         'Transaction version must be in the range [0, 127]. `$actualVersion` given',
+    [SOLANA_ERROR__UNRECOGNIZED_JSON_RPC_ERROR]: '$message',
 };

@@ -14,6 +14,7 @@ import {
     SOLANA_ERROR__JSON_RPC__SERVER_ERROR_SLOT_SKIPPED,
     SOLANA_ERROR__JSON_RPC__SERVER_ERROR_TRANSACTION_PRECOMPILE_VERIFICATION_FAILURE,
     SOLANA_ERROR__JSON_RPC__SERVER_ERROR_UNSUPPORTED_TRANSACTION_VERSION,
+    SOLANA_ERROR__UNRECOGNIZED_JSON_RPC_ERROR,
     SolanaErrorCode,
 } from './codes';
 import { SolanaErrorContext } from './context';
@@ -22,7 +23,7 @@ import { safeCaptureStackTrace } from './stack-trace';
 import { getSolanaErrorFromTransactionError } from './transaction-error';
 
 interface RpcErrorResponse {
-    code: bigint | number;
+    code?: bigint | number;
     data?: unknown;
     message: string;
 }
@@ -93,7 +94,7 @@ export interface RpcSimulateTransactionResult {
 
 export function getSolanaErrorFromJsonRpcError({ code: rawCode, data, message }: RpcErrorResponse): SolanaError {
     let out: SolanaError;
-    const code = Number(rawCode);
+    const code = rawCode !== undefined ? Number(rawCode) : SOLANA_ERROR__UNRECOGNIZED_JSON_RPC_ERROR;
     if (code === SOLANA_ERROR__JSON_RPC__SERVER_ERROR_SEND_TRANSACTION_PREFLIGHT_FAILURE) {
         const { err, ...preflightErrorContext } = data as RpcSimulateTransactionResult;
         const causeObject = err ? { cause: getSolanaErrorFromTransactionError(err) } : null;
@@ -123,6 +124,9 @@ export function getSolanaErrorFromJsonRpcError({ code: rawCode, data, message }:
                 // term fix for this is to add data to the server responses and modify the
                 // messages in `@solana/errors` to be actual format strings.
                 errorContext = { __serverMessage: message };
+                break;
+            case SOLANA_ERROR__UNRECOGNIZED_JSON_RPC_ERROR:
+                errorContext = { data, message };
                 break;
             default:
                 if (typeof data === 'object' && !Array.isArray(data)) {

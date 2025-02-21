@@ -20,6 +20,7 @@ import {
     SOLANA_ERROR__JSON_RPC__SERVER_ERROR_TRANSACTION_SIGNATURE_LEN_MISMATCH,
     SOLANA_ERROR__JSON_RPC__SERVER_ERROR_TRANSACTION_SIGNATURE_VERIFICATION_FAILURE,
     SOLANA_ERROR__JSON_RPC__SERVER_ERROR_UNSUPPORTED_TRANSACTION_VERSION,
+    SOLANA_ERROR__UNRECOGNIZED_JSON_RPC_ERROR,
     SolanaErrorCode,
 } from '../codes';
 import { SolanaErrorContext } from '../context';
@@ -39,6 +40,13 @@ describe('getSolanaErrorFromJsonRpcError', () => {
         const code = 123n;
         const error = getSolanaErrorFromJsonRpcError({ code, message: 'o no' });
         expect(error).toHaveProperty('context.__code', 123);
+    });
+    it('produces a `SOLANA_ERROR__UNRECOGNIZED_JSON_RPC_ERROR` when no code is given', () => {
+        const code = undefined;
+        const error = getSolanaErrorFromJsonRpcError({ code, data: { foo: 'bar' }, message: 'o no' });
+        expect(error).toHaveProperty('context.__code', SOLANA_ERROR__UNRECOGNIZED_JSON_RPC_ERROR);
+        expect(error).toHaveProperty('context.data', { foo: 'bar' });
+        expect(error).toHaveProperty('context.message', 'o no');
     });
     describe.each([
         SOLANA_ERROR__JSON_RPC__SERVER_ERROR_MIN_CONTEXT_SLOT_NOT_REACHED,
