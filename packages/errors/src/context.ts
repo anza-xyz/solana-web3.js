@@ -159,6 +159,7 @@ import {
     SOLANA_ERROR__TRANSACTION_ERROR__INSUFFICIENT_FUNDS_FOR_RENT,
     SOLANA_ERROR__TRANSACTION_ERROR__PROGRAM_EXECUTION_TEMPORARILY_RESTRICTED,
     SOLANA_ERROR__TRANSACTION_ERROR__UNKNOWN,
+    SOLANA_ERROR__UNRECOGNIZED_JSON_RPC_ERROR,
     SolanaErrorCode,
 } from './codes';
 import { RpcSimulateTransactionResult } from './json-rpc-error';
@@ -600,6 +601,10 @@ export type SolanaErrorContext = DefaultUnspecifiedErrorContextToUndefined<
         };
         [SOLANA_ERROR__TRANSACTION__VERSION_NUMBER_OUT_OF_RANGE]: {
             actualVersion: number;
+        };
+        [SOLANA_ERROR__UNRECOGNIZED_JSON_RPC_ERROR]: {
+            data: unknown;
+            message: string;
         };
     }
 >;
