@@ -53,10 +53,10 @@
     "engines": {
         "node": ">=20.18.0",
         "npm": "please-use-pnpm",
-        "pnpm": "^9",
+        "pnpm": "^10",
         "yarn": "please-use-pnpm"
     },
-    "packageManager": "pnpm@9.1.0",
+    "packageManager": "pnpm@10.4.1",
     "pnpm": {
         "overrides": {
             "agadoo>rollup": "^4",

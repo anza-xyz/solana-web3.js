@@ -14,7 +14,7 @@ overrides:
 
 patchedDependencies:
   jest-runner-prettier@1.0.0:
-    hash: wxyu3ekhzy6qhvwrai2xltdhn4
+    hash: c7131d4d7ea944d2191586c2d5a9ae45e525de98e190aeb08d386f319b5784ca
     path: patches/jest-runner-prettier@1.0.0.patch
 
 importers:
@@ -38,7 +38,7 @@ importers:
         version: link:packages/build-scripts
       '@solana/eslint-config-solana':
         specifier: ^4.0.0
-        version: 4.0.0(@eslint/js@9.16.0)(@types/eslint__js@8.42.3)(eslint-plugin-jest@28.11.0(@typescript-eslint/eslint-plugin@8.17.0(@typescript-eslint/parser@8.17.0(eslint@9.16.0(jiti@1.21.0))(typescript@5.7.3))(eslint@9.16.0(jiti@1.21.0))(typescript@5.7.3))(eslint@9.16.0(jiti@1.21.0))(jest@30.0.0-alpha.6(@types/node@22.10.2)(ts-node@10.9.2(@swc/core@1.10.18(@swc/helpers@0.5.11))(@types/node@22.10.2)(typescript@5.7.3)))(typescript@5.7.3))(eslint-plugin-react-hooks@5.1.0(eslint@9.16.0(jiti@1.21.0)))(eslint-plugin-simple-import-sort@12.1.1(eslint@9.16.0(jiti@1.21.0)))(eslint-plugin-sort-keys-fix@1.1.2)(eslint-plugin-typescript-sort-keys@3.3.0(@typescript-eslint/parser@8.17.0(eslint@9.16.0(jiti@1.21.0))(typescript@5.7.3))(eslint@9.16.0(jiti@1.21.0))(typescript@5.7.3))(eslint@9.16.0(jiti@1.21.0))(globals@15.13.0)(jest@30.0.0-alpha.6(@types/node@22.10.2)(ts-node@10.9.2(@swc/core@1.10.18(@swc/helpers@0.5.11))(@types/node@22.10.2)(typescript@5.7.3)))(typescript-eslint@8.17.0(eslint@9.16.0(jiti@1.21.0))(typescript@5.7.3))(typescript@5.7.3)
+        version: 4.0.0(bc5419d016c58e55e9d71609d418352f)
       '@solana/prettier-config-solana':
         specifier: 0.0.5
         version: 0.0.5(prettier@3.4.2)
@@ -101,7 +101,7 @@ importers:
         version: 2.2.1(eslint@9.16.0(jiti@1.21.0))(jest@30.0.0-alpha.6(@types/node@22.10.2)(ts-node@10.9.2(@swc/core@1.10.18(@swc/helpers@0.5.11))(@types/node@22.10.2)(typescript@5.7.3)))
       jest-runner-prettier:
         specifier: ^1.0.0
-        version: 1.0.0(patch_hash=wxyu3ekhzy6qhvwrai2xltdhn4)(bufferutil@4.0.8)(jest@30.0.0-alpha.6(@types/node@22.10.2)(ts-node@10.9.2(@swc/core@1.10.18(@swc/helpers@0.5.11))(@types/node@22.10.2)(typescript@5.7.3)))(prettier@3.4.2)(utf-8-validate@5.0.10)
+        version: 1.0.0(patch_hash=c7131d4d7ea944d2191586c2d5a9ae45e525de98e190aeb08d386f319b5784ca)(bufferutil@4.0.8)(jest@30.0.0-alpha.6(@types/node@22.10.2)(ts-node@10.9.2(@swc/core@1.10.18(@swc/helpers@0.5.11))(@types/node@22.10.2)(typescript@5.7.3)))(prettier@3.4.2)(utf-8-validate@5.0.10)
       jest-watch-master:
         specifier: ^1.0.0
         version: 1.0.0(jest-validate@30.0.0-alpha.6)(jest@30.0.0-alpha.6(@types/node@22.10.2)(ts-node@10.9.2(@swc/core@1.10.18(@swc/helpers@0.5.11))(@types/node@22.10.2)(typescript@5.7.3)))
@@ -9840,8 +9840,8 @@ snapshots:
     dependencies:
       buffer: 6.0.3
 
-  ? '@solana/eslint-config-solana@4.0.0(@eslint/js@9.16.0)(@types/eslint__js@8.42.3)(eslint-plugin-jest@28.11.0(@typescript-eslint/eslint-plugin@8.17.0(@typescript-eslint/parser@8.17.0(eslint@9.16.0(jiti@1.21.0))(typescript@5.7.3))(eslint@9.16.0(jiti@1.21.0))(typescript@5.7.3))(eslint@9.16.0(jiti@1.21.0))(jest@30.0.0-alpha.6(@types/node@22.10.2)(ts-node@10.9.2(@swc/core@1.10.18(@swc/helpers@0.5.11))(@types/node@22.10.2)(typescript@5.7.3)))(typescript@5.7.3))(eslint-plugin-react-hooks@5.1.0(eslint@9.16.0(jiti@1.21.0)))(eslint-plugin-simple-import-sort@12.1.1(eslint@9.16.0(jiti@1.21.0)))(eslint-plugin-sort-keys-fix@1.1.2)(eslint-plugin-typescript-sort-keys@3.3.0(@typescript-eslint/parser@8.17.0(eslint@9.16.0(jiti@1.21.0))(typescript@5.7.3))(eslint@9.16.0(jiti@1.21.0))(typescript@5.7.3))(eslint@9.16.0(jiti@1.21.0))(globals@15.13.0)(jest@30.0.0-alpha.6(@types/node@22.10.2)(ts-node@10.9.2(@swc/core@1.10.18(@swc/helpers@0.5.11))(@types/node@22.10.2)(typescript@5.7.3)))(typescript-eslint@8.17.0(eslint@9.16.0(jiti@1.21.0))(typescript@5.7.3))(typescript@5.7.3)'
-  : dependencies:
+  '@solana/eslint-config-solana@4.0.0(bc5419d016c58e55e9d71609d418352f)':
+    dependencies:
       '@eslint/js': 9.16.0
       '@types/eslint__js': 8.42.3
       eslint: 9.16.0(jiti@1.21.0)
@@ -12041,7 +12041,7 @@ snapshots:
       - '@jest/test-result'
       - jest-runner
 
-  jest-runner-prettier@1.0.0(patch_hash=wxyu3ekhzy6qhvwrai2xltdhn4)(bufferutil@4.0.8)(jest@30.0.0-alpha.6(@types/node@22.10.2)(ts-node@10.9.2(@swc/core@1.10.18(@swc/helpers@0.5.11))(@types/node@22.10.2)(typescript@5.7.3)))(prettier@3.4.2)(utf-8-validate@5.0.10):
+  jest-runner-prettier@1.0.0(patch_hash=c7131d4d7ea944d2191586c2d5a9ae45e525de98e190aeb08d386f319b5784ca)(bufferutil@4.0.8)(jest@30.0.0-alpha.6(@types/node@22.10.2)(ts-node@10.9.2(@swc/core@1.10.18(@swc/helpers@0.5.11))(@types/node@22.10.2)(typescript@5.7.3)))(prettier@3.4.2)(utf-8-validate@5.0.10):
     dependencies:
       create-jest-runner: 0.8.0
       emphasize: 5.0.0
