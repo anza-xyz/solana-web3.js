@@ -1,4 +1,5 @@
-import { getAddressFromPublicKey } from '../public-key';
+import { address } from '../address';
+import { getAddressFromPublicKey, getPublicKeyFromAddress } from '../public-key';
 
 // Corresponds to address `DcESq8KFcdTdpjWtr2DoGcvu5McM3VJoBetgM1X1vVct`
 const MOCK_PUBLIC_KEY_BYTES = new Uint8Array([
@@ -80,5 +81,13 @@ describe('getAddressFromPublicKey', () => {
             ['sign'],
         );
         await expect(() => getAddressFromPublicKey(mockPrivateKey)).rejects.toThrow();
+    });
+});
+
+describe('getPublicKeyFromAddress', () => {
+    it('returns the public key that corresponds to a given address', async () => {
+        expect.assertions(1);
+        const publicKey = await getPublicKeyFromAddress(address('DcESq8KFcdTdpjWtr2DoGcvu5McM3VJoBetgM1X1vVct'));
+        expect(new Uint8Array(await crypto.subtle.exportKey('raw', publicKey))).toEqual(MOCK_PUBLIC_KEY_BYTES);
     });
 });
