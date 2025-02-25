@@ -1305,8 +1305,8 @@ importers:
   packages/webcrypto-ed25519-polyfill:
     dependencies:
       '@noble/ed25519':
-        specifier: ^2.0.0
-        version: 2.1.0
+        specifier: ^2.2.3
+        version: 2.2.3
       typescript:
         specifier: '>=5'
         version: 5.7.2
@@ -2707,8 +2707,8 @@ packages:
   '@noble/curves@1.4.2':
     resolution: {integrity: sha512-TavHr8qycMChk8UwMld0ZDRvatedkzWfH8IiaeGCfymOP5i0hSCozz9vHOL0nkwk7HRMlFnAiKpS2jrUmSybcw==}
 
-  '@noble/ed25519@2.1.0':
-    resolution: {integrity: sha512-KM4qTyXPinyCgMzeYJH/UudpdL+paJXtY3CHtHYZQtBkS8MZoPr4rOikZllIutJe0d06QDQKisyn02gxZ8TcQA==}
+  '@noble/ed25519@2.2.3':
+    resolution: {integrity: sha512-iHV8eI2mRcUmOx159QNrU8vTpQ/Xm70yJ2cTk3Trc86++02usfqFoNl6x0p3JN81ZDS/1gx6xiK0OwrgqCT43g==}
 
   '@noble/hashes@1.4.0':
     resolution: {integrity: sha512-V1JJ1WTRUqHHrOSh597hURcMqVKVGL/ea3kv0gSnEdsEZ0/+VyPghM1lMNGc00z7CIQorSvbKpuJkxvuHbvdbg==}
@@ -8802,7 +8802,7 @@ snapshots:
     dependencies:
       '@noble/hashes': 1.4.0
 
-  '@noble/ed25519@2.1.0': {}
+  '@noble/ed25519@2.2.3': {}
 
   '@noble/hashes@1.4.0': {}
 
