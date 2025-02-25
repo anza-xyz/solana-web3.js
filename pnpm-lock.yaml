@@ -29,8 +29,8 @@ importers:
         specifier: ^2.27.12
         version: 2.27.12
       '@eslint/js':
-        specifier: ^9.16.0
-        version: 9.16.0
+        specifier: ^9.21.0
+        version: 9.21.0
       '@eslint/json':
         specifier: ^0.10.0
         version: 0.10.0
@@ -39,7 +39,7 @@ importers:
         version: link:packages/build-scripts
       '@solana/eslint-config-solana':
         specifier: ^4.0.0
-        version: 4.0.0(c369a9bb8e677b46d26ee615cf3dbfda)
+        version: 4.0.0(1b6a8b8ba3417d35bd7415d10f0002a2)
       '@solana/prettier-config-solana':
         specifier: 0.0.5
         version: 0.0.5(prettier@3.4.2)
@@ -2400,10 +2400,6 @@ packages:
 
   '@eslint/eslintrc@3.3.0':
     resolution: {integrity: sha512-yaVPAiNAalnCZedKLdR21GOGILMLKPyqSLWaAjQFvYA2i/ciDi8ArYVr69Anohb6cH2Ukhqti4aFnYyPm8wdwQ==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@eslint/js@9.16.0':
-    resolution: {integrity: sha512-tw2HxzQkrbeuvyj1tG2Yqq+0H9wGoI2IMk4EOsQeX+vmd75FtJAzf+gTA69WF+baUKRYQ3x2kbLE08js5OsTVg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/js@9.21.0':
@@ -8331,8 +8327,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@eslint/js@9.16.0': {}
-
   '@eslint/js@9.21.0': {}
 
   '@eslint/json@0.10.0':
@@ -9648,9 +9642,9 @@ snapshots:
     dependencies:
       buffer: 6.0.3
 
-  '@solana/eslint-config-solana@4.0.0(c369a9bb8e677b46d26ee615cf3dbfda)':
+  '@solana/eslint-config-solana@4.0.0(1b6a8b8ba3417d35bd7415d10f0002a2)':
     dependencies:
-      '@eslint/js': 9.16.0
+      '@eslint/js': 9.21.0
       '@types/eslint__js': 8.42.3
       eslint: 9.21.0(jiti@1.21.0)
       eslint-plugin-jest: 28.11.0(@typescript-eslint/eslint-plugin@8.17.0(@typescript-eslint/parser@8.17.0(eslint@9.21.0(jiti@1.21.0))(typescript@5.7.3))(eslint@9.21.0(jiti@1.21.0))(typescript@5.7.3))(eslint@9.21.0(jiti@1.21.0))(jest@30.0.0-alpha.6(@types/node@22.10.2)(ts-node@10.9.2(@swc/core@1.10.18(@swc/helpers@0.5.11))(@types/node@22.10.2)(typescript@5.7.3)))(typescript@5.7.3)
