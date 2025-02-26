@@ -138,16 +138,16 @@ importers:
     dependencies:
       '@solana-program/memo':
         specifier: ^0.6.1
-        version: 0.6.1(@solana/web3.js@packages+library)
+        version: 0.6.1(@solana/web3.js@1.95.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))
       '@solana-program/system':
         specifier: ^0.6.2
-        version: 0.6.2(@solana/web3.js@packages+library)
+        version: 0.6.2(@solana/web3.js@1.95.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))
       '@solana/example-utils':
         specifier: workspace:*
         version: link:../utils
-      '@solana/web3.js':
+      '@solana/kit':
         specifier: workspace:*
-        version: link:../../packages/library
+        version: link:../../packages/kit
     devDependencies:
       start-server-and-test:
         specifier: ^2.0.9
@@ -169,13 +169,13 @@ importers:
         version: 3.2.0(@types/react-dom@19.0.3(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@solana-program/system':
         specifier: ^0.6.2
-        version: 0.6.2(@solana/web3.js@packages+library)
+        version: 0.6.2(@solana/web3.js@1.95.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))
+      '@solana/kit':
+        specifier: workspace:*
+        version: link:../../packages/kit
       '@solana/react':
         specifier: workspace:*
         version: link:../../packages/react
-      '@solana/web3.js':
-        specifier: workspace:*
-        version: link:../../packages/library
       '@wallet-standard/core':
         specifier: ^1.1.0
         version: 1.1.0
@@ -222,9 +222,9 @@ importers:
       '@solana/example-utils':
         specifier: workspace:*
         version: link:../utils
-      '@solana/web3.js':
+      '@solana/kit':
         specifier: workspace:*
-        version: link:../../packages/library
+        version: link:../../packages/kit
     devDependencies:
       tsx:
         specifier: ^4.19.3
@@ -235,9 +235,9 @@ importers:
       '@solana/example-utils':
         specifier: workspace:*
         version: link:../utils
-      '@solana/web3.js':
+      '@solana/kit':
         specifier: workspace:*
-        version: link:../../packages/library
+        version: link:../../packages/kit
     devDependencies:
       start-server-and-test:
         specifier: ^2.0.9
@@ -250,13 +250,13 @@ importers:
     dependencies:
       '@solana-program/system':
         specifier: ^0.6.2
-        version: 0.6.2(@solana/web3.js@packages+library)
+        version: 0.6.2(@solana/web3.js@1.95.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))
       '@solana/example-utils':
         specifier: workspace:*
         version: link:../utils
-      '@solana/web3.js':
+      '@solana/kit':
         specifier: workspace:*
-        version: link:../../packages/library
+        version: link:../../packages/kit
     devDependencies:
       start-server-and-test:
         specifier: ^2.0.9
@@ -269,13 +269,13 @@ importers:
     dependencies:
       '@solana-program/system':
         specifier: ^0.6.2
-        version: 0.6.2(@solana/web3.js@packages+library)
+        version: 0.6.2(@solana/web3.js@1.95.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))
       '@solana/example-utils':
         specifier: workspace:*
         version: link:../utils
-      '@solana/web3.js':
+      '@solana/kit':
         specifier: workspace:*
-        version: link:../../packages/library
+        version: link:../../packages/kit
     devDependencies:
       start-server-and-test:
         specifier: ^2.0.9
@@ -563,7 +563,7 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1
 
-  packages/library:
+  packages/kit:
     dependencies:
       '@solana/accounts':
         specifier: workspace:*
@@ -621,7 +621,7 @@ importers:
         version: link:../transactions
       typescript:
         specifier: '>=5'
-        version: 5.7.2
+        version: 5.7.3
 
   packages/options:
     dependencies:
@@ -9785,13 +9785,13 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 1.8.6
 
-  '@solana-program/memo@0.6.1(@solana/web3.js@packages+library)':
+  '@solana-program/memo@0.6.1(@solana/web3.js@1.95.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))':
     dependencies:
-      '@solana/web3.js': link:packages/library
+      '@solana/web3.js': 1.95.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
 
-  '@solana-program/system@0.6.2(@solana/web3.js@packages+library)':
+  '@solana-program/system@0.6.2(@solana/web3.js@1.95.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))':
     dependencies:
-      '@solana/web3.js': link:packages/library
+      '@solana/web3.js': 1.95.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
 
   '@solana/buffer-layout@4.0.1':
     dependencies:
