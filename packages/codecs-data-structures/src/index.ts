@@ -3,7 +3,7 @@
  * It can be used standalone, but it is also exported as part of Kit
  * [`@solana/kit`](https://github.com/anza-xyz/kit/tree/main/packages/kit).
  *
- * This package is also part of the [`@solana/codecs` package](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs)
+ * This package is also part of the [`@solana/codecs` package](https://github.com/anza-xyz/kit/tree/main/packages/codecs)
  * which acts as an entry point for all codec packages as well as for their documentation.
  *
  * @packageDocumentation

@@ -1,6 +1,6 @@
 /**
  * To add a new error, follow the instructions at
- * https://github.com/anza-xyz/solana-web3.js/tree/main/packages/errors/#adding-a-new-error
+ * https://github.com/anza-xyz/kit/tree/main/packages/errors/#adding-a-new-error
  *
  * @module
  * @privateRemarks

@@ -3,7 +3,7 @@
  * It can be used standalone, but it is also exported as part of Kit
  * [`@solana/kit`](https://github.com/anza-xyz/kit/tree/main/packages/kit).
  *
- * This package is also part of the [`@solana/codecs` package](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs)
+ * This package is also part of the [`@solana/codecs` package](https://github.com/anza-xyz/kit/tree/main/packages/codecs)
  * which acts as an entry point for all codec packages as well as for their documentation.
  *
  * ## Sizing string codecs
@@ -32,8 +32,8 @@
  *
  * This might be what you want — e.g. when having a string at the end of a data structure — but in many cases,
  * you might want to have a size boundary for your string. You may achieve this by composing your string codec
- * with the [`fixCodecSize`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs-core#fixing-the-size-of-codecs)
- * or [`addCodecSizePrefix`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs-core#prefixing-the-size-of-codecs) functions.
+ * with the [`fixCodecSize`](https://github.com/anza-xyz/kit/tree/main/packages/codecs-core#fixing-the-size-of-codecs)
+ * or [`addCodecSizePrefix`](https://github.com/anza-xyz/kit/tree/main/packages/codecs-core#prefixing-the-size-of-codecs) functions.
  *
  * The `fixCodecSize` function accepts a fixed byte length and returns a `FixedSizeCodec<string>` that will always use
  * that amount of bytes to encode and decode a string. Any string longer or smaller than that size will be truncated
