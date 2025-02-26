@@ -113,7 +113,7 @@ describe('sendTransaction', () => {
                 const message = getMockTransactionMessage({
                     blockhash: latestBlockhash.blockhash,
                     feePayerAddressBytes: MOCK_PUBLIC_KEY_BYTES,
-                    memoString: `Hello from the web3.js tests! [${performance.now()}]`,
+                    memoString: `Hello from the Kit tests! [${performance.now()}]`,
                 });
                 const signature = new Uint8Array(await crypto.subtle.sign('Ed25519', secretKey, message));
                 const resultPromise = rpc
@@ -138,7 +138,7 @@ describe('sendTransaction', () => {
         const message = getMockTransactionMessage({
             blockhash: latestBlockhash.blockhash,
             feePayerAddressBytes: MOCK_PUBLIC_KEY_BYTES,
-            memoString: `Hello from the web3.js tests! [${performance.now()}]`,
+            memoString: `Hello from the Kit tests! [${performance.now()}]`,
         });
         const signature = new Uint8Array(Array(64).fill(0));
         const resultPromise = rpc
@@ -166,7 +166,7 @@ describe('sendTransaction', () => {
         const message = getMockTransactionMessage({
             blockhash: latestBlockhash.blockhash,
             feePayerAddressBytes: MOCK_PUBLIC_KEY_BYTES,
-            memoString: `Hello from the web3.js tests! [${performance.now()}]`,
+            memoString: `Hello from the Kit tests! [${performance.now()}]`,
             version: 0xfe, // Version 126
         });
         const signature = new Uint8Array(await crypto.subtle.sign('Ed25519', secretKey, message));
@@ -228,7 +228,7 @@ describe('sendTransaction', () => {
         const message = getMockTransactionMessage({
             blockhash: latestBlockhash.blockhash,
             feePayerAddressBytes: publicKeyBytes,
-            memoString: `Hello from the web3.js tests! [${performance.now()}]`,
+            memoString: `Hello from the Kit tests! [${performance.now()}]`,
         });
         const signature = new Uint8Array(await crypto.subtle.sign('Ed25519', secretKey, message));
         const resultPromise = rpc
@@ -263,7 +263,7 @@ describe('sendTransaction', () => {
         const message = getMockTransactionMessage({
             blockhash: latestBlockhash.blockhash,
             feePayerAddressBytes: MOCK_INSUFFICIENT_BALANCE_PUBLIC_KEY_BYTES,
-            memoString: `Hello from the web3.js tests! [${performance.now()}]`,
+            memoString: `Hello from the Kit tests! [${performance.now()}]`,
         });
         const signature = new Uint8Array(await crypto.subtle.sign('Ed25519', secretKey, message));
         const resultPromise = rpc
@@ -295,7 +295,7 @@ describe('sendTransaction', () => {
         const message = getMockTransactionMessage({
             blockhash: getBase58Decoder().decode(new Uint8Array(Array(32).fill(0))),
             feePayerAddressBytes: MOCK_PUBLIC_KEY_BYTES,
-            memoString: `Hello from the web3.js tests! [${performance.now()}]`,
+            memoString: `Hello from the Kit tests! [${performance.now()}]`,
         });
         const signature = new Uint8Array(await crypto.subtle.sign('Ed25519', secretKey, message));
         const resultPromise = rpc
@@ -331,7 +331,7 @@ describe('sendTransaction', () => {
             const message = getMockTransactionMessage({
                 blockhash: latestBlockhash.blockhash,
                 feePayerAddressBytes: MOCK_PUBLIC_KEY_BYTES,
-                memoString: `Hello from the web3.js tests! [${performance.now()}]`,
+                memoString: `Hello from the Kit tests! [${performance.now()}]`,
             });
             const signature = new Uint8Array(await crypto.subtle.sign('Ed25519', secretKey, message));
             const resultPromise = rpc

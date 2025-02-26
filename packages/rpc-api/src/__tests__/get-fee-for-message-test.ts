@@ -24,7 +24,7 @@ const MOCK_PUBLIC_KEY_BYTES = // DRtXHDgC312wpNdNCSb8vCoXDcofCJcPHdAw4VkJ8L9i
     ]);
 
 function getMockTransactionMessage(blockhash: Blockhash) {
-    const memoString = 'Hello from the web3.js tests!';
+    const memoString = 'Hello from the Kit tests!';
     const blockhashBytes = fixEncoderSize(getBase58Encoder(), 32).encode(blockhash);
     // prettier-ignore
     const message = new Uint8Array([
