@@ -3,7 +3,7 @@
     "compilerOptions": {
         "lib": ["DOM", "ES2020", "ES2022.Error"]
     },
-    "display": "@solana/web3.js",
+    "display": "@solana/kit",
     "extends": "../tsconfig/base.json",
     "include": ["src"]
 }
