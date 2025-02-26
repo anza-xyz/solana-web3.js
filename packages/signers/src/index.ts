@@ -1,7 +1,7 @@
 /**
  * This package provides an abstraction layer over signing messages and transactions in Solana.
- * It can be used standalone, but it is also exported as part of the Solana JavaScript SDK
- * [`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
+ * It can be used standalone, but it is also exported as part of Kit
+ * [`@solana/kit`](https://github.com/anza-xyz/kit/tree/main/packages/kit).
  *
  * You can think of signers as an abstract way to sign messages and transactions.
  * This could be using a {@link CryptoKeyPair}, a wallet adapter in the browser,
