@@ -2,8 +2,8 @@
     "baseDir": "./packages/",
     "files": [
         {
-            "friendlyName": "@solana/web3.js production bundle",
-            "path": "library/dist/index.production.min.js"
+            "friendlyName": "@solana/kit production bundle",
+            "path": "kit/dist/index.production.min.js"
         },
         {
             "path": "**/dist/index.*.mjs"
