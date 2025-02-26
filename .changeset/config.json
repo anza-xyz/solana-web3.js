@@ -6,7 +6,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "anza-xyz/solana-web3.js"
+      "repo": "anza-xyz/kit"
     }
   ],
   "fixed": [["@solana/!({*-impl,build-scripts,test-*,tsconfig})"]],
