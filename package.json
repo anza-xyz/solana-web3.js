@@ -46,7 +46,7 @@
         "ts-node": "^10.9.2",
         "tsup": "^8.3.6",
         "turbo": "^2.4.2",
-        "typedoc": "^0.27.4",
+        "typedoc": "^0.27.9",
         "typedoc-plugin-missing-exports": "^3.1.0",
         "typescript": "^5.7.3"
     },
