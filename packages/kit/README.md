@@ -5,11 +5,11 @@
 
 [code-style-prettier-image]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
 [code-style-prettier-url]: https://github.com/prettier/prettier
-[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/web3.js/next.svg?style=flat
-[npm-image]: https://img.shields.io/npm/v/@solana/web3.js/next.svg?style=flat
-[npm-url]: https://www.npmjs.com/package/@solana/web3.js/v/next
+[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/kit?style=flat
+[npm-image]: https://img.shields.io/npm/v/@solana/kit?style=flat
+[npm-url]: https://www.npmjs.com/package/@solana/kit
 
-# @solana/web3.js
+# @solana/kit
 
 This is the JavaScript SDK for building Solana apps for Node, web, and React Native.
 
@@ -22,14 +22,7 @@ In addition to reexporting functions from packages in the `@solana/*` namespace,
 Returns a function that you can call to airdrop a certain amount of `Lamports` to a Solana address.
 
 ```ts
-import {
-    address,
-    airdropFactory,
-    createSolanaRpc,
-    createSolanaRpcSubscriptions,
-    devnet,
-    lamports,
-} from '@solana/web3.js';
+import { address, airdropFactory, createSolanaRpc, createSolanaRpcSubscriptions, devnet, lamports } from '@solana/kit';
 
 const rpc = createSolanaRpc(devnet('http://127.0.0.1:8899'));
 const rpcSubscriptions = createSolanaRpcSubscriptions(devnet('ws://127.0.0.1:8900'));
@@ -63,7 +56,7 @@ Use this utility to estimate the actual compute unit cost of a given transaction
 
 ```ts
 import { getSetComputeUnitLimitInstruction } from '@solana-program/compute-budget';
-import { createSolanaRpc, getComputeUnitEstimateForTransactionMessageFactory, pipe } from '@solana/web3.js';
+import { createSolanaRpc, getComputeUnitEstimateForTransactionMessageFactory, pipe } from '@solana/kit';
 
 // Create an estimator function.
 const rpc = createSolanaRpc('http://127.0.0.1:8899');
@@ -103,7 +96,7 @@ import {
     sendAndConfirmDurableNonceTransactionFactory,
     SOLANA_ERROR__INVALID_NONCE,
     SOLANA_ERROR__NONCE_ACCOUNT_NOT_FOUND,
-} from '@solana/web3.js';
+} from '@solana/kit';
 
 const sendAndConfirmNonceTransaction = sendAndConfirmDurableNonceTransactionFactory({ rpc, rpcSubscriptions });
 
@@ -128,7 +121,7 @@ try {
 Returns a function that you can call to send a blockhash-based transaction to the network and to wait until it has been confirmed.
 
 ```ts
-import { isSolanaError, sendAndConfirmTransactionFactory, SOLANA_ERROR__BLOCK_HEIGHT_EXCEEDED } from '@solana/web3.js';
+import { isSolanaError, sendAndConfirmTransactionFactory, SOLANA_ERROR__BLOCK_HEIGHT_EXCEEDED } from '@solana/kit';
 
 const sendAndConfirmTransaction = sendAndConfirmTransactionFactory({ rpc, rpcSubscriptions });
 
@@ -151,7 +144,7 @@ Returns a function that you can call to send a transaction with any kind of life
 import {
     sendTransactionWithoutConfirmingFactory,
     SOLANA_ERROR__JSON_RPC__SERVER_ERROR_SEND_TRANSACTION_PREFLIGHT_FAILURE,
-} from '@solana/web3.js';
+} from '@solana/kit';
 
 const sendTransaction = sendTransactionWithoutConfirmingFactory({ rpc });
 

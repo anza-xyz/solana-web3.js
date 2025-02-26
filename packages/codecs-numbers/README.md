@@ -5,15 +5,15 @@
 
 [code-style-prettier-image]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
 [code-style-prettier-url]: https://github.com/prettier/prettier
-[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/codecs-numbers/next.svg?style=flat
-[npm-image]: https://img.shields.io/npm/v/@solana/codecs-numbers/next.svg?style=flat
-[npm-url]: https://www.npmjs.com/package/@solana/codecs-numbers/v/next
+[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/codecs-numbers?style=flat
+[npm-image]: https://img.shields.io/npm/v/@solana/codecs-numbers?style=flat
+[npm-url]: https://www.npmjs.com/package/@solana/codecs-numbers
 
 # @solana/codecs-numbers
 
-This package contains codecs for numbers of different sizes and endianness. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
+This package contains codecs for numbers of different sizes and endianness. It can be used standalone, but it is also exported as part of Kit [`@solana/kit`](https://github.com/anza-xyz/kit/tree/main/packages/kit).
 
-This package is also part of the [`@solana/codecs` package](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs) which acts as an entry point for all codec packages as well as for their documentation.
+This package is also part of the [`@solana/codecs` package](https://github.com/anza-xyz/kit/tree/main/packages/codecs) which acts as an entry point for all codec packages as well as for their documentation.
 
 ## Integer codecs
 
@@ -127,4 +127,4 @@ Separate encoder and decoder functions are also available via `getShortU16Encode
 
 ---
 
-To read more about the available codecs and how to use them, check out the documentation of the main [`@solana/codecs` package](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs).
+To read more about the available codecs and how to use them, check out the documentation of the main [`@solana/codecs` package](https://github.com/anza-xyz/kit/tree/main/packages/codecs).

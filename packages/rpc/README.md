@@ -5,13 +5,13 @@
 
 [code-style-prettier-image]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
 [code-style-prettier-url]: https://github.com/prettier/prettier
-[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/rpc/next.svg?style=flat
-[npm-image]: https://img.shields.io/npm/v/@solana/rpc/next.svg?style=flat
-[npm-url]: https://www.npmjs.com/package/@solana/rpc/v/next
+[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/rpc?style=flat
+[npm-image]: https://img.shields.io/npm/v/@solana/rpc?style=flat
+[npm-url]: https://www.npmjs.com/package/@solana/rpc
 
 # @solana/rpc
 
-This package contains utilities for creating objects that you can use to communicate with a Solana JSON RPC server. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
+This package contains utilities for creating objects that you can use to communicate with a Solana JSON RPC server. It can be used standalone, but it is also exported as part of Kit [`@solana/kit`](https://github.com/anza-xyz/kit/tree/main/packages/kit).
 
 Unless you plan to create a custom RPC interface, you can use the [`createSolanaRpc(clusterUrl)`](#createsolanarpcclusterurl-config) function to obtain a default implementation of the [Solana JSON RPC API](https://solana.com/docs/rpc/http).
 
@@ -100,7 +100,7 @@ Creates a `RpcTransport` with some default behaviours.
 
 The default behaviours include:
 
-- An automatically-set `Solana-Client` request header, containing the version of `@solana/web3.js`
+- An automatically-set `Solana-Client` request header, containing the version of `@solana/kit`
 - Logic that coalesces multiple calls in the same runloop, for the same methods with the same arguments, into a single network request.
 
 #### Arguments

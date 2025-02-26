@@ -5,13 +5,13 @@
 
 [code-style-prettier-image]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
 [code-style-prettier-url]: https://github.com/prettier/prettier
-[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/rpc-subscriptions/next.svg?style=flat
-[npm-image]: https://img.shields.io/npm/v/@solana/rpc-subscriptions/next.svg?style=flat
-[npm-url]: https://www.npmjs.com/package/@solana/rpc-subscriptions/v/next
+[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/rpc-subscriptions?style=flat
+[npm-image]: https://img.shields.io/npm/v/@solana/rpc-subscriptions?style=flat
+[npm-url]: https://www.npmjs.com/package/@solana/rpc-subscriptions
 
 # @solana/rpc-subscriptions
 
-This package contains types that implement RPC subscriptions as required by the Solana RPC. Additionally, it incorporates some useful defaults that make working with subscriptions easier, more performant, and more reliable. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
+This package contains types that implement RPC subscriptions as required by the Solana RPC. Additionally, it incorporates some useful defaults that make working with subscriptions easier, more performant, and more reliable. It can be used standalone, but it is also exported as part of Kit [`@solana/kit`](https://github.com/anza-xyz/kit/tree/main/packages/kit).
 
 ## Functions
 

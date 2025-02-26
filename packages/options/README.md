@@ -5,15 +5,15 @@
 
 [code-style-prettier-image]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
 [code-style-prettier-url]: https://github.com/prettier/prettier
-[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/options/next.svg?style=flat
-[npm-image]: https://img.shields.io/npm/v/@solana/options/next.svg?style=flat
-[npm-url]: https://www.npmjs.com/package/@solana/options/v/next
+[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/options?style=flat
+[npm-image]: https://img.shields.io/npm/v/@solana/options?style=flat
+[npm-url]: https://www.npmjs.com/package/@solana/options
 
 # @solana/options
 
-This package allows us to manage and serialize Rust-like Option types in JavaScript. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
+This package allows us to manage and serialize Rust-like Option types in JavaScript. It can be used standalone, but it is also exported as part of Kit [`@solana/kit`](https://github.com/anza-xyz/kit/tree/main/packages/kit).
 
-This package is also part of the [`@solana/codecs` package](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs) which acts as an entry point for all codec packages as well as for their documentation.
+This package is also part of the [`@solana/codecs` package](https://github.com/anza-xyz/kit/tree/main/packages/codecs) which acts as an entry point for all codec packages as well as for their documentation.
 
 ## Creating options
 
@@ -110,7 +110,7 @@ unwrapOptionRecursively(
 
 ## Option codec
 
-The `getOptionCodec` function behaves exactly the same as the [`getNullableCodec`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs-data-structures#nullable-codec) except that it encodes `Option<T>` types instead of `T | null` types.
+The `getOptionCodec` function behaves exactly the same as the [`getNullableCodec`](https://github.com/anza-xyz/kit/tree/main/packages/codecs-data-structures#nullable-codec) except that it encodes `Option<T>` types instead of `T | null` types.
 
 Namely, it accepts a codec of type `T` and returns a codec of type `Option<T>`. Note that, when encoding, `T` or `null` may also be provided directly as input and will be interpreted as `Some(T)` or `None` respectively. However, when decoding, the output will always be an `Option<T>` type.
 
@@ -228,4 +228,4 @@ const bytes = getOptionEncoder(getU32Encoder()).encode(some(42));
 const value = getOptionDecoder(getU32Decoder()).decode(bytes);
 ```
 
-To read more about the available codecs and how to use them, check out the documentation of the main [`@solana/codecs` package](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/codecs).
+To read more about the available codecs and how to use them, check out the documentation of the main [`@solana/codecs` package](https://github.com/anza-xyz/kit/tree/main/packages/codecs).

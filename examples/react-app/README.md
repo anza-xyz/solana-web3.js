@@ -1,6 +1,6 @@
 # @solana/example-react-app
 
-This is an example of how to use `@solana/web3.js` and `@solana/react` to build a React web application.
+This is an example of how to use `@solana/kit` and `@solana/react` to build a React web application.
 
 ## Features
 

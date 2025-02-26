@@ -5,11 +5,11 @@
 
 [code-style-prettier-image]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
 [code-style-prettier-url]: https://github.com/prettier/prettier
-[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/web3.js/next.svg?style=flat
-[npm-image]: https://img.shields.io/npm/v/@solana/web3.js/next.svg?style=flat
-[npm-url]: https://www.npmjs.com/package/@solana/web3.js/v/next
+[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/kit?style=flat
+[npm-image]: https://img.shields.io/npm/v/@solana/kit?style=flat
+[npm-url]: https://www.npmjs.com/package/@solana/kit
 
-# Solana JavaScript SDK
+# Kit
 
 This is the JavaScript SDK for building Solana apps for Node, web, and React Native.
 
@@ -21,26 +21,26 @@ This is the JavaScript SDK for building Solana apps for Node, web, and React Nat
 For use in a Node.js or web application:
 
 ```shell
-npm install --save @solana/web3.js@next
+npm install --save @solana/kit
 ```
 
 For use in a browser, without a build system:
 
 ```html
 <!-- Development (debug mode, unminified) -->
-<script src="https://unpkg.com/@solana/web3.js@next/dist/index.development.js"></script>
+<script src="https://unpkg.com/@solana/kit/dist/index.development.js"></script>
 
 <!-- Production (minified) -->
-<script src="https://unpkg.com/@solana/web3.js@next/dist/index.production.min.js"></script>
+<script src="https://unpkg.com/@solana/kit/dist/index.production.min.js"></script>
 ```
 
 # Quick Start
 
 To get a feel for the API, run and modify the live examples in the `examples/` directory. There, you will find a series of single-purpose Node scripts that demonstrate a specific feature or use case. You will also find a React application that you can run in a browser, that demonstrates being able to create, sign, and send transactions using browser wallets.
 
-# What's New in Version 2.0
+# What's New in Kit
 
-Version 2.0 of the Solana JavaScript SDK is a response to many of the pain points you have communicated to us when developing Solana applications with web3.js.
+Kit is a response to many of the pain points you have communicated to us when developing Solana applications with web3.js.
 
 ## Tree-Shakability
 
@@ -56,9 +56,9 @@ One example of an API that can’t be tree-shaken is the `Connection` class. It 
 
 Needlessly large JavaScript bundles can cause issues with deployments to cloud compute providers like Cloudflare or AWS Lambda. They also impact webapp startup performance because of longer download and JavaScript parse times.
 
-Version 2.0 is fully tree-shakable and will remain so, enforced by build-time checks. Optimizing compilers can now eliminate those parts of the library that your application does not use.
+Kit is fully tree-shakable and will remain so, enforced by build-time checks. Optimizing compilers can now eliminate those parts of the library that your application does not use.
 
-The new library itself is comprised of several smaller, modular packages under the `@solana` organization, including:
+Kit is comprised of several smaller, modular packages under the `@solana` organization, including:
 
 -   `@solana/accounts`: For fetching and decoding accounts
 -   `@solana/codecs`: For composing data (de)serializers from a set of primitives or building custom ones
@@ -73,7 +73,7 @@ The new library itself is comprised of several smaller, modular packages under t
 
 Some of these packages are themselves composed of smaller packages. For instance, `@solana/rpc` is composed of `@solana/rpc-spec` (for core JSON RPC specification types), `@solana/rpc-api` (for the Solana-specific RPC methods), `@solana/rpc-transport-http` (for the default HTTP transport) and so on.
 
-Developers can use the default configurations within the main library (`@solana/web3.js@next`) or import any of its subpackages where customization-through-composition is desired.
+Developers can use the default configurations within the main library (`@solana/kit`) or import any of its subpackages where customization-through-composition is desired.
 
 ## Composable Internals
 
@@ -86,9 +86,9 @@ The inability to customize web3.js up until now has been a source of frustration
 -   Solana developer ‘epicfaace’ wanted first-class support for automatic time-windowed batching in the RPC transport. [Here’s their pull request](https://github.com/solana-labs/solana/pull/23628).
 -   Multiple folks have expressed the need for custom retry logic for failed requests or transactions. [Here’s a pull request from ‘dafyddd’](https://github.com/solana-labs/solana/pull/11811) and [another from ‘abrkn’](https://github.com/solana-labs/solana-web3.js/issues/1041) attempting to modify retry logic to suit their individual use cases.
 
-Version 2.0 exposes far more of its internals, particularly where communication with an RPC is concerned, and allows willing developers the ability to compose new implementations from the default ones that manifest a nearly limitless array of customizations.
+Kit exposes far more of its internals, particularly where communication with an RPC is concerned, and allows willing developers the ability to compose new implementations from the default ones that manifest a nearly limitless array of customizations.
 
-The individual modules that make up web3.js are assembled in a **default** configuration reminiscent of the legacy library as part of the npm package `@solana/web3.js@next`, but those who wish to assemble them in different configurations may do so.
+The individual modules that make up Kit are assembled in a **default** configuration reminiscent of the legacy library as part of the npm package `@solana/kit`, but those who wish to assemble them in different configurations may do so.
 
 Generic types are offered in numerous places, allowing you to specify new functionality, to make extensions to each API via composition and supertypes, and to encourage you to create higher-level opinionated abstractions of your own.
 
@@ -102,7 +102,7 @@ The Web Incubator Community Group has advocated for the addition of Ed25519 supp
 
 Engine support for `bigint` values has also become commonplace. The older `number` primitive in JavaScript has a maximum value of 2^53 - 1, whereas Rust’s `u64` can represent values up to 2^64.
 
-Version 2.0 eliminates userspace implementations of Ed25519 cryptography, large number polyfills, and more, in favour of custom implementations or the use of native JavaScript features, reducing the size of the library. It has no third-party dependencies.
+Kit eliminates userspace implementations of Ed25519 cryptography, large number polyfills, and more, in favour of custom implementations or the use of native JavaScript features, reducing the size of the library. It has no third-party dependencies.
 
 ## Functional Architecture
 
@@ -114,13 +114,13 @@ Read more about dual-package hazard:
 
 -   [NodeJS: Dual Package Hazard](https://nodejs.org/api/packages.html#dual-package-hazard)
 
-Version 2.0 implements no classes (with the notable exception of the `SolanaError` class) and implements the thinnest possible interfaces at function boundaries.
+Kit implements no classes (with the notable exception of the `SolanaError` class) and implements the thinnest possible interfaces at function boundaries.
 
 ## Statistics
 
-Consider these statistical comparisons between version 2.0 and the legacy 1.x.
+Consider these statistical comparisons between Kit and the legacy web3.js 1.x.
 
-|                                                                                                        | 1.x (Legacy) | 2.0        | +/- % |
+|                                                                                                        | 1.x (Legacy) | Kit        | +/- % |
 | ------------------------------------------------------------------------------------------------------ | ------------ | ---------- | ----- |
 | Total minified size of library                                                                         | 81 KB        | 57.5 KB    | -29%  |
 | Total minified size of library (when runtime supports Ed25519)                                         | 81 KB        | 53 KB      | -33%  |
@@ -131,15 +131,15 @@ Consider these statistical comparisons between version 2.0 and the legacy 1.x.
 
 The re-engineered library achieves these speedups and reductions in bundle size in large part through use of modern JavaScript APIs.
 
-To validate our work, we replaced the legacy 1.x library with the new 2.0 library on the homepage of the Solana Explorer. Total first-load bundle size dropped by 26% without removing a single feature. [Here’s an X thread](https://twitter.com/callum_codes/status/1679124485218226176) by Callum McIntyre if you would like to dig deeper.
+To validate our work, we replaced the legacy 1.x library with Kit on the homepage of the Solana Explorer. Total first-load bundle size dropped by 26% without removing a single feature. [Here’s an X thread](https://twitter.com/callum_codes/status/1679124485218226176) by Callum McIntyre if you would like to dig deeper.
 
-# A Tour of the Version 2.0 API
+# A Tour of the Kit API
 
 Here’s an overview of how to use the new library to interact with the RPC, configure network transports, work with Ed25519 keys, and to serialize data.
 
 ## RPC
 
-Version 2.0 ships with an implementation of the [JSON RPC specification](https://www.jsonrpc.org/specification) and a type spec for the [Solana JSON RPC](https://docs.solana.com/api).
+Kit ships with an implementation of the [JSON RPC specification](https://www.jsonrpc.org/specification) and a type spec for the [Solana JSON RPC](https://docs.solana.com/api).
 
 The main package responsible for managing communication with an RPC is `@solana/rpc`. However, this package makes use of more granular packages to break down the RPC logic into smaller pieces. Namely, these packages are:
 
@@ -150,14 +150,14 @@ The main package responsible for managing communication with an RPC is `@solana/
 -   `@solana/rpc-spec-types`: Shared JSON RPC specifications types and helpers that are used by both `@solana/rpc` and `@solana/rpc-subscriptions` (described in the next section).
 -   `@solana/rpc-types`: Shared Solana RPC types and helpers that are used by both `@solana/rpc` and `@solana/rpc-subscriptions`.
 
-The main `@solana/web3.js` package re-exports the `@solana/rpc` package so, going forward, we will import RPC types and functions from the library directly.
+The main `@solana/kit` package re-exports the `@solana/rpc` package so, going forward, we will import RPC types and functions from the library directly.
 
 ### RPC Calls
 
 You can use the `createSolanaRpc` function by providing the URL of a Solana JSON RPC server. This will create a default client for interacting with the Solana JSON RPC API.
 
 ```ts
-import { createSolanaRpc } from '@solana/web3.js';
+import { createSolanaRpc } from '@solana/kit';
 
 // Create an RPC client.
 const rpc = createSolanaRpc('http://127.0.0.1:8899');
@@ -172,7 +172,7 @@ const slot = await rpc.getSlot().send();
 The `createSolanaRpc` function communicates with the RPC server using a default HTTP transport that should satisfy most use cases. You can provide your own transport or wrap an existing one to communicate with RPC servers in any way you see fit. In the example below, we explicitly create a transport and use it to create a new RPC client via the `createSolanaRpcFromTransport` function.
 
 ```ts
-import { createSolanaRpcFromTransport, createDefaultRpcTransport } from '@solana/web3.js';
+import { createSolanaRpcFromTransport, createDefaultRpcTransport } from '@solana/kit';
 
 // Create an HTTP transport or any custom transport of your choice.
 const transport = createDefaultRpcTransport({ url: 'https://api.devnet.solana.com' });
@@ -192,7 +192,7 @@ A custom transport can implement specialized functionality such as coordinating 
 A ‘round robin’ transport is one that distributes requests to a list of endpoints in sequence.
 
 ```ts
-import { createDefaultRpcTransport, createSolanaRpcFromTransport, type RpcTransport } from '@solana/web3.js';
+import { createDefaultRpcTransport, createSolanaRpcFromTransport, type RpcTransport } from '@solana/kit';
 
 // Create an HTTP transport for each RPC server.
 const transports = [
@@ -218,7 +218,7 @@ const rpc = createSolanaRpcFromTransport(roundRobinTransport);
 A sharding transport is a kind of distributing transport that sends requests to a particular server based on something about the request itself. Here’s an example that sends requests to different servers depending on the name of the method:
 
 ```ts
-import { createDefaultRpcTransport, createSolanaRpcFromTransport, type RpcTransport } from '@solana/web3.js';
+import { createDefaultRpcTransport, createSolanaRpcFromTransport, type RpcTransport } from '@solana/kit';
 
 // Create multiple transports.
 const transportA = createDefaultRpcTransport({ url: 'https://mainnet-beta.my-server-1.com' });
@@ -258,7 +258,7 @@ const rpc = createSolanaRpcFromTransport(shardingTransport);
 A custom transport is a good place to implement global retry logic for every request:
 
 ```ts
-import { createDefaultRpcTransport, createSolanaRpcFromTransport, type RpcTransport } from '@solana/web3.js';
+import { createDefaultRpcTransport, createSolanaRpcFromTransport, type RpcTransport } from '@solana/kit';
 
 // Set the maximum number of attempts to retry a request.
 const MAX_ATTEMPTS = 4;
@@ -304,7 +304,7 @@ const rpc = createSolanaRpcFromTransport(retryingTransport);
 Support for handling network failures can be implemented in the transport itself. Here’s an example of some failover logic integrated into a transport:
 
 ```ts
-import { createDefaultRpcTransport, createSolanaRpcFromTransport, type RpcTransport } from '@solana/web3.js';
+import { createDefaultRpcTransport, createSolanaRpcFromTransport, type RpcTransport } from '@solana/kit';
 
 // List of RPC endpoints for failover.
 const rpcEndpoints = [
@@ -315,7 +315,7 @@ const rpcEndpoints = [
 ];
 
 // Create an array of transports from the endpoints.
-const transports = rpcEndpoints.map((url) => createDefaultRpcTransport({ url }));
+const transports = rpcEndpoints.map(url => createDefaultRpcTransport({ url }));
 
 // A failover transport that switches to the next transport on failure.
 async function failoverTransport<TResponse>(...args: Parameters<RpcTransport>): Promise<TResponse> {
@@ -347,7 +347,7 @@ When constraining the API scope, keep in mind that types don’t affect bundle s
 If you're using a specific cluster, you may wrap your RPC URL inside a helper function like `mainnet` or `devnet` to inject that information into the RPC type system.
 
 ```ts
-import { createSolanaRpc, mainnet, devnet } from '@solana/web3.js';
+import { createSolanaRpc, mainnet, devnet } from '@solana/kit';
 
 const mainnetRpc = createSolanaRpc(mainnet('https://api.mainnet-beta.solana.com'));
 //    ^? RpcMainnet<SolanaRpcApiMainnet>
@@ -363,7 +363,7 @@ In the example above, `devnetRpc.requestAirdrop(..)` will work, but `mainnetRpc.
 You can constrain the API’s type-spec even further so you are left only with the methods you need. The simplest way to do this is to cast the created RPC client to a type that only includes the required methods.
 
 ```ts
-import { createSolanaRpc, type Rpc, type GetAccountInfoApi, type GetMultipleAccountsApi } from '@solana/web3.js';
+import { createSolanaRpc, type Rpc, type GetAccountInfoApi, type GetMultipleAccountsApi } from '@solana/kit';
 
 const rpc = createSolanaRpc('http://127.0.0.1:8899') as Rpc<GetAccountInfoApi & GetMultipleAccountsApi>;
 ```
@@ -378,7 +378,7 @@ import {
     DEFAULT_RPC_CONFIG,
     type GetAccountInfoApi,
     type GetMultipleAccountsApi,
-} from '@solana/web3.js';
+} from '@solana/kit';
 
 const api = createSolanaRpcApi<GetAccountInfoApi & GetMultipleAccountsApi>(DEFAULT_RPC_CONFIG);
 const transport = createDefaultRpcTransport({ url: 'http://127.0.0.1:8899' });
@@ -429,7 +429,7 @@ export type MetaplexDASApi = GetAssetApi;
 Here’s how a developer might use it:
 
 ```ts
-import { createDefaultRpcTransport, createRpc, createJsonRpcApi } from '@solana/web3.js';
+import { createDefaultRpcTransport, createRpc, createJsonRpcApi } from '@solana/kit';
 
 // Create the custom API.
 const api = createJsonRpcApi<MetaplexDASApi>();
@@ -444,7 +444,7 @@ const metaplexDASRpc = createRpc({ api, transport });
 //    ^? Rpc<MetaplexDASApi>
 ```
 
-As long as a particular JSON RPC method adheres to the [official JSON RPC specification](https://www.jsonrpc.org/specification), it will be supported by version 2.0.
+As long as a particular JSON RPC method adheres to the [official JSON RPC specification](https://www.jsonrpc.org/specification), it will be supported by Kit.
 
 ### Aborting RPC Requests
 
@@ -461,7 +461,7 @@ The arguments of the `getSlot` method are reserved for the request payload, but 
 Aborting RPC requests can be useful for a variety of things such as setting a timeout on a request or cancelling a request when a user navigates away from a page.
 
 ```ts
-import { createSolanaRpc } from '@solana/web3.js';
+import { createSolanaRpc } from '@solana/kit';
 
 const rpc = createSolanaRpc('http://127.0.0.1:8900');
 
@@ -496,14 +496,14 @@ The main package responsible for managing communication with RPC subscriptions i
 -   `@solana/rpc-spec-types`: Shared JSON RPC specifications types and helpers that are used by both `@solana/rpc` and `@solana/rpc-subscriptions`.
 -   `@solana/rpc-types`: Shared Solana RPC types and helpers that are used by both `@solana/rpc` and `@solana/rpc-subscriptions`.
 
-Since the main `@solana/web3.js` library also re-exports the `@solana/rpc-subscriptions` package we will import RPC Subscriptions types and functions directly from the main library going forward.
+Since the main `@solana/kit` library also re-exports the `@solana/rpc-subscriptions` package we will import RPC Subscriptions types and functions directly from the main library going forward.
 
 ### Getting Started with RPC Subscriptions
 
 To get started with RPC Subscriptions, you may use the `createSolanaRpcSubscriptions` function by providing the WebSocket URL of a Solana JSON RPC server. This will create a default client for interacting with Solana RPC Subscriptions.
 
 ```ts
-import { createSolanaRpcSubscriptions } from '@solana/web3.js';
+import { createSolanaRpcSubscriptions } from '@solana/kit';
 
 // Create an RPC Subscriptions client.
 const rpcSubscriptions = createSolanaRpcSubscriptions('ws://127.0.0.1:8900');
@@ -517,7 +517,7 @@ The new subscriptions API vends subscription notifications as an `AsyncIterator`
 Here’s an example of working with a subscription in the new library:
 
 ```ts
-import { address, createSolanaRpcSubscriptions, createDefaultRpcSubscriptionsTransport } from '@solana/web3.js';
+import { address, createSolanaRpcSubscriptions, createDefaultRpcSubscriptionsTransport } from '@solana/kit';
 
 // Create the RPC Subscriptions client.
 const rpcSubscriptions = createSolanaRpcSubscriptions('ws://127.0.0.1:8900');
@@ -558,7 +558,7 @@ Let's take a look at some concrete examples that demonstrate how to abort subscr
 Here's an example of an `AbortController` used to abort a subscription after a 5-second timeout:
 
 ```ts
-import { createSolanaRpcSubscriptions } from '@solana/web3.js';
+import { createSolanaRpcSubscriptions } from '@solana/kit';
 
 const rpcSubscriptions = createSolanaRpcSubscriptions('ws://127.0.0.1:8900');
 
@@ -654,7 +654,7 @@ try {
 The `createSolanaRpcSubscriptions` function communicates with the RPC server using a default `WebSocket` channel that should satisfy most use cases. However, you may here as well provide your own channel creator or decorate existing ones to communicate with RPC servers in any way you see fit. In the example below, we supply a custom `WebSocket` channel creator and use it to create a new RPC Subscriptions client via the `createSolanaRpcSubscriptionsFromTransport` function.
 
 ```ts
-import { createDefaultRpcSubscriptionsTransport, createSolanaRpcSubscriptionsFromTransport } from '@solana/web3.js';
+import { createDefaultRpcSubscriptionsTransport, createSolanaRpcSubscriptionsFromTransport } from '@solana/kit';
 
 // Create a transport with a custom channel creator of your choice.
 const transport = createDefaultRpcSubscriptionsTransport({
@@ -683,7 +683,7 @@ Using the `createSolanaRpcSubscriptions` or `createSolanaRpcSubscriptionsFromTra
 If you're using a specific cluster, you may wrap your RPC URL inside a helper function like `mainnet` or `devnet` to inject that information into the RPC type system.
 
 ```ts
-import { createSolanaRpcSubscriptions, mainnet, devnet } from '@solana/web3.js';
+import { createSolanaRpcSubscriptions, mainnet, devnet } from '@solana/kit';
 
 const mainnetRpc = createSolanaRpcSubscriptions(mainnet('https://api.mainnet-beta.solana.com'));
 //    ^? RpcSubscriptionsMainnet<SolanaRpcSubscriptionsApi>
@@ -702,7 +702,7 @@ import {
     createDefaultRpcSubscriptionsTransport,
     createSolanaRpcSubscriptions_UNSTABLE,
     createSolanaRpcSubscriptionsFromTransport_UNSTABLE,
-} from '@solana/web3.js';
+} from '@solana/kit';
 
 // Using the default WebSocket channel.
 const rpcSubscriptions = createSolanaRpcSubscriptions_UNSTABLE('ws://127.0.0.1:8900');
@@ -728,7 +728,7 @@ import {
     type RpcSubscriptions,
     type AccountNotificationsApi,
     type SlotNotificationsApi,
-} from '@solana/web3.js';
+} from '@solana/kit';
 
 const rpc = createSolanaRpcSubscriptions('ws://127.0.0.1:8900') as RpcSubscriptions<
     AccountNotificationsApi & SlotNotificationsApi
@@ -746,7 +746,7 @@ import {
     DEFAULT_RPC_CONFIG,
     type AccountNotificationsApi,
     type SlotNotificationsApi,
-} from '@solana/web3.js';
+} from '@solana/kit';
 
 const api = createSolanaRpcSubscriptionsApi<AccountNotificationsApi & SlotNotificationsApi>(DEFAULT_RPC_CONFIG);
 const transport = createDefaultRpcSubscriptionsTransport({
@@ -774,7 +774,7 @@ One thing to note is that many operations from Web Crypto – such as importing,
 Here’s an example of generating a `CryptoKeyPair` using the Web Crypto API and signing a message:
 
 ```ts
-import { generateKeyPair, signBytes, verifySignature } from '@solana/web3.js';
+import { generateKeyPair, signBytes, verifySignature } from '@solana/kit';
 
 const keyPair: CryptoKeyPair = await generateKeyPair();
 
@@ -796,7 +796,7 @@ Determine if your target runtime supports Ed25519, and install the polyfill if i
 
 ```ts
 import { install } from '@solana/webcrypto-ed25519-polyfill';
-import { generateKeyPair, signBytes, verifySignature } from '@solana/web3.js';
+import { generateKeyPair, signBytes, verifySignature } from '@solana/kit';
 
 install();
 const keyPair: CryptoKeyPair = await generateKeyPair();
@@ -817,7 +817,7 @@ Consequently, that means no more `PublicKey`.
 Here’s what they look like in development:
 
 ```ts
-import { Address, address, getAddressFromPublicKey, generateKeyPair } from '@solana/web3.js';
+import { Address, address, getAddressFromPublicKey, generateKeyPair } from '@solana/kit';
 
 // Coerce a string to an `Address`
 const myOtherAddress = address('AxZfZWeqztBCL37Mkjkd4b8Hf6J13WCcfozrBY6vZzv3');
@@ -852,7 +852,7 @@ import {
     setTransactionMessageFeePayer,
     setTransactionMessageLifetimeUsingBlockhash,
     Blockhash,
-} from '@solana/web3.js';
+} from '@solana/kit';
 
 const recentBlockhash = {
     blockhash: '4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY' as Blockhash,
@@ -905,7 +905,7 @@ Use this utility to estimate the actual compute unit cost of a given transaction
 
 ```ts
 import { getSetComputeUnitLimitInstruction } from '@solana-program/compute-budget';
-import { createSolanaRpc, getComputeUnitEstimateForTransactionMessageFactory, pipe } from '@solana/web3.js';
+import { createSolanaRpc, getComputeUnitEstimateForTransactionMessageFactory, pipe } from '@solana/kit';
 
 // Create an estimator function.
 const rpc = createSolanaRpc('http://127.0.0.1:8899');
@@ -947,7 +947,7 @@ import {
     setTransactionMessageFeePayer,
     setTransactionMessageLifetimeUsingBlockhash,
     Blockhash,
-} from '@solana/web3.js';
+} from '@solana/kit';
 
 // Use `pipe(..)` to create a pipeline of transaction message transformation operations
 const transactionMessage = pipe(
@@ -971,7 +971,7 @@ Solana’s codecs libraries are broken up into modular components so you only ne
 -   `@solana/codecs-data-structures`: Codecs and serializers for structs
 -   `@solana/options`: Designed to build codecs and serializers for types that mimic Rust’s enums, which can include embedded data within their variants such as values, tuples, and structs
 
-These packages are included in the main `@solana/web3.js` library but you may also import them from `@solana/codecs` if you only need the codecs.
+These packages are included in the main `@solana/kit` library but you may also import them from `@solana/codecs` if you only need the codecs.
 
 Here’s an example of encoding and decoding a custom struct with some strings and numbers:
 
@@ -1054,7 +1054,7 @@ export const getMyTokenCodec = (): Codec<MyTokenArgs, MyToken> =>
     combineCodec(getMyTokenEncoder(), getMyTokenDecoder());
 ```
 
-You can read more about codecs in [the official Codec documentation](https://github.com/anza-xyz/solana-web3.js/blob/main/packages/codecs/README.md).
+You can read more about codecs in [the official Codec documentation](https://github.com/anza-xyz/kit/blob/main/packages/codecs/README.md).
 
 ## Type-Safety
 
@@ -1112,7 +1112,7 @@ const blockWithRewardsAndTransactionsResponse = await rpc
 
 ### Catching Compile-Time Bugs with TypeScript
 
-As previously mentioned, the type coverage in version 2.0 allows developers to catch common bugs at compile time, rather than runtime.
+As previously mentioned, the type coverage in Kit allows developers to catch common bugs at compile time, rather than runtime.
 
 In the example below, a transaction message is created and then attempted to be signed without setting the fee payer. This would result in a runtime error from the RPC, but instead you will see a type error from TypeScript as you type:
 
@@ -1193,7 +1193,7 @@ const signature = rpc.requestAirdrop(myAddress, airdropAmount).send();
 
 ## Compatibility Layer
 
-You will have noticed by now that web3.js is a complete and total breaking change from the 1.x line. We want to provide you with a strategy for interacting with 1.x APIs while building your application using 2.0. You need a tool for converting between 1.x and 2.0 data types.
+You will have noticed by now that Kit is a complete and total breaking change from the web3.js 1.x line. We want to provide you with a strategy for interacting with web3.js 1.x APIs while building your application using Kit. You need a tool for converting between web3.js 1.x and Kit data types.
 
 The `@solana/compat` library allows for interoperability between functions and class objects from the legacy library - such as `VersionedTransaction`, `PublicKey`, and `Keypair` - and functions and types of the new library - such as `Address`, `Transaction`, and `CryptoKeyPair`.
 
@@ -1222,7 +1222,7 @@ Here’s how to convert legacy transaction objects to the new library’s transa
 const modernTransaction = fromVersionedTransaction(classicTransaction);
 ```
 
-To see more conversions supported by `@solana/compat`, you can check out the package’s [README on GitHub](https://github.com/anza-xyz/solana-web3.js/blob/main/packages/compat/README.md).
+To see more conversions supported by `@solana/compat`, you can check out the package’s [README on GitHub](https://github.com/anza-xyz/kit/blob/main/packages/compat/README.md).
 
 ## Program Clients
 
@@ -1233,7 +1233,7 @@ We think that program clients should be _generated_ rather than written. Develop
 We use [Codama](https://github.com/codama-idl/codama) to represent Solana programs and generate clients for them. This includes a JavaScript client compatible with this library. For instance, here is how you’d construct a transaction message composed of instructions from three different core programs.
 
 ```ts
-import { appendTransactionMessageInstructions, createTransactionMessage, pipe } from '@solana/web3.js';
+import { appendTransactionMessageInstructions, createTransactionMessage, pipe } from '@solana/kit';
 import { getAddMemoInstruction } from '@solana-program/memo';
 import { getSetComputeUnitLimitInstruction } from '@solana-program/compute-budget';
 import { getTransferSolInstruction } from '@solana-program/system';
@@ -1339,7 +1339,7 @@ This [`create-solana-program`](https://github.com/solana-program/create-solana-p
     -   Build and test each of your clients.
 -   GitHub Actions pipelines to test your program, test your clients, and even manually publish new packages or crates for your clients. (Coming soon).
 
-When selecting the JavaScript client, you will get a fully generated library compatible with the new web3.js much like the `@solana-program` packages showcased above.
+When selecting the JavaScript client, you will get a fully generated library compatible with Kit much like the `@solana-program` packages showcased above.
 
 ## GraphQL
 
@@ -1446,13 +1446,13 @@ expect(result).toMatchObject({
 });
 ```
 
-See more in the package’s [README on GitHub](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/rpc-graphql).
+See more in the package’s [README on GitHub](https://github.com/anza-xyz/kit/tree/main/packages/rpc-graphql).
 
 ## Development
 
-You can see all development of this library and associated GraphQL tooling in the web3.js repository on GitHub.
+You can see all development of this library and associated GraphQL tooling in the Kit repository on GitHub.
 
--   https://github.com/anza-xyz/solana-web3.js
+-   https://github.com/anza-xyz/kit
 
 You can follow along with program client generator development in the `@solana-program` org and the `@codama-idl/codama` repository.
 
@@ -1463,4 +1463,4 @@ Solana Labs develops these tools in public, as open source. We encourage any and
 
 ## Thank you
 
-We’re grateful that you have read this far. If you are interested in migrating an existing application to the new web3.js to take advantage of some of the benefits we’ve demonstrated, we want to give you some direct support. Reach out to [@steveluscher](https://t.me/steveluscher/) on Telegram to start a conversation.
+We’re grateful that you have read this far. If you are interested in migrating an existing application to Kit to take advantage of some of the benefits we’ve demonstrated, we want to give you some direct support. Reach out to [@steveluscher](https://t.me/steveluscher/) on Telegram to start a conversation.

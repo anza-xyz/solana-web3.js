@@ -5,13 +5,13 @@
 
 [code-style-prettier-image]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
 [code-style-prettier-url]: https://github.com/prettier/prettier
-[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/transactions/next.svg?style=flat
-[npm-image]: https://img.shields.io/npm/v/@solana/transactions/next.svg?style=flat
-[npm-url]: https://www.npmjs.com/package/@solana/transactions/v/next
+[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/transactions?style=flat
+[npm-image]: https://img.shields.io/npm/v/@solana/transactions?style=flat
+[npm-url]: https://www.npmjs.com/package/@solana/transactions
 
 # @solana/transaction-messages
 
-This package contains types and functions for creating transaction messages. It can be used standalone, but it is also exported as part of the Solana JavaScript SDK [`@solana/web3.js@next`](https://github.com/anza-xyz/solana-web3.js/tree/main/packages/library).
+This package contains types and functions for creating transaction messages. It can be used standalone, but it is also exported as part of Kit [`@solana/kit`](https://github.com/anza-xyz/kit/tree/main/packages/kit).
 
 Transaction messages are built one step at a time using the transform functions offered by this package. To make it more ergonomic to apply consecutive transforms to your transaction messages, consider using a pipelining helper like the one in `@solana/functional`.
 

@@ -5,9 +5,9 @@
 
 [code-style-prettier-image]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
 [code-style-prettier-url]: https://github.com/prettier/prettier
-[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/subscribable/next.svg?style=flat
-[npm-image]: https://img.shields.io/npm/v/@solana/subscribable/next.svg?style=flat
-[npm-url]: https://www.npmjs.com/package/@solana/subscribable/v/next
+[npm-downloads-image]: https://img.shields.io/npm/dm/@solana/subscribable?style=flat
+[npm-image]: https://img.shields.io/npm/v/@solana/subscribable?style=flat
+[npm-url]: https://www.npmjs.com/package/@solana/subscribable
 
 # @solana/subscribable
 
