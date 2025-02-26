@@ -1,4 +1,4 @@
-import { createSolanaRpc, createSolanaRpcSubscriptions } from '@solana/web3.js';
+import { createSolanaRpc, createSolanaRpcSubscriptions } from '@solana/kit';
 import { ReactNode, useContext, useMemo } from 'react';
 
 import { ChainContext } from './ChainContext';

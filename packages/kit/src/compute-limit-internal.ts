@@ -82,7 +82,7 @@ function isSetComputeLimitInstruction(
  *
  * ```ts
  * import { getSetComputeLimitInstruction } from '@solana-program/compute-budget';
- * import { createSolanaRpc, getComputeUnitEstimateForTransactionMessageFactory, pipe } from '@solana/web3.js';
+ * import { createSolanaRpc, getComputeUnitEstimateForTransactionMessageFactory, pipe } from '@solana/kit';
  *
  * // Create an estimator function.
  * const rpc = createSolanaRpc('http://127.0.0.1:8899');

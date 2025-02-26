@@ -17,7 +17,7 @@ import {
     RpcApi,
     RpcPlan,
     SolanaRpcApiMainnet,
-} from '@solana/web3.js';
+} from '@solana/kit';
 
 const log = createLogger('Custom JSON RPC API');
 

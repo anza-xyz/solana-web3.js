@@ -11,7 +11,7 @@ import {
     setTransactionMessageFeePayerSigner,
     setTransactionMessageLifetimeUsingBlockhash,
     signAndSendTransactionMessageWithSigners,
-} from '@solana/web3.js';
+} from '@solana/kit';
 import { getTransferSolInstruction } from '@solana-program/system';
 import { getUiWalletAccountStorageKey, type UiWalletAccount, useWallets } from '@wallet-standard/react';
 import type { SyntheticEvent } from 'react';

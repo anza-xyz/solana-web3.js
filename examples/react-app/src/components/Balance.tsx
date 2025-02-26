@@ -1,6 +1,6 @@
 import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
 import { Text, Tooltip } from '@radix-ui/themes';
-import { address } from '@solana/web3.js';
+import { address } from '@solana/kit';
 import type { UiWalletAccount } from '@wallet-standard/react';
 import { useContext, useMemo } from 'react';
 import useSWRSubscription from 'swr/subscription';
