@@ -7,7 +7,7 @@ inputs:
   # Typically used when it's important to know the base URL for the GitHub Pages site,
   # for instance when a web app's router needs to know its base URL.
   repository:
-    default: 'solana-web3.js'
+    default: 'kit'
     type: string
 
 runs:
