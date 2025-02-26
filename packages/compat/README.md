@@ -11,7 +11,7 @@
 
 # @solana/compat
 
-This package contains utilities for converting from legacy web3js classes to the new data structures. It can be used standalone, but it is also exported as part of Kit [`@solana/kit`](https://github.com/anza-xyz/kit/tree/main/packages/kit).
+This package contains utilities for converting from legacy web3js classes to the new data structures in Kit. It can be used standalone, but it is also exported as part of Kit [`@solana/kit`](https://github.com/anza-xyz/kit/tree/main/packages/kit).
 
 ## Functions
 

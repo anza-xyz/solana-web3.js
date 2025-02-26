@@ -11,10 +11,7 @@
 
 # @solana/sysvars
 
-This package contains types and helpers for fetching and decoding Solana
-sysvars. It can be used standalone, but it is also exported as part of the
-Solana JavaScript SDK
-[`@solana/kit`](https://github.com/anza-xyz/kit/tree/main/packages/kit).
+This package contains types and helpers for fetching and decoding Solana sysvars. It can be used standalone, but it is also exported as part of Kit [`@solana/kit`](https://github.com/anza-xyz/kit/tree/main/packages/kit).
 
 More information about the available sysvars on Solana can be found in the docs
 at <https://docs.solanalabs.com/runtime/sysvars>.
