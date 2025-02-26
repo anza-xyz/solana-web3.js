@@ -30,7 +30,6 @@
             "outputs": ["dist/**/*.d.ts"]
         },
         "publish-packages": {
-            "cache": false,
             "dependsOn": [
                 "compile:js",
                 "compile:typedefs",
