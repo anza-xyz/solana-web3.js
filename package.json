@@ -1,5 +1,5 @@
 {
-    "name": "solana-web3.js-monorepo",
+    "name": "solana-js-monorepo",
     "private": true,
     "scripts": {
         "build": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} build",
