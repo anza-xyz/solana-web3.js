@@ -1,9 +1,10 @@
+import { Address } from '@solana/addresses';
 import { IInstruction, isSignerRole } from '@solana/instructions';
-import { BaseTransactionMessage } from '@solana/transaction-messages';
+import { BaseTransactionMessage, ITransactionMessageWithFeePayer } from '@solana/transaction-messages';
 
 import { IAccountSignerMeta, IInstructionWithSigners, ITransactionMessageWithSigners } from './account-signer-meta';
 import { deduplicateSigners } from './deduplicate-signers';
-import { TransactionSigner } from './transaction-signer';
+import { isTransactionSigner, TransactionSigner } from './transaction-signer';
 
 /**
  * Attaches the provided {@link TransactionSigner | TransactionSigners} to the
@@ -63,7 +64,8 @@ export function addSignersToInstruction<TInstruction extends IInstruction>(
 
 /**
  * Attaches the provided {@link TransactionSigner | TransactionSigners} to the
- * account metas of all instructions inside a transaction message, when applicable.
+ * account metas of all instructions inside a transaction message and/or
+ * the transaction message fee payer, when applicable.
  *
  * For an account meta to match a provided signer it:
  * - Must have a signer role ({@link AccountRole.READONLY_SIGNER} or {@link AccountRole.WRITABLE_SIGNER}).
@@ -106,12 +108,29 @@ export function addSignersToTransactionMessage<TTransactionMessage extends BaseT
     signers: TransactionSigner[],
     transactionMessage: TTransactionMessage | (ITransactionMessageWithSigners & TTransactionMessage),
 ): ITransactionMessageWithSigners & TTransactionMessage {
-    if (transactionMessage.instructions.length === 0) {
+    const feePayerSigner = hasAddressOnlyFeePayer(transactionMessage)
+        ? signers.find(signer => signer.address === transactionMessage.feePayer.address)
+        : undefined;
+
+    if (!feePayerSigner && transactionMessage.instructions.length === 0) {
         return transactionMessage as ITransactionMessageWithSigners & TTransactionMessage;
     }
 
     return Object.freeze({
         ...transactionMessage,
+        ...(feePayerSigner ? { feePayer: feePayerSigner } : null),
         instructions: transactionMessage.instructions.map(instruction => addSignersToInstruction(signers, instruction)),
     });
+}
+
+function hasAddressOnlyFeePayer(
+    message: BaseTransactionMessage & Partial<ITransactionMessageWithFeePayer>,
+): message is BaseTransactionMessage & { feePayer: { address: Address } } {
+    return (
+        !!message &&
+        'feePayer' in message &&
+        !!message.feePayer &&
+        typeof message.feePayer.address === 'string' &&
+        !isTransactionSigner(message.feePayer)
+    );
 }

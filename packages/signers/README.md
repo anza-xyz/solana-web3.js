@@ -507,7 +507,7 @@ const myInstructionWithSigners = addSignersToInstruction([mySignerA, mySignerB],
 
 #### `addSignersToTransactionMessage()`
 
-Similarly to `addSignersToInstruction`, this function adds signer to all the applicable account metas of all the instructions inside a transaction message.
+Similarly to `addSignersToInstruction`, this function adds signer to all the applicable account metas of all the instructions inside a transaction message. Note that it also updates the fee payer if necessary.
 
 ```ts
 const myTransactionMessageWithSigners = addSignersToTransactionMessage(mySigners, myTransactionMessage);

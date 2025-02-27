@@ -3,10 +3,11 @@ import '@solana/test-matchers/toBeFrozenObject';
 import { Address } from '@solana/addresses';
 import { SOLANA_ERROR__SIGNER__ADDRESS_CANNOT_HAVE_MULTIPLE_SIGNERS, SolanaError } from '@solana/errors';
 import { AccountRole, IInstruction } from '@solana/instructions';
-import { BaseTransactionMessage } from '@solana/transaction-messages';
+import { BaseTransactionMessage, ITransactionMessageWithFeePayer } from '@solana/transaction-messages';
 
 import { IAccountSignerMeta, IInstructionWithSigners } from '../account-signer-meta';
 import { addSignersToInstruction, addSignersToTransactionMessage } from '../add-signers';
+import { ITransactionMessageWithFeePayerSigner } from '../fee-payer-signer';
 import { createMockTransactionModifyingSigner, createMockTransactionPartialSigner } from './__setup__';
 
 describe('addSignersToInstruction', () => {
@@ -190,6 +191,43 @@ describe('addSignersToTransactionMessage', () => {
         ]);
     });
 
+    it('updates the fee payer if a matching signer is provided', () => {
+        // Given a transaction with a fee payer address.
+        const transaction: BaseTransactionMessage & ITransactionMessageWithFeePayer = {
+            feePayer: { address: '1111' as Address },
+            instructions: [],
+            version: 0,
+        };
+
+        // And a signer matching the fee payer address.
+        const signer = createMockTransactionPartialSigner('1111' as Address);
+
+        // When we add the signers to the transaction.
+        const transactionWithSigners = addSignersToTransactionMessage([signer], transaction);
+
+        // Then the transaction's fee payer now stores the provided signer.
+        expect(transactionWithSigners.feePayer).toBe(signer);
+    });
+
+    it('does not update the fee payer if it is already a signer', () => {
+        // Given two signers A and B with the same address.
+        const signerA = createMockTransactionPartialSigner('1111' as Address);
+        const signerB = createMockTransactionModifyingSigner('1111' as Address);
+
+        // And a transaction using fee payer signer A.
+        const transaction: BaseTransactionMessage & ITransactionMessageWithFeePayerSigner = {
+            feePayer: signerA,
+            instructions: [],
+            version: 0,
+        };
+
+        // When we try to add signer B to the transaction.
+        const transactionWithSigners = addSignersToTransactionMessage([signerB], transaction);
+
+        // Then the transaction did not update its fee payer and remains unchanged.
+        expect(transactionWithSigners).toBe(transaction);
+    });
+
     it('freezes the returned transaction', () => {
         // Given a one-instruction transaction with signer account metas.
         const transaction: BaseTransactionMessage = {
@@ -213,8 +251,8 @@ describe('addSignersToTransactionMessage', () => {
         expect(transactionWithSigners.instructions[0].accounts![0]).toBeFrozenObject();
     });
 
-    it('returns the transaction as-is if it has no instructions', () => {
-        // Given transaction with no instructions.
+    it('returns the transaction as-is if it has no instructions or fee payer to update', () => {
+        // Given transaction with no instructions or fee payer.
         const transaction: BaseTransactionMessage = { instructions: [], version: 0 };
 
         // When we try to add signers to the transaction.
