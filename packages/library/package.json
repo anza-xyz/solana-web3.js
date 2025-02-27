@@ -1,6 +1,7 @@
 {
     "name": "@solana/web3.js",
     "version": "2.0.0",
+    "private": true,
     "description": "Solana Javascript API",
     "exports": {
         "edge-light": {
