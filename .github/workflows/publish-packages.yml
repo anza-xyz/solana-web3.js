@@ -12,8 +12,6 @@ env:
   # Among other things, opts out of Turborepo telemetry
   # See https://consoledonottrack.com/
   DO_NOT_TRACK: '1'
-  # Some tasks slow down considerably on GitHub Actions runners when concurrency is high
-  TURBO_CONCURRENCY: 1
   # Enables Turborepo Remote Caching.
   TURBO_REMOTE_CACHE_SIGNATURE_KEY: ${{ secrets.TURBO_REMOTE_CACHE_SIGNATURE_KEY }}
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -46,7 +44,8 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm turbo publish-packages --concurrency=${TURBO_CONCURRENCY:-1}
+          # Some tasks slow down considerably on GitHub Actions runners when concurrency is high
+          publish: pnpm turbo publish-packages --concurrency=1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
