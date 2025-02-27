@@ -2960,21 +2960,21 @@ const mockRewards = [
         lamports: 50000,
         postBalance: 1000000000000000,
         pubkey: 'DdNzYKnkq7PqCRX4kncvwVYNZE7dZ9xdCz6yMekqjWH4',
-        rewardType: 'stake',
+        rewardType: 'Staking',
     },
     {
         commission: 0.1,
         lamports: 50000,
         postBalance: 1000000000000000,
         pubkey: 'DdNzYKnkq7PqCRX4kncvwVYNZE7dZ9xdCz6yMekqjWH4',
-        rewardType: 'stake',
+        rewardType: 'Staking',
     },
     {
         commission: 0.1,
         lamports: 50000,
         postBalance: 1000000000000000,
         pubkey: 'DdNzYKnkq7PqCRX4kncvwVYNZE7dZ9xdCz6yMekqjWH4',
-        rewardType: 'stake',
+        rewardType: 'Staking',
     },
 ];
 

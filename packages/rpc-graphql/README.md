@@ -906,12 +906,12 @@ data: {
             {
                 commission: 0.05,
                 lamports: 58578n,
-                rewardType: 'staking',
+                rewardType: 'Staking',
             },
             {
                 commission: 0.05,
                 lamports: 58578n,
-                rewardType: 'staking',
+                rewardType: 'Staking',
             }
         ],
         transactions: [

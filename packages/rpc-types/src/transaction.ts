@@ -308,7 +308,7 @@ type RewardBase = Readonly<{
 export type Reward =
     | (Readonly<{
           /** type of reward */
-          rewardType: 'fee' | 'rent';
+          rewardType: 'Fee' | 'Rent';
       }> &
           RewardBase)
     /** Commission is present only for voting and staking rewards */
@@ -316,7 +316,7 @@ export type Reward =
           /** vote account commission when the reward was credited */
           commission: number;
           /** type of reward */
-          rewardType: 'staking' | 'voting';
+          rewardType: 'Staking' | 'Voting';
       }> &
           RewardBase);
 
