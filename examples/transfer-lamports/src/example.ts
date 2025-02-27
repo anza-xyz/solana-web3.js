@@ -25,7 +25,7 @@ import {
     setTransactionMessageLifetimeUsingBlockhash,
     signTransactionMessageWithSigners,
     SOLANA_ERROR__JSON_RPC__SERVER_ERROR_SEND_TRANSACTION_PREFLIGHT_FAILURE,
-} from '@solana/kit';
+} from '@solana/web3.js';
 import { getSystemErrorMessage, getTransferSolInstruction, isSystemError } from '@solana-program/system';
 
 const log = createLogger('Transfer');

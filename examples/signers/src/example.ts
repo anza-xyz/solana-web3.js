@@ -28,7 +28,7 @@ import {
     setTransactionMessageLifetimeUsingBlockhash,
     TransactionPartialSigner,
     TransactionSigner,
-} from '@solana/kit';
+} from '@solana/web3.js';
 import { getTransferSolInstruction } from '@solana-program/system';
 import { readFile } from 'fs/promises';
 import path from 'path';

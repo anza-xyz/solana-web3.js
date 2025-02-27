@@ -14,7 +14,7 @@
     "dependencies": {
         "@solana-program/system": "^0.6.2",
         "@solana/example-utils": "workspace:*",
-        "@solana/kit": "workspace:*"
+        "@solana/web3.js": "workspace:*"
     },
     "devDependencies": {
         "start-server-and-test": "^2.0.9",

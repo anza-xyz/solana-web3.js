@@ -32,7 +32,7 @@ import {
     setTransactionMessageFeePayer,
     setTransactionMessageLifetimeUsingBlockhash,
     verifySignature,
-} from '@solana/kit';
+} from '@solana/web3.js';
 import { getAddMemoInstruction, MEMO_PROGRAM_ADDRESS, parseAddMemoInstruction } from '@solana-program/memo';
 import {
     getTransferSolInstruction,

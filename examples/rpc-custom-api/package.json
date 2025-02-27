@@ -12,7 +12,7 @@
     },
     "dependencies": {
         "@solana/example-utils": "workspace:*",
-        "@solana/kit": "workspace:*"
+        "@solana/web3.js": "workspace:*"
     },
     "devDependencies": {
         "tsx": "^4.19.3"

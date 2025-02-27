@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "@solana/example-utils": "workspace:*",
-        "@solana/kit": "workspace:*"
+        "@solana/web3.js": "workspace:*"
     },
     "devDependencies": {
         "start-server-and-test": "^2.0.9",
