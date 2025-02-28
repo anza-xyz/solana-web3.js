@@ -52,9 +52,9 @@ jobs:
           PUBLISH_TAG: latest
 
       - name: Push Git Tag
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        if: steps.changesets.outputs.published == 'true'
         run: |
-          VERSION_TAG=v$(cd packages/kit/ && pnpm pkg get version | sed -n '2p' | grep -o '"\([^"]\)\+"$' | tr -d \")
+          VERSION_TAG=v$(cd packages/kit/ && pnpm pkg get version | grep -o '"\([^"]\)\+"$' | tr -d \")
           if ! git ls-remote --tags | grep -q "$VERSION_TAG"; then git tag $VERSION_TAG && git push --tags; fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
