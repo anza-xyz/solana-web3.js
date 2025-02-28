@@ -509,8 +509,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1
       undici:
-        specifier: ^7.2.3
-        version: 7.2.3
+        specifier: ^7.4.0
+        version: 7.4.0
 
   packages/functional:
     dependencies:
@@ -1091,15 +1091,15 @@ importers:
         specifier: '>=5'
         version: 5.7.2
       undici-types:
-        specifier: ^7.3.0
-        version: 7.3.0
+        specifier: ^7.4.0
+        version: 7.4.0
     devDependencies:
       tinybench:
         specifier: ^3.1.1
         version: 3.1.1
       undici:
-        specifier: ^7.2.3
-        version: 7.2.3
+        specifier: ^7.4.0
+        version: 7.4.0
       zx:
         specifier: ^8.2.4
         version: 8.2.4
@@ -1216,8 +1216,8 @@ importers:
         specifier: ^29.6.3
         version: 29.6.3
       undici:
-        specifier: ^7.2.3
-        version: 7.2.3
+        specifier: ^7.4.0
+        version: 7.4.0
       whatwg-fetch:
         specifier: ^3.6.20
         version: 3.6.20
@@ -6675,11 +6675,11 @@ packages:
   undici-types@6.20.0:
     resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
 
-  undici-types@7.3.0:
-    resolution: {integrity: sha512-z2pHpkN2BEJl3QlQo0GtfGCyuhuBbWX60vzGwyn7ex/seM2UkvyGEfEV0Qb9pXc5StNfcJpsstgaf2YTEJa63Q==}
+  undici-types@7.4.0:
+    resolution: {integrity: sha512-4tv8DA1nBRW5kF2KBJZzEBjd66kDf3jArNVPoktdlv9Xsgw7EcIMu1bVbAXbX5IWuuZZ3YW3jIM2x85SPgMP6w==}
 
-  undici@7.2.3:
-    resolution: {integrity: sha512-2oSLHaDalSt2/O/wHA9M+/ZPAOcU2yrSP/cdBYJ+YxZskiPYDSqHbysLSlD7gq3JMqOoJI5O31RVU3BxX/MnAA==}
+  undici@7.4.0:
+    resolution: {integrity: sha512-PUQM3/es3noM24oUn10u3kNNap0AbxESOmnssmW+dOi9yGwlUSi5nTNYl3bNbTkWOF8YZDkx2tCmj9OtQ3iGGw==}
     engines: {node: '>=20.18.1'}
 
   unicode-canonical-property-names-ecmascript@2.0.1:
@@ -13279,9 +13279,9 @@ snapshots:
 
   undici-types@6.20.0: {}
 
-  undici-types@7.3.0: {}
+  undici-types@7.4.0: {}
 
-  undici@7.2.3: {}
+  undici@7.4.0: {}
 
   unicode-canonical-property-names-ecmascript@2.0.1:
     optional: true
