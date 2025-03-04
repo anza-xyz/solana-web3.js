@@ -40,7 +40,28 @@ function addPkcs8Header(bytes: ReadonlyUint8Array): ReadonlyUint8Array {
     ]);
 }
 
-export async function createPrivateKeyFromBytes(bytes: ReadonlyUint8Array, extractable?: boolean): Promise<CryptoKey> {
+/**
+ * Given a private key represented as a 32-byte `Uint8Array`, creates an Ed25519 private key for use
+ * with other methods in this package that accept
+ * [`CryptoKey`](https://developer.mozilla.org/en-US/docs/Web/API/CryptoKey) objects.
+ *
+ * @param bytes 32 bytes that represent the private key
+ * @param extractable Setting this to `true` makes it possible to extract the bytes of the private
+ * key using the [`crypto.subtle.exportKey()`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/exportKey)
+ * API. Defaults to `false`.
+ *
+ * @example
+ * ```ts
+ * import { createPrivateKeyFromBytes } from '@solana/keys';
+ *
+ * const privateKey = await createPrivateKeyFromBytes(new Uint8Array([...]));
+ * const extractablePrivateKey = await createPrivateKeyFromBytes(new Uint8Array([...]), true);
+ * ```
+ */
+export async function createPrivateKeyFromBytes(
+    bytes: ReadonlyUint8Array,
+    extractable: boolean = false,
+): Promise<CryptoKey> {
     const actualLength = bytes.byteLength;
     if (actualLength !== 32) {
         throw new SolanaError(SOLANA_ERROR__KEYS__INVALID_PRIVATE_KEY_BYTE_LENGTH, {
@@ -48,11 +69,7 @@ export async function createPrivateKeyFromBytes(bytes: ReadonlyUint8Array, extra
         });
     }
     const privateKeyBytesPkcs8 = addPkcs8Header(bytes);
-    return await crypto.subtle.importKey(
-        'pkcs8',
-        privateKeyBytesPkcs8,
-        ED25519_ALGORITHM_IDENTIFIER,
-        extractable ?? false,
-        ['sign'],
-    );
+    return await crypto.subtle.importKey('pkcs8', privateKeyBytesPkcs8, ED25519_ALGORITHM_IDENTIFIER, extractable, [
+        'sign',
+    ]);
 }

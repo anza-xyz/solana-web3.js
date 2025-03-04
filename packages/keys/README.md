@@ -17,11 +17,11 @@ This package contains utilities for validating, generating, and manipulating add
 
 ### `Signature`
 
-This type represents a 64-byte Ed25519 signature of some data with a private key, as a base58-encoded string.
+This type represents a 64-byte Ed25519 signature as a base58-encoded string.
 
 ### `SignatureBytes`
 
-This type represents a 64-byte Ed25519 signature of some data with a private key.
+This type represents a 64-byte Ed25519 signature.
 
 Whenever you need to verify that a particular signature is, in fact, the one that would have been produced by signing some known bytes using the private key associated with some known public key, use the `verifySignature()` function in this package.
 
@@ -64,7 +64,7 @@ const { privateKey, publicKey } = await generateKeyPair();
 
 ### `createKeyPairFromBytes()`
 
-Given a 64-bytes `Uint8Array` secret key, creates an Ed25519 public/private key pair for use with other methods in this package that accept `CryptoKey` objects.
+Given a 64-byte `Uint8Array` secret key, creates an Ed25519 public/private key pair for use with other methods in this package that accept `CryptoKey` objects.
 
 ```ts
 import fs from 'fs';
@@ -102,7 +102,7 @@ const derivedKeypair = await createKeyPairFromPrivateKeyBytes(seed);
 
 ### `createPrivateKeyFromBytes()`
 
-Given a private key represented as a 32-bytes `Uint8Array`, creates an Ed25519 private key for use with other methods in this package that accept `CryptoKey` objects.
+Given a private key represented as a 32-byte `Uint8Array`, creates an Ed25519 private key for use with other methods in this package that accept `CryptoKey` objects.
 
 ```ts
 import { createPrivateKeyFromBytes } from '@solana/keys';
