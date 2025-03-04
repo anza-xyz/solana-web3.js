@@ -28,7 +28,7 @@ const transferTransaction = pipe(
     createTransactionMessage({ version: 0 }),
     tx => setTransactionMessageFeePayer(myAddress, tx),
     tx => setTransactionMessageLifetimeUsingBlockhash(latestBlockhash, tx),
-    tx => appendTransactionMessageInstruction(createTransferInstruction(myAddress, toAddress, amountInLamports), tx),
+    tx => appendTransactionMessageInstruction(getTransferSolInstruction({ source, destination, amount }), tx),
 );
 ```
 
