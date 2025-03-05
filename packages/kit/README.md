@@ -15,7 +15,7 @@ This is the JavaScript SDK for building Solana apps for Node, web, and React Nat
 
 ## Functions
 
-In addition to reexporting functions from packages in the `@solana/*` namespace, this package offers additional helpers for building Solana applications, with sensible defaults.
+In addition to re-exporting functions from packages in the `@solana/*` namespace, this package offers additional helpers for building Solana applications, with sensible defaults.
 
 ### `airdropFactory({rpc, rpcSubscriptions})`
 
@@ -110,6 +110,36 @@ try {
         );
     } else if (isSolanaError(e, SOLANA_ERROR__INVALID_NONCE)) {
         console.error('This transaction depends on a nonce that is no longer valid');
+    } else {
+        throw e;
+    }
+}
+```
+
+### `sendAndConfirmDurableNonceTransactionFactory({rpc, rpcSubscriptions})`
+
+Returns a function that you can call to send a durable-nonce-based transaction to the network and to wait until it has been confirmed.
+
+```ts
+import {
+    isSolanaError,
+    sendAndConfirmDurableNonceTransactionFactory,
+    SOLANA_ERROR__INVALID_NONCE,
+    SOLANA_ERROR__NONCE_ACCOUNT_NOT_FOUND,
+} from '@solana/kit';
+
+const sendAndConfirmDurableNonceTransaction = sendAndConfirmDurableNonceTransactionFactory({
+    rpc,
+    rpcSubscriptions,
+});
+
+try {
+    await sendAndConfirmDurableNonceTransaction(transaction, { commitment: 'confirmed' });
+} catch (e) {
+    if (isSolanaError(e, SOLANA_ERROR__INVALID_NONCE)) {
+        console.error('This transaction depends on a nonce that has already been advanced');
+    } else if (isSolanaError(e, SOLANA_ERROR__NONCE_ACCOUNT_NOT_FOUND)) {
+        console.error('This transaction depends on a nonce whose account does not exist');
     } else {
         throw e;
     }
