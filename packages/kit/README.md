@@ -15,7 +15,7 @@ This is the JavaScript SDK for building Solana apps for Node, web, and React Nat
 
 ## Functions
 
-In addition to reexporting functions from packages in the `@solana/*` namespace, this package offers additional helpers for building Solana applications, with sensible defaults.
+In addition to re-exporting functions from packages in the `@solana/*` namespace, this package offers additional helpers for building Solana applications, with sensible defaults.
 
 ### `airdropFactory({rpc, rpcSubscriptions})`
 
@@ -70,7 +70,8 @@ const transactionMessage = pipe(
     /* ... */
 );
 
-// Request an estimate of the actual compute units this message will consume.
+// Request an estimate of the actual compute units this message will consume. This is done by
+// simulating the transaction and grabbing the estimated compute units from the result.
 const computeUnitsEstimate = await getComputeUnitEstimateForTransactionMessage(transactionMessage);
 
 // Set the transaction message's compute unit budget.
@@ -81,10 +82,33 @@ const transactionMessageWithComputeUnitLimit = prependTransactionMessageInstruct
 ```
 
 > [!WARNING]
-> The compute unit estimate is just that &ndash; an estimate. The compute unit consumption of the actual transaction might be higher or lower than what was observed in simulation. Unless you are confident that your particular transaction message will consume the same or fewer compute units as was estimated, you might like to augment the estimate by either a fixed number of CUs or a multiplier.
+> The compute unit estimate is just that -- an estimate. The compute unit consumption of the actual transaction might be higher or lower than what was observed in simulation. Unless you are confident that your particular transaction message will consume the same or fewer compute units as was estimated, you might like to augment the estimate by either a fixed number of CUs or a multiplier.
 
 > [!NOTE]
 > If you are preparing an _unsigned_ transaction, destined to be signed and submitted to the network by a wallet, you might like to leave it up to the wallet to determine the compute unit limit. Consider that the wallet might have a more global view of how many compute units certain types of transactions consume, and might be able to make better estimates of an appropriate compute unit budget.
+
+> [!INFO]
+> In the event that a transaction message does not already have a `SetComputeUnitLimit` instruction, this function will add one before simulation. This ensures that the compute unit consumption of the `SetComputeUnitLimit` instruction itself is included in the estimate.
+
+### `sendAndConfirmTransactionFactory({rpc, rpcSubscriptions})`
+
+Returns a function that you can call to send a blockhash-based transaction to the network and to wait until it has been confirmed.
+
+```ts
+import { isSolanaError, sendAndConfirmTransactionFactory, SOLANA_ERROR__BLOCK_HEIGHT_EXCEEDED } from '@solana/kit';
+
+const sendAndConfirmTransaction = sendAndConfirmTransactionFactory({ rpc, rpcSubscriptions });
+
+try {
+    await sendAndConfirmTransaction(transaction, { commitment: 'confirmed' });
+} catch (e) {
+    if (isSolanaError(e, SOLANA_ERROR__BLOCK_HEIGHT_EXCEEDED)) {
+        console.error('This transaction depends on a blockhash that has expired');
+    } else {
+        throw e;
+    }
+}
+```
 
 ### `sendAndConfirmDurableNonceTransactionFactory({rpc, rpcSubscriptions})`
 
@@ -110,26 +134,6 @@ try {
         );
     } else if (isSolanaError(e, SOLANA_ERROR__INVALID_NONCE)) {
         console.error('This transaction depends on a nonce that is no longer valid');
-    } else {
-        throw e;
-    }
-}
-```
-
-### `sendAndConfirmTransactionFactory({rpc, rpcSubscriptions})`
-
-Returns a function that you can call to send a blockhash-based transaction to the network and to wait until it has been confirmed.
-
-```ts
-import { isSolanaError, sendAndConfirmTransactionFactory, SOLANA_ERROR__BLOCK_HEIGHT_EXCEEDED } from '@solana/kit';
-
-const sendAndConfirmTransaction = sendAndConfirmTransactionFactory({ rpc, rpcSubscriptions });
-
-try {
-    await sendAndConfirmTransaction(transaction, { commitment: 'confirmed' });
-} catch (e) {
-    if (isSolanaError(e, SOLANA_ERROR__BLOCK_HEIGHT_EXCEEDED)) {
-        console.error('This transaction depends on a blockhash that has expired');
     } else {
         throw e;
     }
