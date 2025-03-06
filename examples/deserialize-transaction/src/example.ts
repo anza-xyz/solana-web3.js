@@ -1,6 +1,6 @@
 /**
  * EXAMPLE
- * Deserialize and inspect a transaction with @solana/web3.js.
+ * Deserialize and inspect a transaction with @solana/kit
  *
  * Before running any of the examples in this monorepo, make sure to set up a test validator by
  * running `pnpm test:live-with-test-validator:setup` in the root directory.
@@ -32,7 +32,7 @@ import {
     setTransactionMessageFeePayer,
     setTransactionMessageLifetimeUsingBlockhash,
     verifySignature,
-} from '@solana/web3.js';
+} from '@solana/kit';
 import { getAddMemoInstruction, MEMO_PROGRAM_ADDRESS, parseAddMemoInstruction } from '@solana-program/memo';
 import {
     getTransferSolInstruction,
@@ -113,7 +113,7 @@ const transactionMessage = pipe(
                     source: SOURCE_ACCOUNT_SIGNER,
                 }),
                 getAddMemoInstruction({
-                    memo: 'hello from @solana/web3.js',
+                    memo: 'hello from @solana/kit',
                 }),
             ],
             tx,
@@ -179,7 +179,7 @@ log.info(`[setup] Encoded the transaction as base64: ${base64EncodedTransaction.
 
 /**
  * STEP 1: DECODE TO TRANSACTION
- * @solana/web3.js has encoders/decoders for many Solana data structures and common data formats,
+ * @solana/kit has encoders/decoders for many Solana data structures and common data formats,
  * including both base64 strings and our `Transaction` data structure
  * To convert between these, we first encode to a byte array, and then decode to the
  * desired data structure.
@@ -366,7 +366,7 @@ log.info(decompiledTransactionMessage.instructions[0].data, '[step 3] The data b
  * STEP 4: PARSING THE INSTRUCTIONS
  * To understand what is actually happening in each instruction, we need to decode the data field
  * We will do this by using the generated `@solana-program/system` client, which can decode data
- * from the @solana/web3.js instruction data structure for the System program
+ * from the @solana/kit instruction data structure for the System program
  * We know from the program address (11111111111111111111111111111111) that the first instruction
  * is to the system program
  * You can generate such a client for any Solana program using Codama
@@ -385,7 +385,7 @@ if (identifiedInstruction === SystemInstruction.TransferSol) {
     assertIsInstructionWithAccounts(firstInstruction);
 
     // TODO: This can just be `parseTransferSolInstruction(firstInstruction)` when the client is updated
-    // with the `@solana/web3.js` version that changes the instruction data type to `ReadonlyUint8Array`
+    // with the `@solana/kit` version that changes the instruction data type to `ReadonlyUint8Array`
     const parsedFirstInstruction = parseTransferSolInstruction({
         ...firstInstruction,
         data: firstInstruction.data as unknown as Uint8Array,
@@ -416,7 +416,7 @@ if (secondInstruction.programAddress === MEMO_PROGRAM_ADDRESS) {
 assertIsInstructionWithData(secondInstruction);
 
 // TODO: This can just be `parseAddMemoInstruction(secondInstruction)` when the client is updated
-// with the `@solana/web3.js` version that changes the instruction data type to `ReadonlyUint8Array`
+// with the `@solana/kit` version that changes the instruction data type to `ReadonlyUint8Array`
 const parsedSecondInstruction = parseAddMemoInstruction({
     ...secondInstruction,
     data: secondInstruction.data as unknown as Uint8Array,

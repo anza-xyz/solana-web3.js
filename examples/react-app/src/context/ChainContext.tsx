@@ -1,5 +1,5 @@
-import type { ClusterUrl } from '@solana/web3.js';
-import { devnet } from '@solana/web3.js';
+import type { ClusterUrl } from '@solana/kit';
+import { devnet } from '@solana/kit';
 import { createContext } from 'react';
 
 export type ChainContext = Readonly<{

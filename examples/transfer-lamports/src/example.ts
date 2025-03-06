@@ -1,6 +1,6 @@
 /**
  * EXAMPLE
- * Transfer Lamports from one account to another with @solana/web3.js.
+ * Transfer Lamports from one account to another with @solana/kit.
  *
  * Before running any of the examples in this monorepo, make sure to set up a test validator by
  * running `pnpm test:live-with-test-validator:setup` in the root directory.
@@ -25,7 +25,7 @@ import {
     setTransactionMessageLifetimeUsingBlockhash,
     signTransactionMessageWithSigners,
     SOLANA_ERROR__JSON_RPC__SERVER_ERROR_SEND_TRANSACTION_PREFLIGHT_FAILURE,
-} from '@solana/web3.js';
+} from '@solana/kit';
 import { getSystemErrorMessage, getTransferSolInstruction, isSystemError } from '@solana-program/system';
 
 const log = createLogger('Transfer');

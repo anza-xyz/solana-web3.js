@@ -1,5 +1,4 @@
 import { Blockquote, Box, Button, Dialog, Flex, Link, Select, Text, TextField } from '@radix-ui/themes';
-import { useWalletAccountTransactionSendingSigner } from '@solana/react';
 import {
     address,
     appendTransactionMessageInstruction,
@@ -11,7 +10,8 @@ import {
     setTransactionMessageFeePayerSigner,
     setTransactionMessageLifetimeUsingBlockhash,
     signAndSendTransactionMessageWithSigners,
-} from '@solana/web3.js';
+} from '@solana/kit';
+import { useWalletAccountTransactionSendingSigner } from '@solana/react';
 import { getTransferSolInstruction } from '@solana-program/system';
 import { getUiWalletAccountStorageKey, type UiWalletAccount, useWallets } from '@wallet-standard/react';
 import type { SyntheticEvent } from 'react';

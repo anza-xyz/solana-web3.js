@@ -1,5 +1,5 @@
+import type { Address } from '@solana/kit';
 import { useWalletAccountMessageSigner } from '@solana/react';
-import type { Address } from '@solana/web3.js';
 import type { ReadonlyUint8Array } from '@wallet-standard/core';
 import type { UiWalletAccount } from '@wallet-standard/react';
 import { useCallback } from 'react';

@@ -1,4 +1,4 @@
-import { mainnet, testnet } from '@solana/web3.js';
+import { mainnet, testnet } from '@solana/kit';
 import { useMemo, useState } from 'react';
 
 import { ChainContext, DEFAULT_CHAIN_CONFIG } from './ChainContext';

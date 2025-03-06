@@ -14,7 +14,7 @@ import {
     createSolanaRpcFromTransport,
     mainnet,
     RpcTransportFromClusterUrl,
-} from '@solana/web3.js';
+} from '@solana/kit';
 
 const log = createLoggerWithTimestamp('Throttling transport');
 

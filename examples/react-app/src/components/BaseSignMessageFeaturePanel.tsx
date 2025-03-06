@@ -1,6 +1,6 @@
 import { Pencil1Icon } from '@radix-ui/react-icons';
 import { Blockquote, Box, Button, Code, DataList, Dialog, Flex, TextField } from '@radix-ui/themes';
-import { getBase64Decoder } from '@solana/web3.js';
+import { getBase64Decoder } from '@solana/kit';
 import type { ReadonlyUint8Array } from '@wallet-standard/core';
 import type { SyntheticEvent } from 'react';
 import { useRef, useState } from 'react';

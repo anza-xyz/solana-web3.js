@@ -1,6 +1,6 @@
 /**
  * EXAMPLE
- * Create and use signers with @solana/web3.js.
+ * Create and use signers with @solana/kit.
  *
  * Before running any of the examples in this monorepo, make sure to set up a test validator by
  * running `pnpm test:live-with-test-validator:setup` in the root directory.
@@ -28,7 +28,7 @@ import {
     setTransactionMessageLifetimeUsingBlockhash,
     TransactionPartialSigner,
     TransactionSigner,
-} from '@solana/web3.js';
+} from '@solana/kit';
 import { getTransferSolInstruction } from '@solana-program/system';
 import { readFile } from 'fs/promises';
 import path from 'path';

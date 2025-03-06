@@ -1,6 +1,6 @@
 /**
  * EXAMPLE
- * Add a custom JSON RPC method to the base Solana JSON RPC API using @solana/web3.js.
+ * Add a custom JSON RPC method to the base Solana JSON RPC API using @solana/kit.
  *
  * To run this example, execute `pnpm start` in this directory.
  */
@@ -17,7 +17,7 @@ import {
     RpcApi,
     RpcPlan,
     SolanaRpcApiMainnet,
-} from '@solana/web3.js';
+} from '@solana/kit';
 
 const log = createLogger('Custom JSON RPC API');
 
