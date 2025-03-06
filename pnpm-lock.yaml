@@ -1101,8 +1101,8 @@ importers:
         specifier: ^7.4.0
         version: 7.4.0
       zx:
-        specifier: ^8.3.2
-        version: 8.3.2
+        specifier: ^8.4.0
+        version: 8.4.0
 
   packages/rpc-types:
     dependencies:
@@ -3687,9 +3687,6 @@ packages:
   '@types/fastestsmallesttextencoderdecoder@1.0.2':
     resolution: {integrity: sha512-0Md9qUxGnQ9uJ0NjsA70Y0NHIl3NwfBO1d8CGXK0zhczRL85CXJ3M0JZsmCNQ0WcAbt08FuT4U1G1mWQqgOsUg==}
 
-  '@types/fs-extra@11.0.4':
-    resolution: {integrity: sha512-yTbItCNreRooED33qjunPthRcSjERP1r4MqCZc7wv0u2sUkzTFp45tgUfS5+r7FrZPdmCCNflLhVSP/o+SemsQ==}
-
   '@types/graceful-fs@4.1.6':
     resolution: {integrity: sha512-Sig0SNORX9fdW+bQuTEovKj3uHcUL6LQKbCrrqb1X7J6/ReAbhCXRAhc+SMejhLELFj2QcyuxmUooZ4bt5ReSw==}
 
@@ -3720,9 +3717,6 @@ packages:
   '@types/json-stable-stringify@1.2.0':
     resolution: {integrity: sha512-PEHY3ohqolHqAzDyB1+31tFaAMnoLN7x/JgdcGmNZ2uvtEJ6rlFCUYNQc0Xe754xxCYLNGZbLUGydSE6tS4S9A==}
     deprecated: This is a stub types definition. json-stable-stringify provides its own type definitions, so you do not need this installed.
-
-  '@types/jsonfile@6.1.4':
-    resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
 
   '@types/lodash@4.17.13':
     resolution: {integrity: sha512-lfx+dftrEZcdBPczf9d0Qv0x+j/rfNCMuC6OcfXmO8gkfeNAY88PgKUbvG56whcN23gc27yenwF6oJZXGFpYxg==}
@@ -7038,8 +7032,8 @@ packages:
     resolution: {integrity: sha512-Z2Fe1bn+eLstG8DRR6FTavGD+MeAwyfmouhHsIUgaADz8jvFKbO/fXc2trJKZg+5EBjh4gGm3iU/t3onKlXHIg==}
     engines: {node: '>=10'}
 
-  zx@8.3.2:
-    resolution: {integrity: sha512-qjTunv1NClO05jDaUjrNZfpqC9yvNCchge/bzOcQevsh1aM5qE3TG6MY24kuQKlOWx+7vNuhqO2wa9nQCIGvZA==}
+  zx@8.4.0:
+    resolution: {integrity: sha512-b5+gbUT0akQ5vVuBuHgp0viQx2ZYCuooVD41Z7g47sN0diLsAvB2XteHcp5lec90CNEQ9o7TkXsE3ksaJrZHGw==}
     engines: {node: '>= 12.17.0'}
     hasBin: true
 
@@ -9791,12 +9785,6 @@ snapshots:
 
   '@types/fastestsmallesttextencoderdecoder@1.0.2': {}
 
-  '@types/fs-extra@11.0.4':
-    dependencies:
-      '@types/jsonfile': 6.1.4
-      '@types/node': 22.13.7
-    optional: true
-
   '@types/graceful-fs@4.1.6':
     dependencies:
       '@types/node': 22.13.7
@@ -9836,11 +9824,6 @@ snapshots:
   '@types/json-stable-stringify@1.2.0':
     dependencies:
       json-stable-stringify: 1.2.1
-
-  '@types/jsonfile@6.1.4':
-    dependencies:
-      '@types/node': 22.13.7
-    optional: true
 
   '@types/lodash@4.17.13': {}
 
@@ -13676,7 +13659,4 @@ snapshots:
       property-expr: 2.0.6
       toposort: 2.0.2
 
-  zx@8.3.2:
-    optionalDependencies:
-      '@types/fs-extra': 11.0.4
-      '@types/node': 22.13.7
+  zx@8.4.0: {}
