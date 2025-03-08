@@ -18,10 +18,45 @@ type SendAndConfirmDurableNonceTransactionFunction = (
 ) => Promise<void>;
 
 type SendAndConfirmDurableNonceTransactionFactoryConfig<TCluster> = {
+    /** An object that supports the {@link GetSignatureStatusesApi} and the {@link SendTransactionApi} of the Solana RPC API */
     rpc: Rpc<GetAccountInfoApi & GetSignatureStatusesApi & SendTransactionApi> & { '~cluster'?: TCluster };
+    /** An object that supports the {@link AccountNotificationsApi} and the {@link SignatureNotificationsApi} of the Solana RPC Subscriptions API */
     rpcSubscriptions: RpcSubscriptions<AccountNotificationsApi & SignatureNotificationsApi> & { '~cluster'?: TCluster };
 };
 
+/**
+ * Returns a function that you can call to send a durable-nonce-based transaction to the network and
+ * to wait until it has been confirmed.
+ *
+ * @param config
+ *
+ * @example
+ * ```ts
+ * import {
+ *     isSolanaError,
+ *     sendAndConfirmDurableNonceTransactionFactory,
+ *     SOLANA_ERROR__INVALID_NONCE,
+ *     SOLANA_ERROR__NONCE_ACCOUNT_NOT_FOUND,
+ * } from '@solana/kit';
+ *
+ * const sendAndConfirmDurableNonceTransaction = sendAndConfirmDurableNonceTransactionFactory({
+ *     rpc,
+ *     rpcSubscriptions,
+ * });
+ *
+ * try {
+ *     await sendAndConfirmDurableNonceTransaction(transaction, { commitment: 'confirmed' });
+ * } catch (e) {
+ *     if (isSolanaError(e, SOLANA_ERROR__INVALID_NONCE)) {
+ *         console.error('This transaction depends on a nonce that has already been advanced');
+ *     } else if (isSolanaError(e, SOLANA_ERROR__NONCE_ACCOUNT_NOT_FOUND)) {
+ *         console.error('This transaction depends on a nonce whose account does not exist');
+ *     } else {
+ *         throw e;
+ *     }
+ * }
+ * ```
+ */
 export function sendAndConfirmDurableNonceTransactionFactory({
     rpc,
     rpcSubscriptions,

@@ -18,10 +18,35 @@ type SendAndConfirmTransactionWithBlockhashLifetimeFunction = (
 ) => Promise<void>;
 
 type SendAndConfirmTransactionWithBlockhashLifetimeFactoryConfig<TCluster> = {
+    /** An object that supports the {@link GetSignatureStatusesApi} and the {@link SendTransactionApi} of the Solana RPC API */
     rpc: Rpc<GetEpochInfoApi & GetSignatureStatusesApi & SendTransactionApi> & { '~cluster'?: TCluster };
+    /** An object that supports the {@link SignatureNotificationsApi} and the {@link SlotNotificationsApi} of the Solana RPC Subscriptions API */
     rpcSubscriptions: RpcSubscriptions<SignatureNotificationsApi & SlotNotificationsApi> & { '~cluster'?: TCluster };
 };
 
+/**
+ * Returns a function that you can call to send a blockhash-based transaction to the network and to
+ * wait until it has been confirmed.
+ *
+ * @param config
+ *
+ * @example
+ * ```ts
+ * import { isSolanaError, sendAndConfirmTransactionFactory, SOLANA_ERROR__BLOCK_HEIGHT_EXCEEDED } from '@solana/kit';
+ *
+ * const sendAndConfirmTransaction = sendAndConfirmTransactionFactory({ rpc, rpcSubscriptions });
+ *
+ * try {
+ *     await sendAndConfirmTransaction(transaction, { commitment: 'confirmed' });
+ * } catch (e) {
+ *     if (isSolanaError(e, SOLANA_ERROR__BLOCK_HEIGHT_EXCEEDED)) {
+ *         console.error('This transaction depends on a blockhash that has expired');
+ *     } else {
+ *         throw e;
+ *     }
+ * }
+ * ```
+ */
 export function sendAndConfirmTransactionFactory({
     rpc,
     rpcSubscriptions,
