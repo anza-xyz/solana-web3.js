@@ -48,8 +48,8 @@ type ComputeUnitEstimateForTransactionMessageFunction = (
  *
  * > [!INFO]
  * > In the event that a transaction message does not already have a `SetComputeUnitLimit`
- * > instruction, this function will add one before simulation. This ensures that the CU consumption
- * > of the `SetComputeUnitLimit` instruction itself is included in the estimate.
+ * > instruction, this function will add one before simulation. This ensures that the compute unit
+ * > consumption of the `SetComputeUnitLimit` instruction itself is included in the estimate.
  *
  * @param config
  *
