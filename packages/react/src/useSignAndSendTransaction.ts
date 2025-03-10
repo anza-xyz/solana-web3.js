@@ -24,7 +24,40 @@ type Input = Readonly<
 type Output = SolanaSignAndSendTransactionOutput;
 
 /**
- * Returns a function you can call to sign and send a serialized transaction.
+ * Use this to get a function capable of signing a serialized transaction with the private key of a
+ * {@link UiWalletAccount} and sending it to the network for processing.
+ *
+ * @param chain The identifier of the chain the transaction is destined for. Wallets may use this to
+ * simulate the transaction for the user.
+ *
+ * @example
+ * ```tsx
+ * import { getBase58Decoder } from '@solana/codecs-strings';
+ * import { useSignAndSendTransaction } from '@solana/react';
+ *
+ * function SignAndSendTransactionButton({ account, transactionBytes }) {
+ *     const signAndSendTransaction = useSignAndSendTransaction(account, 'solana:devnet');
+ *     return (
+ *         <button
+ *             onClick={async () => {
+ *                 try {
+ *                     const { signature } = await signAndSendTransaction({
+ *                         transaction: transactionBytes,
+ *                     });
+ *                     const base58TransactionSignature = getBase58Decoder().decode(signature);
+ *                     window.alert(
+ *                         `View transaction: https://explorer.solana.com/tx/${base58TransactionSignature}?cluster=devnet`,
+ *                     );
+ *                 } catch (e) {
+ *                     console.error('Failed to send transaction', e);
+ *                 }
+ *             }}
+ *         >
+ *             Sign and Send Transaction
+ *         </button>
+ *     );
+ * }
+ * ```
  */
 export function useSignAndSendTransaction<TWalletAccount extends UiWalletAccount>(
     uiWalletAccount: TWalletAccount,

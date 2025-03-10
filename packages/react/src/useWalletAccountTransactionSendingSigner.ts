@@ -11,7 +11,53 @@ import { OnlySolanaChains } from './chain';
 import { useSignAndSendTransaction } from './useSignAndSendTransaction';
 
 /**
- * Returns an object that conforms to the `TransactionSendingSigner` interface of `@solana/signers`.
+ * Use this to get a {@link TransactionSendingSigner} capable of signing a serialized transaction
+ * with the private key of a {@link UiWalletAccount} and sending it to the network for processing.
+ *
+ * @param chain The identifier of the chain the transaction is destined for. Wallets may use this to
+ * simulate the transaction for the user.
+ *
+ * @example
+ * ```tsx
+ * import { useWalletAccountTransactionSendingSigner } from '@solana/react';
+ * import {
+ *     appendTransactionMessageInstruction,
+ *     createSolanaRpc,
+ *     getBase58Decoder,
+ *     pipe,
+ *     setTransactionMessageFeePayerSigner,
+ *     setTransactionMessageLifetimeUsingBlockhash,
+ *     signAndSendTransactionMessageWithSigners,
+ * } from '@solana/kit';
+ *
+ * function RecordMemoButton({ account, rpc, text }) {
+ *     const signer = useWalletAccountTransactionSendingSigner(account, 'solana:devnet');
+ *     return (
+ *         <button
+ *             onClick={async () => {
+ *                 try {
+ *                     const { value: latestBlockhash } = await createSolanaRpc('https://api.devnet.solana.com')
+ *                         .getLatestBlockhash()
+ *                         .send();
+ *                     const message = pipe(
+ *                         createTransactionMessage({ version: 'legacy' }),
+ *                         m => setTransactionMessageFeePayerSigner(signer, m),
+ *                         m => setTransactionMessageLifetimeUsingBlockhash(latestBlockhash, m),
+ *                         m => appendTransactionMessageInstruction(getAddMemoInstruction({ memo: text }), m),
+ *                     );
+ *                     const signatureBytes = await signAndSendTransactionMessageWithSigners(message);
+ *                     const base58Signature = getBase58Decoder().decode(signature);
+ *                     window.alert(`View transaction: https://explorer.solana.com/tx/${base58Signature}?cluster=devnet`);
+ *                 } catch (e) {
+ *                     console.error('Failed to record memo', e);
+ *                 }
+ *             }}
+ *         >
+ *             Record Memo
+ *         </button>
+ *     );
+ * }
+ * ```
  */
 export function useWalletAccountTransactionSendingSigner<TWalletAccount extends UiWalletAccount>(
     uiWalletAccount: TWalletAccount,

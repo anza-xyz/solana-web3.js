@@ -1,3 +1,8 @@
+/**
+ * This package contains React hooks for building Solana apps.
+ *
+ * @packageDocumentation
+ */
 export * from './useSignAndSendTransaction';
 export * from './useSignIn';
 export * from './useSignMessage';

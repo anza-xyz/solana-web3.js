@@ -9,7 +9,44 @@ import { useMemo } from 'react';
 import { useSignMessage } from './useSignMessage';
 
 /**
- * Returns an object that conforms to the `MessageModifyingSigner` interface of `@solana/signers`.
+ * Use this to get a {@link MessageSigner} capable of signing messages with the private key of a
+ * {@link UiWalletAccount}
+ *
+ * @returns A {@link MessageModifyingSigner}. This is a conservative assumption based on the fact
+ * that your application can not control whether or not the wallet will modify the message before
+ * signing it. Otherwise this method could more specifically return a {@link MessageSigner} or a
+ * {@link MessagePartialSigner}.
+ *
+ * @example
+ * ```tsx
+ * import { useWalletAccountMessageSigner } from '@solana/react';
+ * import { createSignableMessage } from '@solana/signers';
+ *
+ * function SignMessageButton({ account, text }) {
+ *     const messageSigner = useWalletAccountMessageSigner(account);
+ *     return (
+ *         <button
+ *             onClick={async () => {
+ *                 try {
+ *                     const signableMessage = createSignableMessage(text);
+ *                     const [signedMessage] = await messageSigner.modifyAndSignMessages([signableMessage]);
+ *                     const messageWasModified = signableMessage.content !== signedMessage.content;
+ *                     const signatureBytes = signedMessage.signatures[messageSigner.address];
+ *                     window.alert(
+ *                         `Signature bytes: ${signatureBytes.toString()}${
+ *                             messageWasModified ? ' (message was modified)' : ''
+ *                         }`,
+ *                     );
+ *                 } catch (e) {
+ *                     console.error('Failed to sign message', e);
+ *                 }
+ *             }}
+ *         >
+ *             Sign Message: {text}
+ *         </button>
+ *     );
+ * }
+ * ```
  */
 export function useWalletAccountMessageSigner<TWalletAccount extends UiWalletAccount>(
     uiWalletAccount: TWalletAccount,

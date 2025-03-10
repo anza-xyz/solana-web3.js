@@ -26,9 +26,50 @@ type Output = Omit<SolanaSignInOutput, 'account' | 'signatureType'> &
     }>;
 
 /**
- * Returns a function you can call to sign in to a domain
+ * Use the ['Sign In With Solana'](https://phantom.app/learn/developers/sign-in-with-solana) feature
+ * of a {@link UiWallet} or {@link UiWalletAccount}.
+ *
+ * @returns A function that you can call to sign in with the particular wallet and address specfied
+ * by the supplied {@link UiWalletAccount}
+ *
+ * @example
+ * ```tsx
+ * import { useSignIn } from '@solana/react';
+ *
+ * function SignInButton({ wallet }) {
+ *     const csrfToken = useCsrfToken();
+ *     const signIn = useSignIn(wallet);
+ *     return (
+ *         <button
+ *             onClick={async () => {
+ *                 try {
+ *                     const { account, signedMessage, signature } = await signIn({
+ *                         requestId: csrfToken,
+ *                     });
+ *                     // Authenticate the user, typically on the server, by verifying that
+ *                     // `signedMessage` was signed by the person who holds the private key for
+ *                     // `account.publicKey`.
+ *                     //
+ *                     // Authorize the user, also on the server, by decoding `signedMessage` as the
+ *                     // text of a Sign In With Solana message, verifying that it was not modified
+ *                     // from the values your application expects, and that its content is sufficient
+ *                     // to grant them access.
+ *                     window.alert(`You are now signed in with the address ${account.address}`);
+ *                 } catch (e) {
+ *                     console.error('Failed to sign in', e);
+ *                 }
+ *             }}
+ *         >
+ *             Sign In
+ *         </button>
+ *     );
+ * }
+ * ```
  */
 export function useSignIn(uiWalletAccount: UiWalletAccount): (input?: Omit<Input, 'address'>) => Promise<Output>;
+/**
+ * @returns A function that you can call to sign in with the supplied {@link UiWallet}
+ */
 export function useSignIn(uiWallet: UiWallet): (input?: Input) => Promise<Output>;
 export function useSignIn(uiWalletHandle: UiWalletHandle): (input?: Input) => Promise<Output> {
     const signIns = useSignIns(uiWalletHandle);

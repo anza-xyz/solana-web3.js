@@ -10,8 +10,38 @@ import { OnlySolanaChains } from './chain';
 import { useSignTransaction } from './useSignTransaction';
 
 /**
- * Returns an object that conforms to the `TransactionModifyingSigner` interface of
- * `@solana/signers`.
+ * Use this to get a {@link TransactionSigner} capable of signing serialized transactions with the
+ * private key of a {@link UiWalletAccount}
+ *
+ * @returns A {@link TransactionModifyingSigner}. This is a conservative assumption based on the
+ * fact that your application can not control whether or not the wallet will modify the transaction
+ * before signing it (eg. to add guard instructions, or a priority fee budget). Otherwise this
+ * method could more specifically return a {@link TransactionSigner} or a
+ * {@link TransactionPartialSigner}.
+ *
+ * @example
+ * ```tsx
+ * import { useWalletAccountTransactionSigner } from '@solana/react';
+ *
+ * function SignTransactionButton({ account, transaction }) {
+ *     const transactionSigner = useWalletAccountTransactionSigner(account, 'solana:devnet');
+ *     return (
+ *         <button
+ *             onClick={async () => {
+ *                 try {
+ *                     const [{ signatures }] = await transactionSigner.modifyAndSignTransactions([transaction]);
+ *                     const signatureBytes = signatures[transactionSigner.address];
+ *                     window.alert(`Signature bytes: ${signatureBytes.toString()}`);
+ *                 } catch (e) {
+ *                     console.error('Failed to sign transaction', e);
+ *                 }
+ *             }}
+ *         >
+ *             Sign Transaction
+ *         </button>
+ *     );
+ * }
+ * ```
  */
 export function useWalletAccountTransactionSigner<TWalletAccount extends UiWalletAccount>(
     uiWalletAccount: TWalletAccount,

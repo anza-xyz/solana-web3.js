@@ -12,7 +12,33 @@ type Input = Omit<SolanaSignMessageInput, 'account'>;
 type Output = Omit<SolanaSignMessageOutput, 'signatureType'>;
 
 /**
- * Returns a function you can call to sign a serialized transaction.
+ * Use this to get a function capable of signing a message with the private key of a
+ * {@link UiWalletAccount}
+ *
+ * @example
+ * ```tsx
+ * import { useSignMessage } from '@solana/react';
+ *
+ * function SignMessageButton({ account, messageBytes }) {
+ *     const signMessage = useSignMessage(account);
+ *     return (
+ *         <button
+ *             onClick={async () => {
+ *                 try {
+ *                     const { signature } = await signMessage({
+ *                         message: messageBytes,
+ *                     });
+ *                     window.alert(`Signature bytes: ${signature.toString()}`);
+ *                 } catch (e) {
+ *                     console.error('Failed to sign message', e);
+ *                 }
+ *             }}
+ *         >
+ *             Sign Message
+ *         </button>
+ *     );
+ * }
+ * ```
  */
 export function useSignMessage<TWalletAccount extends UiWalletAccount>(
     ...config: Parameters<typeof useSignMessages<TWalletAccount>>

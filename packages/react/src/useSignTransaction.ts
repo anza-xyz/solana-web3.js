@@ -25,7 +25,36 @@ type Input = Readonly<
 type Output = SolanaSignTransactionOutput;
 
 /**
- * Returns a function you can call to sign a serialized transaction.
+ * Use this to get a function capable of signing a serialized transaction with the private key of a
+ * {@link UiWalletAccount}
+ *
+ * @param chain The identifier of the chain the transaction is destined for. Wallets may use this to
+ * simulate the transaction for the user.
+ *
+ * @example
+ * ```tsx
+ * import { useSignTransaction } from '@solana/react';
+ *
+ * function SignTransactionButton({ account, transactionBytes }) {
+ *     const signTransaction = useSignTransaction(account, 'solana:devnet');
+ *     return (
+ *         <button
+ *             onClick={async () => {
+ *                 try {
+ *                     const { signedTransaction } = await signTransaction({
+ *                         transaction: transactionBytes,
+ *                     });
+ *                     window.alert(`Signed transaction bytes: ${signedTransaction.toString()}`);
+ *                 } catch (e) {
+ *                     console.error('Failed to sign transaction', e);
+ *                 }
+ *             }}
+ *         >
+ *             Sign Transaction
+ *         </button>
+ *     );
+ * }
+ * ```
  */
 export function useSignTransaction<TWalletAccount extends UiWalletAccount>(
     uiWalletAccount: TWalletAccount,
