@@ -1,5 +1,15 @@
 # @solana/addresses
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies []:
+    - @solana/assertions@2.1.1
+    - @solana/codecs-core@2.1.1
+    - @solana/codecs-strings@2.1.1
+    - @solana/errors@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

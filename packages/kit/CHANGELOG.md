@@ -1,5 +1,29 @@
 # @solana/web3.js
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`776e18d`](https://github.com/anza-xyz/kit/commit/776e18d75c759a839608069c61da3f70b775540b)]:
+    - @solana/transaction-messages@2.1.1
+    - @solana/programs@2.1.1
+    - @solana/signers@2.1.1
+    - @solana/transaction-confirmation@2.1.1
+    - @solana/transactions@2.1.1
+    - @solana/rpc@2.1.1
+    - @solana/sysvars@2.1.1
+    - @solana/rpc-subscriptions@2.1.1
+    - @solana/accounts@2.1.1
+    - @solana/addresses@2.1.1
+    - @solana/codecs@2.1.1
+    - @solana/errors@2.1.1
+    - @solana/functional@2.1.1
+    - @solana/instructions@2.1.1
+    - @solana/keys@2.1.1
+    - @solana/rpc-parsed-types@2.1.1
+    - @solana/rpc-spec-types@2.1.1
+    - @solana/rpc-types@2.1.1
+
 ## 2.1.0
 
 ### Patch Changes
