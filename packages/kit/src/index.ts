@@ -1,3 +1,11 @@
+/**
+ * This is the JavaScript SDK for building Solana apps for Node, web, and React Native.
+ *
+ * In addition to re-exporting functions from packages in the `@solana/*` namespace, this package
+ * offers additional helpers for building Solana applications, with sensible defaults.
+ *
+ * @packageDocumentation
+ */
 export * from '@solana/accounts';
 export * from '@solana/addresses';
 export * from '@solana/codecs';
