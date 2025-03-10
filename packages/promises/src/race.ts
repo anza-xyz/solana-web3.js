@@ -70,6 +70,13 @@ function addRaceContender(contender: object) {
 // Keys are the values passed to race, values are a record of data containing a
 // set of deferreds and whether the value has settled.
 const wm = new WeakMap<object, { deferreds: Set<Deferred>; settled: boolean }>();
+/**
+ * An implementation of [`Promise.race`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/race)
+ * that causes all of the losing promises to settle. This allows them to be released and garbage
+ * collected, preventing memory leaks.
+ *
+ * Read more here: https://github.com/nodejs/node/issues/17469
+ */
 export async function safeRace<T extends readonly unknown[] | []>(contenders: T): Promise<Awaited<T[number]>> {
     let deferred: Deferred;
     const result = new Promise((resolve, reject) => {
