@@ -29,6 +29,10 @@ export function buildProgramAccountsLoaderArgSetFromResolveInfo(
                   };
               }
         )[];
+        /**
+         * Prevents accessing stale data by enforcing that the RPC node has processed transactions
+         * up to this slot
+         */
         minContextSlot?: Slot;
         programAddress: Address;
     },
