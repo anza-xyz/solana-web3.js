@@ -17,6 +17,11 @@ export type GetLargestAccountsApi = {
      */
     getLargestAccounts(
         config?: Readonly<{
+            /**
+             * Fetch the largest accounts as of the highest slot that has reached this level of
+             * commitment.
+             * @defaultValue "finalized"
+             */
             commitment?: Commitment;
             /** Filter results by account type */
             filter?: 'circulating' | 'nonCirculating';

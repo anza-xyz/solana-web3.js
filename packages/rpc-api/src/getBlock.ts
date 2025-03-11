@@ -45,7 +45,10 @@ type GetBlockApiResponseWithTransactions<TTransaction> = Readonly<{
 // API parameter types
 
 type GetBlockCommonConfig = Readonly<{
-    /** @defaultValue finalized */
+    /**
+     * Fetch blocks from slots that have reached at least this level of commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: Omit<Commitment, 'processed'>;
     encoding?: GetBlockEncoding;
     maxSupportedTransactionVersion?: GetBlockMaxSupportedTransactionVersion;

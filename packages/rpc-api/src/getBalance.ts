@@ -10,6 +10,11 @@ export type GetBalanceApi = {
     getBalance(
         address: Address,
         config?: Readonly<{
+            /**
+             * Fetch the balance of the account as of the highest slot that has reached this level
+             * of commitment.
+             * @defaultValue "finalized"
+             */
             commitment?: Commitment;
             minContextSlot?: Slot;
         }>,

@@ -11,6 +11,10 @@ export type GetTokenAccountBalanceApi = {
         /** Pubkey of Token account to query, as base-58 encoded string */
         address: Address,
         config?: Readonly<{
+            /**
+             * Fetch the balance as of the highest slot that has reached this level of commitment.
+             * @defaultValue "finalized"
+             */
             commitment?: Commitment;
         }>,
     ): SolanaRpcResponse<GetTokenAccountBalanceApiResponse>;

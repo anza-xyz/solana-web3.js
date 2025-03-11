@@ -11,6 +11,10 @@ export type GetTokenSupplyApi = {
         /** Pubkey of the token Mint to query, as base-58 encoded string */
         address: Address,
         config?: Readonly<{
+            /**
+             * Fetch the supply as of the highest slot that has reached this level of commitment.
+             * @defaultValue "finalized"
+             */
             commitment?: Commitment;
         }>,
     ): SolanaRpcResponse<GetTokenSupplyApiResponse>;

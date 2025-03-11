@@ -119,6 +119,11 @@ export function buildAccountArgSetWithVisitor<TArgs extends AccountLoaderArgs | 
 export function buildAccountLoaderArgSetFromResolveInfo(
     args: {
         address: Address;
+        /**
+         * Fetch the details of the account as of the highest slot that has reached this level of
+         * commitment.
+         * @defaultValue "finalized"
+         */
         commitment?: Commitment;
         minContextSlot?: Slot;
     },

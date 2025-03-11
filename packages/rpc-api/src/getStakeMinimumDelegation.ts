@@ -8,6 +8,11 @@ export type GetStakeMinimumDelegationApi = {
      */
     getStakeMinimumDelegation(
         config?: Readonly<{
+            /**
+             * Fetch the minimum delegation as of  highest slot that has reached this level of
+             * commitment.
+             * @defaultValue "finalized"
+             */
             commitment?: Commitment;
         }>,
     ): SolanaRpcResponse<GetStakeMinimumDelegationApiResponse>;

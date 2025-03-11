@@ -13,7 +13,11 @@ export type GetBlocksWithLimitApi = {
         // Note: 0 will return an empty array
         limit: number,
         config?: Readonly<{
-            // Defaults to `finalized`
+            /**
+             * Include only blocks at slots that have reached at least this level of commitment.
+             *
+             * @defaultValue "finalized"
+             */
             commitment?: Exclude<Commitment, 'processed'>;
         }>,
     ): GetBlocksWithLimitApiResponse;

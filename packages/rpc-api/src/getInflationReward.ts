@@ -2,7 +2,11 @@ import type { Address } from '@solana/addresses';
 import type { Commitment, Lamports, Slot } from '@solana/rpc-types';
 
 type GetInflationRewardApiConfig = Readonly<{
-    // Defaults to `finalized`
+    /**
+     * Fetch the inflation reward details as of the highest slot that has reached this level of
+     * commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: Commitment;
     // An epoch for which the reward occurs.
     // If omitted, the previous epoch will be used

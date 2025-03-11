@@ -12,6 +12,11 @@ export type GetTokenLargestAccountsApi = {
     getTokenLargestAccounts(
         tokenMint: Address,
         config?: Readonly<{
+            /**
+             * Fetch the largest accounts as of the highest slot that has reached this level of
+             * commitment.
+             * @defaultValue "finalized"
+             */
             commitment?: Commitment;
         }>,
     ): SolanaRpcResponse<GetTokenLargestAccountsApiResponse>;

@@ -21,6 +21,11 @@ export type GetEpochInfoApi = {
      */
     getEpochInfo(
         config?: Readonly<{
+            /**
+             * Fetch epoch information as of the highest slot that has reached this level of
+             * commitment.
+             * @defaultValue "finalized"
+             */
             commitment?: Commitment;
             minContextSlot?: Slot;
         }>,

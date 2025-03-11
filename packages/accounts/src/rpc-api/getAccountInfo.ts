@@ -19,7 +19,11 @@ type NestInRpcResponseOrNull<T> = Readonly<{
 }>;
 
 type GetAccountInfoApiCommonConfig = Readonly<{
-    // Defaults to `finalized`
+    /**
+     * Fetch the details of the account as of the highest slot that has reached this level of
+     * commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: Commitment;
     encoding: 'base58' | 'base64' | 'base64+zstd' | 'jsonParsed';
     // The minimum slot that the request can be evaluated at

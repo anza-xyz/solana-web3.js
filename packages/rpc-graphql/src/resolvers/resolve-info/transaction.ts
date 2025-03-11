@@ -78,6 +78,11 @@ export function buildTransactionArgSetWithVisitor<TArgs extends BlockLoaderArgs 
  */
 export function buildTransactionLoaderArgSetFromResolveInfo(
     args: {
+        /**
+         * Fetch the transaction details as of the highest slot that has reached this level of
+         * commitment.
+         * @defaultValue "finalized"
+         */
         commitment?: Omit<Commitment, 'processed'>;
         minContextSlot?: Slot;
         signature: Signature;

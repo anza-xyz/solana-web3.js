@@ -9,6 +9,10 @@ export type GetSlotLeaderApi = {
      */
     getSlotLeader(
         config?: Readonly<{
+            /**
+             * Fetch the leader as of the highest slot that has reached this level of commitment.
+             * @defaultValue "finalized"
+             */
             commitment?: Commitment;
             minContextSlot?: Slot;
         }>,

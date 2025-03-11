@@ -11,6 +11,11 @@ import { buildAccountArgSetWithVisitor } from './account';
  */
 export function buildProgramAccountsLoaderArgSetFromResolveInfo(
     args: {
+        /**
+         * Fetch the details of the accounts as of the highest slot that has reached this level of
+         * commitment.
+         * @defaultValue "finalized"
+         */
         commitment?: Commitment;
         filters?: (
             | {
