@@ -11,7 +11,15 @@ import { injectableRootVisitor } from './visitor';
  */
 export function buildBlockLoaderArgSetFromResolveInfo(
     args: {
+        /**
+         * Fetch blocks from slots that have reached at least this level of commitment.
+         * @defaultValue "finalized"
+         */
         commitment?: Omit<Commitment, 'processed'>;
+        /**
+         * Prevents accessing stale data by enforcing that the RPC node has processed
+         * transactions up to this slot
+         */
         minContextSlot?: Slot;
         slot: Slot;
     },

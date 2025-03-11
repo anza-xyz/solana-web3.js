@@ -10,7 +10,10 @@ export type GetBlocksApi = {
         startSlot: Slot,
         endSlotInclusive?: Slot,
         config?: Readonly<{
-            // Defaults to `finalized`
+            /**
+             * Include only blocks at slots that have reached at least this level of commitment.
+             * @defaultValue "finalized"
+             */
             commitment?: Exclude<Commitment, 'processed'>;
         }>,
     ): GetBlocksApiResponse;

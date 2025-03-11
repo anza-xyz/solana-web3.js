@@ -14,14 +14,25 @@ import type {
 type GetMultipleAccountsApiResponseBase = AccountInfoBase | null;
 
 type GetMultipleAccountsApiCommonConfig = Readonly<{
-    /** Defaults to `finalized` */
+    /**
+     * Fetch the details of the accounts as of the highest slot that has reached this level of
+     * commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: Commitment;
-    /** The minimum slot that the request can be evaluated at */
+    /**
+     * Prevents accessing stale data by enforcing that the RPC node has processed transactions up to
+     * this slot
+     */
     minContextSlot?: Slot;
 }>;
 
 type GetMultipleAccountsApiSliceableCommonConfig = Readonly<{
-    /** Limit the returned account data */
+    /**
+     * Define which slice of the accounts' data you want the RPC to return.
+     *
+     * Use this to save network bandwidth and encoding time when you do not need the entire buffer.
+     */
     dataSlice?: DataSlice;
 }>;
 

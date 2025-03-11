@@ -17,9 +17,9 @@ import type { Base64EncodedWireTransaction, TransactionBlockhashLifetime } from 
 
 type SimulateTransactionConfigBase = Readonly<{
     /**
-     * Commitment level to simulate the transaction at
-     * @defaultValue finalized
-     * */
+     * Simulate the transaction as of the highest slot that has reached this level of commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: Commitment;
     /**
      * If `true` the response will include inner instructions. These inner instructions will be
@@ -27,7 +27,10 @@ type SimulateTransactionConfigBase = Readonly<{
      * @defaultValue false
      */
     innerInstructions?: boolean;
-    /** The minimum slot that the request can be evaluated at */
+    /**
+     * Prevents accessing stale data by enforcing that the RPC node has processed transactions up to
+     * this slot
+     */
     minContextSlot?: Slot;
 }>;
 

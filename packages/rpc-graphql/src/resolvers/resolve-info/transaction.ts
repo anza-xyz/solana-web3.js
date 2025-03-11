@@ -78,7 +78,16 @@ export function buildTransactionArgSetWithVisitor<TArgs extends BlockLoaderArgs 
  */
 export function buildTransactionLoaderArgSetFromResolveInfo(
     args: {
+        /**
+         * Fetch the transaction details as of the highest slot that has reached this level of
+         * commitment.
+         * @defaultValue "finalized"
+         */
         commitment?: Omit<Commitment, 'processed'>;
+        /**
+         * Prevents accessing stale data by enforcing that the RPC node has processed transactions
+         * up to this slot
+         */
         minContextSlot?: Slot;
         signature: Signature;
     },

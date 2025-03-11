@@ -120,6 +120,11 @@ type TransactionJsonParsed = Readonly<{
     TransactionBase;
 
 type GetTransactionCommonConfig<TMaxSupportedTransactionVersion> = Readonly<{
+    /**
+     * Fetch the transaction details as of the highest slot that has reached this level of
+     * commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: Commitment;
     maxSupportedTransactionVersion?: TMaxSupportedTransactionVersion;
 }>;

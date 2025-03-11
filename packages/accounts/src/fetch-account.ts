@@ -13,7 +13,16 @@ import type { GetAccountInfoApi, GetMultipleAccountsApi } from './rpc-api';
  */
 export type FetchAccountConfig = {
     abortSignal?: AbortSignal;
+    /**
+     * Fetch the details of the account as of the highest slot that has reached this level of
+     * commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: Commitment;
+    /**
+     * Prevents accessing stale data by enforcing that the RPC node has processed transactions up to
+     * this slot
+     */
     minContextSlot?: Slot;
 };
 
@@ -94,7 +103,17 @@ export async function fetchJsonParsedAccount<TData extends object, TAddress exte
  */
 export type FetchAccountsConfig = {
     abortSignal?: AbortSignal;
+    /**
+     * Fetch the details of the accounts as of the highest slot that has reached this level of
+     * commitment.
+     * @defaultValue "finalized"
+     */
+
     commitment?: Commitment;
+    /**
+     * Prevents accessing stale data by enforcing that the RPC node has processed transactions up to
+     * this slot
+     */
     minContextSlot?: Slot;
 };
 

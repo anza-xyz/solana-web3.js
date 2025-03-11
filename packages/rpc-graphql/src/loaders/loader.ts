@@ -15,9 +15,18 @@ export type LoadManyFn<TArgs, T> = (args: TArgs[]) => Promise<(Error | T)[]>;
 export type Loader<TArgs, T> = { load: LoadFn<TArgs, T>; loadMany: LoadManyFn<TArgs, T> };
 
 export type AccountLoaderArgsBase = {
+    /**
+     * Fetch the details of the account as of the highest slot that has reached this level of
+     * commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: Commitment;
     dataSlice?: { length: number; offset: number };
     encoding?: 'base58' | 'base64' | 'base64+zstd' | 'jsonParsed';
+    /**
+     * Prevents accessing stale data by enforcing that the RPC node has processed transactions up to
+     * this slot
+     */
     minContextSlot?: Slot;
 };
 export type AccountLoaderArgs = AccountLoaderArgsBase & { address: Address };
@@ -40,6 +49,11 @@ export type MultipleAccountsLoaderValue = AccountLoaderValue[];
 export type MultipleAccountsLoader = Loader<MultipleAccountsLoaderArgs, MultipleAccountsLoaderValue>;
 
 export type ProgramAccountsLoaderArgsBase = {
+    /**
+     * Fetch the details of the accounts as of the highest slot that has reached this level of
+     * commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: Commitment;
     dataSlice?: { length: number; offset: number };
     encoding?: 'base58' | 'base64' | 'base64+zstd' | 'jsonParsed';
@@ -55,6 +69,10 @@ export type ProgramAccountsLoaderArgsBase = {
               };
           }
     )[];
+    /**
+     * Prevents accessing stale data by enforcing that the RPC node has processed transactions up to
+     * this slot
+     */
     minContextSlot?: Slot;
 };
 export type ProgramAccountsLoaderArgs = ProgramAccountsLoaderArgsBase & { programAddress: Address };

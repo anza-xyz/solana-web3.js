@@ -28,6 +28,12 @@ export const resolveAccountData = () => {
     return (
         parent: AccountResult | null,
         args: {
+            /**
+             * Define which slice of the account's data you want the RPC to return.
+             *
+             * Use this to save network bandwidth and encoding time when you do not need the entire
+             * buffer.
+             */
             dataSlice?: DataSlice;
             encoding: Encoding;
         },
@@ -39,7 +45,20 @@ export const resolveAccountData = () => {
 export const resolveAccount = (fieldName?: string) => {
     return async (
         parent: { [x: string]: Address },
-        args: { address?: Address; commitment?: Commitment; minContextSlot?: Slot },
+        args: {
+            address?: Address;
+            /**
+             * Fetch the details of the account as of the highest slot that has reached this level
+             * of commitment.
+             * @defaultValue "finalized"
+             */
+            commitment?: Commitment;
+            /**
+             * Prevents accessing stale data by enforcing that the RPC node has processed
+             * transactions up to this slot
+             */
+            minContextSlot?: Slot;
+        },
         context: RpcGraphQLContext,
         info: GraphQLResolveInfo,
     ): Promise<AccountResult | null> => {

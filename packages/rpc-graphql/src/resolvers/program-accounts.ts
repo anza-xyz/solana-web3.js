@@ -11,9 +11,18 @@ export function resolveProgramAccounts(fieldName?: string) {
     return async (
         parent: { [x: string]: Address },
         args: {
+            /**
+             * Fetch the details of the accounts as of the highest slot that has reached this level
+             * of commitment.
+             * @defaultValue "finalized"
+             */
             commitment?: Commitment;
             dataSizeFilters?: { dataSize: bigint }[];
             memcmpFilters?: { bytes: string; encoding: 'base58' | 'base64'; offset: bigint }[];
+            /**
+             * Prevents accessing stale data by enforcing that the RPC node has processed
+             * transactions up to this slot
+             */
             minContextSlot?: Slot;
             programAddress: Address;
         },

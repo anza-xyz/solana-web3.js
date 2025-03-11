@@ -24,10 +24,17 @@ type AllowedCommitmentForGetSignaturesForAddress = Exclude<Commitment, 'processe
 type GetSignaturesForAddressConfig = Readonly<{
     /** start searching backwards from this transaction signature. If not provided the search starts from the top of the highest max confirmed block. */
     before?: Signature;
+    /**
+     * Fetch the signatures as of the highest slot that has reached this level of commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: AllowedCommitmentForGetSignaturesForAddress;
     /** maximum transaction signatures to return (between 1 and 1,000). Default: 1000 */
     limit?: number;
-    /** The minimum slot that the request can be evaluated at */
+    /**
+     * Prevents accessing stale data by enforcing that the RPC node has processed transactions up to
+     * this slot
+     */
     minContextSlot?: Slot;
     /** search until this transaction signature, if found before limit reached */
     until?: Signature;

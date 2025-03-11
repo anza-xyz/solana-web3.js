@@ -31,6 +31,11 @@ type GetVoteAccountsApiResponse<TVotePubkey extends Address> = Readonly<{
 }>;
 
 type GetVoteAccountsConfig<TVotePubkey extends Address> = Readonly<{
+    /**
+     * Fetch the details of the vote accounts as of the highest slot that has reached this level of
+     * commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: Commitment;
     /** Specify the number of slots behind the tip that a validator must fall to be considered delinquent. **NOTE:** For the sake of consistency between ecosystem products, _it is **not** recommended that this argument be specified._ */
     delinquentSlotDistance?: bigint;

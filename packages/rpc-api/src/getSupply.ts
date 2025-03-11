@@ -2,6 +2,10 @@ import type { Address } from '@solana/addresses';
 import type { Commitment, Lamports, SolanaRpcResponse } from '@solana/rpc-types';
 
 type GetSupplyConfig = Readonly<{
+    /**
+     * Fetch the supply as of the highest slot that has reached this level of commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: Commitment;
 }>;
 

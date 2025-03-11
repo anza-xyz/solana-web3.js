@@ -27,7 +27,15 @@ import { compileTransaction, getBase64EncodedWireTransaction } from '@solana/tra
 
 type ComputeUnitEstimateForTransactionMessageConfig = Readonly<{
     abortSignal?: AbortSignal;
+    /**
+     * Compute the estimate as of the highest slot that has reached this level of commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: Commitment;
+    /**
+     * Prevents accessing stale data by enforcing that the RPC node has processed transactions up to
+     * this slot
+     */
     minContextSlot?: Slot;
     rpc: Rpc<SimulateTransactionApi>;
     transactionMessage: CompilableTransactionMessage | (ITransactionMessageWithFeePayer & TransactionMessage);
