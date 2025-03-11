@@ -17,6 +17,7 @@ type GetAccountInfoApiResponse<T> = (AccountInfoBase & T) | null;
 type GetAccountInfoApiCommonConfig = Readonly<{
     // Defaults to `finalized`
     commitment?: Commitment;
+    encoding: 'base58' | 'base64' | 'base64+zstd' | 'jsonParsed';
     // The minimum slot that the request can be evaluated at
     minContextSlot?: Slot;
 }>;
@@ -63,6 +64,6 @@ export type GetAccountInfoApi = {
     ): SolanaRpcResponse<GetAccountInfoApiResponse<AccountInfoWithBase58EncodedData>>;
     getAccountInfo(
         address: Address,
-        config?: GetAccountInfoApiCommonConfig,
+        config?: Omit<GetAccountInfoApiCommonConfig, 'encoding'>,
     ): SolanaRpcResponse<GetAccountInfoApiResponse<AccountInfoWithBase58Bytes>>;
 };
