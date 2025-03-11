@@ -10,7 +10,11 @@ type DefaultRpcTransportConfig<TClusterUrl extends ClusterUrl> = Parameters<
     typeof createDefaultRpcTransport<TClusterUrl>
 >[0];
 
-/** Creates a new Solana RPC using the default decorated HTTP transport. */
+/**
+ * Creates a {@link Rpc} instance that exposes the Solana JSON RPC API given a cluster URL and some
+ * optional transport config. See {@link createDefaultRpcTransport} for the shape of the transport
+ * config.
+ */
 export function createSolanaRpc<TClusterUrl extends ClusterUrl>(
     clusterUrl: TClusterUrl,
     config?: Omit<DefaultRpcTransportConfig<TClusterUrl>, 'url'>,
@@ -18,7 +22,10 @@ export function createSolanaRpc<TClusterUrl extends ClusterUrl>(
     return createSolanaRpcFromTransport(createDefaultRpcTransport({ url: clusterUrl, ...config }));
 }
 
-/** Creates a new Solana RPC using a custom transport. */
+/**
+ * Creates a {@link Rpc} instance that exposes the Solana JSON RPC API given the supplied
+ * {@link RpcTransport}.
+ */
 export function createSolanaRpcFromTransport<TTransport extends RpcTransport>(transport: TTransport) {
     return createRpc({
         api: createSolanaRpcApi(DEFAULT_RPC_CONFIG),
