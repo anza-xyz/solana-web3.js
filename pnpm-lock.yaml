@@ -5,6 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  axios@<1.8.2: ^1.8.2
   agadoo>rollup: ^4
   conventional-changelog-conventionalcommits: '>= 8.0.0'
   dset@<3.1.4: ^3.1.4
@@ -4061,13 +4062,10 @@ packages:
   axios-retry@4.5.0:
     resolution: {integrity: sha512-aR99oXhpEDGo0UuAlYcn2iGRds30k366Zfa05XWScR9QaQD4JYiP3/1Qt1u7YlefUOK+cn0CcwoL1oefavQUlQ==}
     peerDependencies:
-      axios: 0.x || 1.x
+      axios: ^1.8.2
 
-  axios@1.7.7:
-    resolution: {integrity: sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==}
-
-  axios@1.8.1:
-    resolution: {integrity: sha512-NN+fvwH/kV01dYUQ3PTOZns4LWtWhOFCAhQ/pHb88WQ1hNe5V/dvFwc4VJcDL11LT9xSX0QtsR8sWUuyOuOq7g==}
+  axios@1.8.2:
+    resolution: {integrity: sha512-ls4GYBm5aig9vWx8AWDSGLpnpDQRtWAfrjU+EuytuODrFBkqesN2RkOQCBzrA1RQNHw1SmRMSDDDSwzNAYQ6Rg==}
 
   babel-jest@30.0.0-alpha.6:
     resolution: {integrity: sha512-WOQkqpBz2q8d/AT6D6rZXW5xnKHDmk3kIukaXlzUyoBBIvLh1SEvi2RGS4fboEtS0kNkyL+zf1rSfkt5OCIgmw==}
@@ -4857,15 +4855,6 @@ packages:
   flow-parser@0.259.1:
     resolution: {integrity: sha512-xiXLmMH2Z7OmdE9Q+MjljUMr/rbemFqZIRxaeZieVScG4HzQrKKhNcCYZbWTGpoN7ZPi7z8ClQbeVPq6t5AszQ==}
     engines: {node: '>=0.4.0'}
-
-  follow-redirects@1.15.6:
-    resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
 
   follow-redirects@1.15.9:
     resolution: {integrity: sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==}
@@ -10235,20 +10224,12 @@ snapshots:
 
   atomic-sleep@1.0.0: {}
 
-  axios-retry@4.5.0(axios@1.7.7):
+  axios-retry@4.5.0(axios@1.8.2):
     dependencies:
-      axios: 1.7.7
+      axios: 1.8.2(debug@4.4.0)
       is-retry-allowed: 2.2.0
 
-  axios@1.7.7:
-    dependencies:
-      follow-redirects: 1.15.6
-      form-data: 4.0.0
-      proxy-from-env: 1.1.0
-    transitivePeerDependencies:
-      - debug
-
-  axios@1.8.1(debug@4.4.0):
+  axios@1.8.2(debug@4.4.0):
     dependencies:
       follow-redirects: 1.15.9(debug@4.4.0)
       form-data: 4.0.2
@@ -10434,8 +10415,8 @@ snapshots:
 
   bundlemon@3.1.0(typescript@5.7.3):
     dependencies:
-      axios: 1.7.7
-      axios-retry: 4.5.0(axios@1.7.7)
+      axios: 1.8.2(debug@4.4.0)
+      axios-retry: 4.5.0(axios@1.8.2)
       brotli-size: 4.0.0
       bundlemon-utils: 2.0.1
       bytes: 3.1.2
@@ -11087,8 +11068,6 @@ snapshots:
   flatted@3.3.3: {}
 
   flow-parser@0.259.1: {}
-
-  follow-redirects@1.15.6: {}
 
   follow-redirects@1.15.9(debug@4.4.0):
     optionalDependencies:
@@ -13398,7 +13377,7 @@ snapshots:
 
   wait-on@7.2.0:
     dependencies:
-      axios: 1.7.7
+      axios: 1.8.2(debug@4.4.0)
       joi: 17.12.2
       lodash: 4.17.21
       minimist: 1.2.8
@@ -13408,7 +13387,7 @@ snapshots:
 
   wait-on@8.0.2(debug@4.4.0):
     dependencies:
-      axios: 1.8.1(debug@4.4.0)
+      axios: 1.8.2(debug@4.4.0)
       joi: 17.13.3
       lodash: 4.17.21
       minimist: 1.2.8
