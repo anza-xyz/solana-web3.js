@@ -11,19 +11,29 @@ interface DefaultRpcTransportConfig<TClusterUrl extends ClusterUrl> extends RpcT
     url: TClusterUrl;
 }
 
-/**
- * Lowercasing header names makes it easier to override user-supplied headers.
- */
 function normalizeHeaders<T extends Record<string, string>>(
     headers: T,
 ): { [K in string & keyof T as Lowercase<K>]: T[K] } {
     const out: Record<string, string> = {};
     for (const headerName in headers) {
+        // Lowercasing header names makes it easier to override user-supplied headers.
         out[headerName.toLowerCase()] = headers[headerName];
     }
     return out as { [K in string & keyof T as Lowercase<K>]: T[K] };
 }
 
+/**
+ * Creates a {@link RpcTransport} with some default behaviours.
+ *
+ * The default behaviours include:
+ * - An automatically-set `Solana-Client` request header, containing the version of `@solana/kit`
+ * - Logic that coalesces multiple calls in the same runloop, for the same methods with the same
+ *   arguments, into a single network request.
+ * - [node-only] An automatically-set `Accept-Encoding` request header asking the server to compress
+ *   responses
+ *
+ * @param config
+ */
 export function createDefaultRpcTransport<TClusterUrl extends ClusterUrl>(
     config: DefaultRpcTransportConfig<TClusterUrl>,
 ): RpcTransportFromClusterUrl<TClusterUrl> {

@@ -43,7 +43,7 @@ transport satisfies RpcTransportTestnet; // OK
 
 These types refine the base `Rpc` type. Each describes a RPC that is specific in some way to a particular Solana cluster and a corpus of RPC methods.
 
-This is useful in cases where you need to make assertions about the suitability of a RPC for a given purpose. For example, you might like to make it a type error to combine certain types with RPC belonging to certain clusters, at compile time.
+This is useful in cases where you need to make assertions about the suitability of a RPC for a given purpose. For example, you might like to make it a type error to combine certain types with RPCs belonging to certain clusters, at compile time.
 
 ```ts
 async function getSpecialAccountInfo(
@@ -63,7 +63,7 @@ await getSpecialAccountInfo(address('ReAL1111111111111111111111111111'), rpc); /
 
 ### `RpcFromTransport<TRpcMethods, TRpcTransport extends RpcTransport>`
 
-Given a `RpcTransport`, this utility type will resolve to as specific a `Rpc` as possible.
+Given a `RpcTransport` and a set of RPC methods denoted by `TRpcMethods` this utility type will resolve to a `Rpc` that supports those methods on as specific a cluster as possible.
 
 ```ts
 function createCustomRpc<TRpcTransport extends RpcTransport>(
@@ -78,6 +78,20 @@ rpc satisfies RpcMainnet<MyCustomRpcMethods>; // OK
 ```
 
 ### SolanaRpcApiFromTransport<TTransport extends RpcTransport>
+
+Given a `RpcTransport` this utility type will resolve to a union of all the methods of the Solana RPC API supported by the transport's cluster.
+
+```ts
+function createSolanaRpcFromTransport<TTransport extends RpcTransport>(
+    transport: TTransport,
+): RpcFromTransport<SolanaRpcApiFromTransport<TTransport>, TTransport> {
+    /* ... */
+}
+const transport = createDefaultRpcTransport({ url: mainnet('http://rpc.company') });
+transport satisfies RpcTransportMainnet; // OK
+const rpc = createSolanaRpcFromTransport(transport);
+rpc satisfies RpcMainnet<SolanaRpcApiMainnet>; // OK
+```
 
 ## Constants
 
@@ -102,6 +116,7 @@ The default behaviours include:
 
 - An automatically-set `Solana-Client` request header, containing the version of `@solana/kit`
 - Logic that coalesces multiple calls in the same runloop, for the same methods with the same arguments, into a single network request.
+- [node-only] An automatically-set `Accept-Encoding` request header asking the server to compress responses
 
 #### Arguments
 
