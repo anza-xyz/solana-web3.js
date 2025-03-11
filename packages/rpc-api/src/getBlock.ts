@@ -47,9 +47,14 @@ type GetBlockApiResponseWithTransactions<TTransaction> = Readonly<{
 type GetBlockCommonConfig = Readonly<{
     /** @defaultValue finalized */
     commitment?: Omit<Commitment, 'processed'>;
+    encoding?: GetBlockEncoding;
+    maxSupportedTransactionVersion?: GetBlockMaxSupportedTransactionVersion;
+    rewards?: boolean;
+    transactionDetails?: GetBlockTransactionDetailsMode;
 }>;
 
 type GetBlockEncoding = 'base58' | 'base64' | 'json' | 'jsonParsed';
+type GetBlockTransactionDetailsMode = 'accounts' | 'full' | 'none' | 'signatures';
 
 // Max supported transaction version parameter:
 // - `maxSupportedTransactionVersion` can only be provided with a number value. "legacy" is not a valid argument.
@@ -69,8 +74,6 @@ export type GetBlockApi = {
         slot: Slot,
         config: GetBlockCommonConfig &
             Readonly<{
-                encoding?: GetBlockEncoding;
-                maxSupportedTransactionVersion?: GetBlockMaxSupportedTransactionVersion;
                 rewards: false;
                 transactionDetails: 'none';
             }>,
@@ -80,8 +83,6 @@ export type GetBlockApi = {
         slot: Slot,
         config: GetBlockCommonConfig &
             Readonly<{
-                encoding?: GetBlockEncoding;
-                maxSupportedTransactionVersion?: GetBlockMaxSupportedTransactionVersion;
                 rewards?: true;
                 transactionDetails: 'none';
             }>,
@@ -91,8 +92,6 @@ export type GetBlockApi = {
         slot: Slot,
         config: GetBlockCommonConfig &
             Readonly<{
-                encoding?: GetBlockEncoding;
-                maxSupportedTransactionVersion?: GetBlockMaxSupportedTransactionVersion;
                 rewards: false;
                 transactionDetails: 'signatures';
             }>,
@@ -102,8 +101,6 @@ export type GetBlockApi = {
         slot: Slot,
         config: GetBlockCommonConfig &
             Readonly<{
-                encoding?: GetBlockEncoding;
-                maxSupportedTransactionVersion?: GetBlockMaxSupportedTransactionVersion;
                 rewards?: true;
                 transactionDetails: 'signatures';
             }>,
@@ -113,7 +110,6 @@ export type GetBlockApi = {
         slot: Slot,
         config: GetBlockCommonConfig &
             Readonly<{
-                encoding?: GetBlockEncoding;
                 maxSupportedTransactionVersion: GetBlockMaxSupportedTransactionVersion;
                 rewards: false;
                 transactionDetails: 'accounts';
@@ -125,9 +121,8 @@ export type GetBlockApi = {
     // // transactionDetails=accounts, rewards=false, maxSupportedTransactionVersion=missing, encoding irrelevant
     getBlock(
         slot: Slot,
-        config: GetBlockCommonConfig &
+        config: Omit<GetBlockCommonConfig, 'maxSupportedTransactionVersion'> &
             Readonly<{
-                encoding?: GetBlockEncoding;
                 rewards: false;
                 transactionDetails: 'accounts';
             }>,
@@ -137,7 +132,6 @@ export type GetBlockApi = {
         slot: Slot,
         config: GetBlockCommonConfig &
             Readonly<{
-                encoding?: GetBlockEncoding;
                 maxSupportedTransactionVersion: GetBlockMaxSupportedTransactionVersion;
                 rewards?: true;
                 transactionDetails: 'accounts';
@@ -150,9 +144,8 @@ export type GetBlockApi = {
     // transactionDetails=accounts, rewards=missing/true, maxSupportedTransactionVersion=missing, encoding irrelevant
     getBlock(
         slot: Slot,
-        config: GetBlockCommonConfig &
+        config: Omit<GetBlockCommonConfig, 'maxSupportedTransactionVersion'> &
             Readonly<{
-                encoding?: GetBlockEncoding;
                 rewards?: true;
                 transactionDetails: 'accounts';
             }>,
@@ -178,7 +171,7 @@ export type GetBlockApi = {
     // transactionDetails=full (default), encoding=base58, rewards=false, maxSupportedTransactionVersion=missing
     getBlock(
         slot: Slot,
-        config: GetBlockCommonConfig &
+        config: Omit<GetBlockCommonConfig, 'maxSupportedTransactionVersion'> &
             Readonly<{
                 encoding: 'base58';
                 rewards: false;
@@ -203,7 +196,7 @@ export type GetBlockApi = {
     // transactionDetails=full (default), encoding=base58, rewards=missing/true, maxSupportedTransactionVersion=missing
     getBlock(
         slot: Slot,
-        config: GetBlockCommonConfig &
+        config: Omit<GetBlockCommonConfig, 'maxSupportedTransactionVersion'> &
             Readonly<{
                 encoding: 'base58';
                 rewards?: true;
@@ -231,7 +224,7 @@ export type GetBlockApi = {
     // transactionDetails=full (default), encoding=base64, rewards=false, maxSupportedTransactionVersion=missing
     getBlock(
         slot: Slot,
-        config: GetBlockCommonConfig &
+        config: Omit<GetBlockCommonConfig, 'maxSupportedTransactionVersion'> &
             Readonly<{
                 encoding: 'base64';
                 rewards: false;
@@ -256,7 +249,7 @@ export type GetBlockApi = {
     // transactionDetails=full (default), encoding=base64, rewards=missing/true, maxSupportedTransactionVersion=missing
     getBlock(
         slot: Slot,
-        config: GetBlockCommonConfig &
+        config: Omit<GetBlockCommonConfig, 'maxSupportedTransactionVersion'> &
             Readonly<{
                 encoding: 'base64';
                 rewards?: true;
@@ -284,7 +277,7 @@ export type GetBlockApi = {
     // transactionDetails=full (default), encoding=jsonParsed, rewards=false, maxSupportedTransactionVersion=missing
     getBlock(
         slot: Slot,
-        config: GetBlockCommonConfig &
+        config: Omit<GetBlockCommonConfig, 'maxSupportedTransactionVersion'> &
             Readonly<{
                 encoding: 'jsonParsed';
                 rewards: false;
@@ -298,7 +291,6 @@ export type GetBlockApi = {
             Readonly<{
                 encoding: 'jsonParsed';
                 maxSupportedTransactionVersion: GetBlockMaxSupportedTransactionVersion;
-                rewards?: boolean;
                 transactionDetails?: 'full';
             }>,
     ):
@@ -309,7 +301,7 @@ export type GetBlockApi = {
     // transactionDetails=full (default), encoding=jsonParsed, rewards=missing/true, maxSupportedTransactionVersion=missing
     getBlock(
         slot: Slot,
-        config: GetBlockCommonConfig &
+        config: Omit<GetBlockCommonConfig, 'maxSupportedTransactionVersion'> &
             Readonly<{
                 encoding: 'jsonParsed';
                 rewards?: boolean;
@@ -337,7 +329,7 @@ export type GetBlockApi = {
     // transactionDetails=full (default), encoding=json (default), rewards=false, maxSupportedTransactionVersion=missing
     getBlock(
         slot: Slot,
-        config: GetBlockCommonConfig &
+        config: Omit<GetBlockCommonConfig, 'maxSupportedTransactionVersion'> &
             Readonly<{
                 encoding?: 'json';
                 rewards: false;
@@ -351,7 +343,6 @@ export type GetBlockApi = {
             Readonly<{
                 encoding?: 'json';
                 maxSupportedTransactionVersion: GetBlockMaxSupportedTransactionVersion;
-                rewards?: boolean;
                 transactionDetails?: 'full';
             }>,
     ):
@@ -362,10 +353,9 @@ export type GetBlockApi = {
     // transactionDetails=full (default), encoding=json (default), rewards=missing/true, maxSupportedTransactionVersion=missing
     getBlock(
         slot: Slot,
-        config?: GetBlockCommonConfig &
+        config?: Omit<GetBlockCommonConfig, 'maxSupportedTransactionVersion'> &
             Readonly<{
                 encoding?: 'json';
-                rewards?: boolean;
                 transactionDetails?: 'full';
             }>,
     ):
