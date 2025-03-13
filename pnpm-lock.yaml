@@ -144,8 +144,8 @@ importers:
         version: link:../../packages/kit
     devDependencies:
       start-server-and-test:
-        specifier: ^2.0.10
-        version: 2.0.10
+        specifier: ^2.0.11
+        version: 2.0.11
       tsx:
         specifier: ^4.19.3
         version: 4.19.3
@@ -234,8 +234,8 @@ importers:
         version: link:../../packages/kit
     devDependencies:
       start-server-and-test:
-        specifier: ^2.0.10
-        version: 2.0.10
+        specifier: ^2.0.11
+        version: 2.0.11
       tsx:
         specifier: ^4.19.3
         version: 4.19.3
@@ -253,8 +253,8 @@ importers:
         version: link:../../packages/kit
     devDependencies:
       start-server-and-test:
-        specifier: ^2.0.10
-        version: 2.0.10
+        specifier: ^2.0.11
+        version: 2.0.11
       tsx:
         specifier: ^4.19.3
         version: 4.19.3
@@ -272,8 +272,8 @@ importers:
         version: link:../../packages/kit
     devDependencies:
       start-server-and-test:
-        specifier: ^2.0.10
-        version: 2.0.10
+        specifier: ^2.0.11
+        version: 2.0.11
       tsx:
         specifier: ^4.19.3
         version: 4.19.3
@@ -4346,6 +4346,9 @@ packages:
   axios@1.8.2:
     resolution: {integrity: sha512-ls4GYBm5aig9vWx8AWDSGLpnpDQRtWAfrjU+EuytuODrFBkqesN2RkOQCBzrA1RQNHw1SmRMSDDDSwzNAYQ6Rg==}
 
+  axios@1.8.3:
+    resolution: {integrity: sha512-iP4DebzoNlP/YN2dpwCgb8zoCmhtkajzS48JvwmkSkXvPI3DHc7m+XYL5tGnSlJtR6nImXZmdCuN5aP8dh1d8A==}
+
   babel-jest@30.0.0-alpha.6:
     resolution: {integrity: sha512-WOQkqpBz2q8d/AT6D6rZXW5xnKHDmk3kIukaXlzUyoBBIvLh1SEvi2RGS4fboEtS0kNkyL+zf1rSfkt5OCIgmw==}
     engines: {node: ^16.10.0 || ^18.12.0 || >=20.0.0}
@@ -6642,8 +6645,8 @@ packages:
     resolution: {integrity: sha512-XlkWvfIm6RmsWtNJx+uqtKLS8eqFbxUg0ZzLXqY0caEy9l7hruX8IpiDnjsLavoBgqCCR71TqWO8MaXYheJ3RQ==}
     engines: {node: '>=10'}
 
-  start-server-and-test@2.0.10:
-    resolution: {integrity: sha512-nZphcfcqGqwk74lbZkqSwClkYz+M5ZPGOMgWxNVJrdztPKN96qe6HooRu6L3TpwITn0lKJJdKACqHbJtqythOQ==}
+  start-server-and-test@2.0.11:
+    resolution: {integrity: sha512-TN39gLzPhHAflxyOkE/oMfQGj+pj3JgF6qVicFH/JrXt7xXktidKXwqfRga+ve7lVA8+RgPZVc25VrEPRScaDw==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -7085,8 +7088,8 @@ packages:
     engines: {node: '>=12.0.0'}
     hasBin: true
 
-  wait-on@8.0.2:
-    resolution: {integrity: sha512-qHlU6AawrgAIHlueGQHQ+ETcPLAauXbnoTKl3RKq20W0T8x0DKVAo5xWIYjHSyvHxQlcYbFdR0jp4T9bDVITFA==}
+  wait-on@8.0.3:
+    resolution: {integrity: sha512-nQFqAFzZDeRxsu7S3C7LbuxslHhk+gnJZHyethuGKAn2IVleIbTB9I3vJSQiSR+DifUqmdzfPMoMPJfLqMF2vw==}
     engines: {node: '>=12.0.0'}
     hasBin: true
 
@@ -10683,10 +10686,18 @@ snapshots:
 
   axios-retry@4.5.0(axios@1.8.2):
     dependencies:
-      axios: 1.8.2(debug@4.4.0)
+      axios: 1.8.2
       is-retry-allowed: 2.2.0
 
-  axios@1.8.2(debug@4.4.0):
+  axios@1.8.2:
+    dependencies:
+      follow-redirects: 1.15.9(debug@4.4.0)
+      form-data: 4.0.2
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+
+  axios@1.8.3(debug@4.4.0):
     dependencies:
       follow-redirects: 1.15.9(debug@4.4.0)
       form-data: 4.0.2
@@ -10872,7 +10883,7 @@ snapshots:
 
   bundlemon@3.1.0(typescript@5.7.3):
     dependencies:
-      axios: 1.8.2(debug@4.4.0)
+      axios: 1.8.2
       axios-retry: 4.5.0(axios@1.8.2)
       brotli-size: 4.0.0
       bundlemon-utils: 2.0.1
@@ -13492,7 +13503,7 @@ snapshots:
     dependencies:
       escape-string-regexp: 2.0.0
 
-  start-server-and-test@2.0.10:
+  start-server-and-test@2.0.11:
     dependencies:
       arg: 5.0.2
       bluebird: 3.7.2
@@ -13501,7 +13512,7 @@ snapshots:
       execa: 5.1.1
       lazy-ass: 1.6.0
       ps-tree: 1.2.0
-      wait-on: 8.0.2(debug@4.4.0)
+      wait-on: 8.0.3(debug@4.4.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -13889,7 +13900,7 @@ snapshots:
 
   wait-on@7.2.0:
     dependencies:
-      axios: 1.8.2(debug@4.4.0)
+      axios: 1.8.2
       joi: 17.12.2
       lodash: 4.17.21
       minimist: 1.2.8
@@ -13897,9 +13908,9 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  wait-on@8.0.2(debug@4.4.0):
+  wait-on@8.0.3(debug@4.4.0):
     dependencies:
-      axios: 1.8.2(debug@4.4.0)
+      axios: 1.8.3(debug@4.4.0)
       joi: 17.13.3
       lodash: 4.17.21
       minimist: 1.2.8
