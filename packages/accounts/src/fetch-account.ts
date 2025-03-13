@@ -19,6 +19,10 @@ export type FetchAccountConfig = {
      * @defaultValue "finalized"
      */
     commitment?: Commitment;
+    /**
+     * Prevents accessing stale data by enforcing that the RPC node has processed transactions up to
+     * this slot
+     */
     minContextSlot?: Slot;
 };
 
@@ -106,6 +110,10 @@ export type FetchAccountsConfig = {
      */
 
     commitment?: Commitment;
+    /**
+     * Prevents accessing stale data by enforcing that the RPC node has processed transactions up to
+     * this slot
+     */
     minContextSlot?: Slot;
 };
 

@@ -16,6 +16,10 @@ export function buildBlockLoaderArgSetFromResolveInfo(
          * @defaultValue "finalized"
          */
         commitment?: Omit<Commitment, 'processed'>;
+        /**
+         * Prevents accessing stale data by enforcing that the RPC node has processed
+         * transactions up to this slot
+         */
         minContextSlot?: Slot;
         slot: Slot;
     },
