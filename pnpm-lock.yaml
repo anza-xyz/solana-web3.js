@@ -1042,8 +1042,8 @@ importers:
         specifier: ^7.4.0
         version: 7.4.0
       zx:
-        specifier: ^8.4.0
-        version: 8.4.0
+        specifier: ^8.4.1
+        version: 8.4.1
 
   packages/rpc-types:
     dependencies:
@@ -7250,8 +7250,8 @@ packages:
     resolution: {integrity: sha512-Z2Fe1bn+eLstG8DRR6FTavGD+MeAwyfmouhHsIUgaADz8jvFKbO/fXc2trJKZg+5EBjh4gGm3iU/t3onKlXHIg==}
     engines: {node: '>=10'}
 
-  zx@8.4.0:
-    resolution: {integrity: sha512-b5+gbUT0akQ5vVuBuHgp0viQx2ZYCuooVD41Z7g47sN0diLsAvB2XteHcp5lec90CNEQ9o7TkXsE3ksaJrZHGw==}
+  zx@8.4.1:
+    resolution: {integrity: sha512-1Cb+Tfwt/daKV6wckBeDbB6h3IMauqj9KWp+EcbYzi9doeJeIHCktxp/yWspXOXRdoUzBCQSKoUgm3g8r9fz5A==}
     engines: {node: '>= 12.17.0'}
     hasBin: true
 
@@ -14043,4 +14043,4 @@ snapshots:
       property-expr: 2.0.6
       toposort: 2.0.2
 
-  zx@8.4.0: {}
+  zx@8.4.1: {}
