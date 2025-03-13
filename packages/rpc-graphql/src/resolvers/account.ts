@@ -39,7 +39,16 @@ export const resolveAccountData = () => {
 export const resolveAccount = (fieldName?: string) => {
     return async (
         parent: { [x: string]: Address },
-        args: { address?: Address; commitment?: Commitment; minContextSlot?: Slot },
+        args: {
+            address?: Address;
+            /**
+             * Fetch the details of the account as of the highest slot that has reached this level
+             * of commitment.
+             * @defaultValue "finalized"
+             */
+            commitment?: Commitment;
+            minContextSlot?: Slot;
+        },
         context: RpcGraphQLContext,
         info: GraphQLResolveInfo,
     ): Promise<AccountResult | null> => {

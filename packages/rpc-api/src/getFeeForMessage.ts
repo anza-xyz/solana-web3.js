@@ -11,6 +11,11 @@ export type GetFeeForMessageApi = {
     getFeeForMessage(
         message: TransactionMessageBytesBase64,
         config?: Readonly<{
+            /**
+             * Fetch the fee information as of the highest slot that has reached this level of
+             * commitment.
+             * @defaultValue "finalized"
+             */
             commitment?: Commitment;
             minContextSlot?: Slot;
         }>,

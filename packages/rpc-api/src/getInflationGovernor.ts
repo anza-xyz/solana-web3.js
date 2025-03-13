@@ -23,7 +23,11 @@ export type GetInflationGovernorApi = {
      */
     getInflationGovernor(
         config?: Readonly<{
-            // Defaults to `finalized`
+            /**
+             * Return the inflation governor as of the highest slot that has reached this level of
+             * commitment.
+             * @defaultValue "finalized"
+             */
             commitment?: Commitment;
         }>,
     ): GetInflationGovernorApiResponse;

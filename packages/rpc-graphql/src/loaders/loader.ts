@@ -15,6 +15,11 @@ export type LoadManyFn<TArgs, T> = (args: TArgs[]) => Promise<(Error | T)[]>;
 export type Loader<TArgs, T> = { load: LoadFn<TArgs, T>; loadMany: LoadManyFn<TArgs, T> };
 
 export type AccountLoaderArgsBase = {
+    /**
+     * Fetch the details of the account as of the highest slot that has reached this level of
+     * commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: Commitment;
     dataSlice?: { length: number; offset: number };
     encoding?: 'base58' | 'base64' | 'base64+zstd' | 'jsonParsed';
@@ -40,6 +45,11 @@ export type MultipleAccountsLoaderValue = AccountLoaderValue[];
 export type MultipleAccountsLoader = Loader<MultipleAccountsLoaderArgs, MultipleAccountsLoaderValue>;
 
 export type ProgramAccountsLoaderArgsBase = {
+    /**
+     * Fetch the details of the accounts as of the highest slot that has reached this level of
+     * commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: Commitment;
     dataSlice?: { length: number; offset: number };
     encoding?: 'base58' | 'base64' | 'base64+zstd' | 'jsonParsed';

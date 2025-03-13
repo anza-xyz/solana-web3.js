@@ -24,6 +24,10 @@ type AllowedCommitmentForGetSignaturesForAddress = Exclude<Commitment, 'processe
 type GetSignaturesForAddressConfig = Readonly<{
     /** start searching backwards from this transaction signature. If not provided the search starts from the top of the highest max confirmed block. */
     before?: Signature;
+    /**
+     * Fetch the signatures as of the highest slot that has reached this level of commitment.
+     * @defaultValue "finalized"
+     */
     commitment?: AllowedCommitmentForGetSignaturesForAddress;
     /** maximum transaction signatures to return (between 1 and 1,000). Default: 1000 */
     limit?: number;
