@@ -1,3 +1,28 @@
+/**
+ * This package contains types that describe the [methods](https://solana.com/docs/rpc/http) of the
+ * Solana JSON RPC API, and utilities for creating a {@link RpcApi} implementation with sensible
+ * defaults. It can be used standalone, but it is also exported as part of Kit
+ * [`@solana/kit`](https://github.com/anza-xyz/kit/tree/main/packages/kit).
+ *
+ * @example
+ * Each RPC method is described in terms of a TypeScript type of the following form:
+ *
+ * ```ts
+ * type ExampleApi = {
+ *     getSomething(address: Address): Something;
+ * };
+ * ```
+ *
+ * A {@link RpcApi} that implements `ExampleApi` will ultimately expose its defined methods on any
+ * {@link Rpc} that uses it.
+ *
+ * ```ts
+ * const rpc: Rpc<ExampleApi> = createExampleRpc(/* ... *\/);
+ * const something: Something = await rpc.getSomething(address('95DpK3y3GF7U8s1k4EvZ7xqyeCkhsHeZaE97iZpHUGMN')).send();
+ * ```
+ *
+ * @packageDocumentation
+ */
 import { createJsonRpcApi, RpcApi } from '@solana/rpc-spec';
 import {
     AllowedNumericKeypaths,
@@ -116,9 +141,30 @@ type SolanaRpcApiForAllClusters = GetAccountInfoApi &
     SendTransactionApi &
     SimulateTransactionApi;
 type SolanaRpcApiForTestClusters = RequestAirdropApi & SolanaRpcApiForAllClusters;
+/**
+ * Represents the RPC methods available on test clusters.
+ *
+ * For instance, the test clusters support the {@link RequestAirdropApi} while mainnet does not.
+ */
 export type SolanaRpcApi = SolanaRpcApiForTestClusters;
+/**
+ * Represents the RPC methods available on the devnet cluster.
+ *
+ * For instance, the devnet cluster supports the {@link RequestAirdropApi} while mainnet does not.
+ */
 export type SolanaRpcApiDevnet = SolanaRpcApiForTestClusters;
+/**
+ * Represents the RPC methods available on the testnet cluster.
+ *
+ * For instance, the testnet cluster supports the {@link RequestAirdropApi} while mainnet does not.
+ */
 export type SolanaRpcApiTestnet = SolanaRpcApiForTestClusters;
+/**
+ * Represents the RPC methods available on the mainnet cluster.
+ *
+ * For instance, the mainnet cluster does not support the {@link RequestAirdropApi} whereas test
+ * clusters do.
+ */
 export type SolanaRpcApiMainnet = SolanaRpcApiForAllClusters;
 
 export type {
@@ -178,6 +224,18 @@ export type {
 
 type Config = RequestTransformerConfig;
 
+/**
+ * Creates a {@link RpcApi} implementation of the Solana JSON RPC API with some default behaviours.
+ *
+ * The default behaviours include:
+ * - A transform that converts `bigint` inputs to `number` for compatibility with version 1.0 of the
+ *   Solana JSON RPC.
+ * - A transform that calls the config's {@link Config.onIntegerOverflow | onIntegerOverflow}
+ *   handler whenever a `bigint` input would overflow a JavaScript IEEE 754 number. See
+ *   [this](https://github.com/solana-labs/solana-web3.js/issues/1116) GitHub issue for more
+ *   information.
+ * - A transform that applies a default commitment wherever not specified
+ */
 export function createSolanaRpcApi<
     // eslint-disable-next-line @typescript-eslint/no-duplicate-type-constituents
     TRpcMethods extends SolanaRpcApi | SolanaRpcApiDevnet | SolanaRpcApiMainnet | SolanaRpcApiTestnet = SolanaRpcApi,
